@@ -1,8 +1,12 @@
-export default class User {
+export class User {
   id: number;
   name: string;
   age: number;
   totalNumberOfVotes: number;
+  location: {
+    lat: number;
+    lon: number;
+  };
 
   constructor(
     id: number,

@@ -1,9 +1,10 @@
-import Law from "./Law";
-import Decision from "./Decision";
-import Parliament from "./Parliament";
-import Politician from "./Politician";
-import People from "./People";
-import User from "./User";
+import Law from "../Law";
+import Decision from "../Decision";
+import Parliament from "../Parliament";
+import Politician from "../Politician";
+import People from "../People";
+import { User } from "./User";
+import { FakeUser } from "./FakeUser";
 
 // 1 parliament
 let parliament = new Parliament(1, "Bundesrepublic", 300, 1);
@@ -29,6 +30,11 @@ let currentUser = new User(1, "lisa axford", 55, 1);
 // 6 decision from a single person
 let decision = new Decision(1, true, 1, 1, 1);
 
+// 7 fake user
+let fakeUser = new FakeUser(1);
+
+console.log(fakeUser);
+google;
 const politicianDecision = (politician: Politician, law: Law): void => {
   const name = politician.name;
   const decision = politician.decision;
