@@ -1,13 +1,14 @@
 import faker from "faker";
+import { Mappable } from "./CustomMap";
 
-export class FakeUser {
+export class FakeUser implements Mappable {
   id: number;
   name: string;
   age: number;
   totalNumberOfVotes: number;
   location: {
     lat: number;
-    lon: number;
+    lng: number;
   };
 
   constructor(id: number) {
@@ -15,9 +16,13 @@ export class FakeUser {
     this.name = faker.name.firstName();
     this.location = {
       lat: parseFloat(faker.address.latitude()),
-      lon: parseFloat(faker.address.longitude()),
+      lng: parseFloat(faker.address.longitude()),
     };
     this.age = Math.floor(Math.random() * 101);
     this.totalNumberOfVotes = Math.random() * 11;
+  }
+
+  markerContent(): string {
+    return `Test data name: ${this.name}`;
   }
 }

@@ -1,4 +1,4 @@
-export default class People {
+export class People {
   id: number;
   percentageVoted: number;
   votedYes: number;

@@ -1,4 +1,4 @@
-export default class Law {
+export class Law {
   id: number;
   title: string;
   started: Date;

@@ -1,4 +1,4 @@
-export default class Decision {
+export class Decision {
   id: number;
   decision: boolean;
   userId: number;
