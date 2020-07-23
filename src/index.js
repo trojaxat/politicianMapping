@@ -1,11 +1,11 @@
 "use strict";
 exports.__esModule = true;
-var Law_1 = require("../Law");
-var Decision_1 = require("../Decision");
-var Parliament_1 = require("../Parliament");
-var Politician_1 = require("../Politician");
-var People_1 = require("../People");
-var User_1 = require("../User");
+var Law_1 = require("./Law");
+var Decision_1 = require("./Decision");
+var Parliament_1 = require("./Parliament");
+var Politician_1 = require("./Politician");
+var People_1 = require("./People");
+var User_1 = require("./User");
 // 1 parliament
 var parliament = new Parliament_1["default"](1, "Bundesrepublic", 300, 1);
 // 2 parliamentary new law

@@ -1,10 +1,10 @@
-import Law from "../Law";
-import Decision from "../Decision";
-import Parliament from "../Parliament";
-import Politician from "../Politician";
-import People from "../People";
-import { User } from "./User";
-import { FakeUser } from "./FakeUser";
+import Law from "./models/Law";
+import Decision from "./models/Decision";
+import { Parliament } from "./models/Parliament";
+import Politician from "./models/Politician";
+import People from "./models/People";
+import { User } from "./models/User";
+import { FakeUser } from "./models/FakeUser";
 
 // 1 parliament
 let parliament = new Parliament(1, "Bundesrepublic", 300, 1);

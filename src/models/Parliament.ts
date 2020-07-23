@@ -1,4 +1,4 @@
-export default class Parliament {
+export class Parliament {
   id: number;
   name: string;
   numberOfMembers: number;
