@@ -1,5 +1,9 @@
 import { Mappable } from "./CustomMap";
 
+interface UserProps {
+  name: string;
+  age: number;
+}
 export class User implements Mappable {
   id: number;
   name: string;
@@ -12,8 +16,7 @@ export class User implements Mappable {
 
   constructor(
     id: number,
-    name: string,
-    age: number,
+    data: UserProps,
     totalNumberOfVotes: number,
     location: {
       lat: number;
@@ -21,8 +24,8 @@ export class User implements Mappable {
     }
   ) {
     this.id = id;
-    this.name = name;
-    this.age = age;
+    this.name = data.name;
+    this.age = data.age;
     this.totalNumberOfVotes = totalNumberOfVotes;
     this.location = location;
   }

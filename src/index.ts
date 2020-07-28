@@ -21,8 +21,8 @@ let law = new Law(
 
 // 3 politician
 let politician = new Politician(1, "Santi Pornavalai", 25, true, "Afd", {
-  lat: 52.4930915,
   lng: 13.4930915,
+  lat: 52.4930915,
 });
 
 // 4 peoples vote/decision
@@ -33,7 +33,12 @@ let userLocation = {
   lat: 52.5137715,
   lng: 13.4930915,
 };
-let user = new User(1, "lisa axford", 55, 1, userLocation);
+let userProperties = {
+  name: "lisa axford",
+  age: 55,
+};
+
+let user = new User(1, userProperties, 1, userLocation);
 
 // 6 decision from a single person
 let decision = new Decision(1, true, 1, 1, 1);
@@ -46,12 +51,12 @@ let lng = fakeUser.location.lng;
 // consoles
 
 // 8 google map
-const map = new CustomMap("map", lat, lng);
-map.addMarker(user);
-map.addMarker(politician);
-map.addMarker(fakeUser);
+// const map = new CustomMap("map", lat, lng);
+// map.addMarker(user);
+// map.addMarker(politician);
+// map.addMarker(fakeUser);
 
-const politicianDecision = (politician: Politician, law: Law): void => {
+const politicianDecision = (politician: Politician, law: Law): string => {
   const name = politician.name;
   const decision = politician.decision;
   const party = politician.party;
@@ -62,8 +67,13 @@ const politicianDecision = (politician: Politician, law: Law): void => {
     let decisionText = "agreed";
   }
 
-  console.log(`
+  let text = `
     Law Title: ${lawTitle}
     The politician: ${name}, working with the party ${party} gave the decision: ${decisionText}
-    `);
+    `;
+
+  return text;
 };
+
+let politicianText = politicianDecision(politician, law);
+console.log(politicianText);

@@ -1,3 +1,6 @@
 .cache
 /dist
 /src/dist
+/src/.cache
+/build
+node_modules
