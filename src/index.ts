@@ -38,7 +38,8 @@ let userProperties = {
   age: 55,
 };
 
-let user = new User(1, userProperties, 1, userLocation);
+const user = new User(userProperties, 1, 4, userLocation);
+console.log(user);
 
 // 6 decision from a single person
 let decision = new Decision(1, true, 1, 1, 1);
@@ -76,4 +77,3 @@ const politicianDecision = (politician: Politician, law: Law): string => {
 };
 
 let politicianText = politicianDecision(politician, law);
-console.log(politicianText);

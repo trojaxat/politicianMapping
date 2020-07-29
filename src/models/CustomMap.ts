@@ -1,9 +1,7 @@
 // To be able to be shown on the map needs to satisfy these criteria
 export interface Mappable {
-  location: {
-    lat: number;
-    lng: number;
-  };
+  lat: number;
+  lng: number;
   markerContent(): string;
 }
 

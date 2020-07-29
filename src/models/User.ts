@@ -1,36 +1,26 @@
 import { Mappable } from "./CustomMap";
 
 interface UserProps {
-  name: string;
-  age: number;
+  name?: string;
+  age?: number;
 }
-export class User implements Mappable {
-  id: number;
-  name: string;
-  age: number;
-  totalNumberOfVotes: number;
-  location: {
-    lat: number;
-    lng: number;
-  };
-
+export class User {
   constructor(
-    id: number,
-    data: UserProps,
-    totalNumberOfVotes: number,
-    location: {
-      lat: number;
-      lng: number;
-    }
-  ) {
-    this.id = id;
-    this.name = data.name;
-    this.age = data.age;
-    this.totalNumberOfVotes = totalNumberOfVotes;
-    this.location = location;
+    private data: UserProps,
+    public id?: number,
+    public totalNumberOfVotes?: number,
+    public location?: Partial<Mappable>
+  ) {}
+
+  getData(propName: string): number | string {
+    return this.data[propName];
+  }
+
+  setData(update: Partial<UserProps>): void {
+    (<any>Object).assign(this.data, update);
   }
 
   markerContent(): string {
-    return `User name: ${this.name}`;
+    return `User name: ${this.data.name}`;
   }
 }
