@@ -1,11 +1,11 @@
-import { Law } from "./models/Law";
-import { Decision } from "./models/Decision";
-import { Parliament } from "./models/Parliament";
-import { Politician } from "./models/Politician";
-import { People } from "./models/People";
-import { User } from "./models/User";
-import { FakeUser } from "./models/FakeUser";
-import { CustomMap } from "./models/CustomMap";
+import { Law } from "./src/models/Law";
+import { Decision } from "./src/models/Decision";
+import { Parliament } from "./src/models/Parliament";
+import { Politician } from "./src/models/Politician";
+import { People } from "./src/models/People";
+import { User } from "./src/models/User";
+import { FakeUser } from "./src/models/FakeUser";
+import { CustomMap } from "./src/models/CustomMap";
 
 // 1 parliament
 let parliament = new Parliament(1, "Bundesrepublic", 300, 1);
@@ -20,10 +20,15 @@ let law = new Law(
 );
 
 // 3 politician
-let politician = new Politician(1, "Santi Pornavalai", 25, true, "Afd", {
-  lng: 13.4930915,
-  lat: 52.4930915,
-});
+let politician = new Politician(
+  1,
+  "Santi Pornavalai",
+  25,
+  true,
+  "Afd",
+  13.4930915,
+  52.4930915
+);
 
 // 4 peoples vote/decision
 let people = new People(1, 75.5, 67.2, true);
@@ -52,15 +57,14 @@ user.on("save", () => {
 });
 
 user.trigger("change");
-console.log(user);
 
 // 6 decision from a single person
 let decision = new Decision(1, true, 1, 1, 1);
 
 // 7 fake user
 let fakeUser = new FakeUser(1);
-let lat = fakeUser.location.lat;
-let lng = fakeUser.location.lng;
+let lat = fakeUser.lat;
+let lng = fakeUser.lng;
 
 // consoles
 

@@ -22,8 +22,8 @@ export class CustomMap {
     const marker = new google.maps.Marker({
       map: this.googleMap,
       position: {
-        lat: mappable.location.lat,
-        lng: mappable.location.lng,
+        lat: mappable.lat,
+        lng: mappable.lng,
       },
     });
 

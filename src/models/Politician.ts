@@ -6,10 +6,8 @@ export class Politician implements Mappable {
   age: number;
   decision: boolean;
   party: string;
-  location: {
-    lat: number;
-    lng: number;
-  };
+  lat: number;
+  lng: number;
 
   constructor(
     id: number,
@@ -17,17 +15,16 @@ export class Politician implements Mappable {
     age: number,
     decision: boolean,
     party: string,
-    location: {
-      lat: number;
-      lng: number;
-    }
+    lat: number,
+    lng: number
   ) {
     this.id = id;
     this.name = name;
     this.age = age;
     this.decision = decision;
     this.party = party;
-    this.location = location;
+    this.lat = lat;
+    this.lng = lng;
   }
 
   markerContent(): string {
