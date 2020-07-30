@@ -50,22 +50,22 @@ const user = new User(userProperties, 4, userLocation);
 let me = new User({ name: "daniel axford", age: 31 }, 1, userLocation);
 user.setData({ age: 56 });
 
-user.on("change", () => {
+user.events.on("change", () => {
   console.log("change 1");
 });
 
-user.on("change", () => {
+user.events.on("change", () => {
   console.log("change 2");
 });
 
-user.on("save", () => {
+user.events.on("save", () => {
   axios.post("http://localhost:3000/users", {
     user,
   });
   console.log("change 3");
 });
 
-user.trigger("change");
+user.events.trigger("change");
 
 // 6 decision from a single person
 let decision = new Decision(1, true, 1, 1, 1);
