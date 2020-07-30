@@ -39,6 +39,19 @@ let userProperties = {
 };
 
 const user = new User(userProperties, 1, 4, userLocation);
+
+user.on("change", () => {
+  console.log("change 1");
+});
+
+user.on("change", () => {
+  console.log("change 2");
+});
+user.on("save", () => {
+  console.log("change 3");
+});
+
+user.trigger("change");
 console.log(user);
 
 // 6 decision from a single person
