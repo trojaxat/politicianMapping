@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Law } from "./src/models/Law";
 import { Decision } from "./src/models/Decision";
 import { Parliament } from "./src/models/Parliament";
@@ -41,9 +42,13 @@ let userLocation = {
 let userProperties = {
   name: "lisa axford",
   age: 55,
+  id: 1,
 };
 
-const user = new User(userProperties, 1, 4, userLocation);
+const user = new User(userProperties, 4, userLocation);
+
+let me = new User({ name: "daniel axford", age: 31 }, 1, userLocation);
+user.setData({ age: 56 });
 
 user.on("change", () => {
   console.log("change 1");
@@ -52,7 +57,11 @@ user.on("change", () => {
 user.on("change", () => {
   console.log("change 2");
 });
+
 user.on("save", () => {
+  axios.post("http://localhost:3000/users", {
+    user,
+  });
   console.log("change 3");
 });
 
