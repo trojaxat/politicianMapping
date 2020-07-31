@@ -1,3 +1,4 @@
+import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
 import { Sync } from "./Sync";
 import { Mappable } from "./CustomMap";
@@ -13,19 +14,31 @@ const rootUrl = "http://localhost:3000/users";
 export class User {
   public events: Eventing = new Eventing();
   public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
+  public attributes: Attributes<UserProps>;
 
   constructor(
     private data: UserProps,
     public totalNumberOfVotes?: number,
     public location?: Partial<Mappable>
-  ) {}
-
-  getData(propName: string): number | string {
-    return this.data[propName];
+  ) {
+    this.attributes = new Attributes<UserProps>(data);
   }
 
-  setData(update: Partial<UserProps>): void {
-    (<any>Object).assign(this.data, update);
+  get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  get get() {
+    return this.attributes.get;
+  }
+
+  set(update: UserProps): void {
+    this.attributes.set(update);
+    this.events.trigger("change");
   }
 
   markerContent(): string {

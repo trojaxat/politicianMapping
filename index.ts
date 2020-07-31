@@ -48,24 +48,19 @@ let userProperties = {
 const user = new User(userProperties, 4, userLocation);
 
 let me = new User({ name: "daniel axford", age: 31 }, 1, userLocation);
-user.setData({ age: 56 });
 
-user.events.on("change", () => {
+user.on("change", () => {
   console.log("change 1");
 });
 
-user.events.on("change", () => {
-  console.log("change 2");
-});
-
-user.events.on("save", () => {
+user.on("save", () => {
   axios.post("http://localhost:3000/users", {
     user,
   });
   console.log("change 3");
 });
 
-user.events.trigger("change");
+user.set({ age: 56 });
 
 // 6 decision from a single person
 let decision = new Decision(1, true, 1, 1, 1);
