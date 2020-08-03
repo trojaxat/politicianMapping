@@ -5,7 +5,6 @@ import { Parliament } from "./src/models/Parliament";
 import { Politician } from "./src/models/Politician";
 import { People } from "./src/models/People";
 import { User } from "./src/models/User";
-import { FakeUser } from "./src/models/FakeUser";
 import { CustomMap } from "./src/models/CustomMap";
 
 // 1 parliament
@@ -42,33 +41,25 @@ let userLocation = {
 let userProperties = {
   name: "lisa axford",
   age: 55,
-  id: 1,
 };
 
-const user = new User(userProperties, 4, userLocation);
+// const user = new User(userProperties, 4, userLocation.lat, userLocation.lng);
+const user = User.buildUser(userProperties);
 
-let me = new User({ name: "daniel axford", age: 31 }, 1, userLocation);
-
-user.on("change", () => {
-  console.log("change 1");
-});
-
-user.on("save", () => {
-  axios.post("http://localhost:3000/users", {
-    user,
-  });
-  console.log("change 3");
-});
-
-user.set({ age: 56 });
+// let me = new User(
+//   { name: "daniel axford", age: 31 },
+//   1,
+//   userLocation.lat,
+//   userLocation.lng
+// );
 
 // 6 decision from a single person
 let decision = new Decision(1, true, 1, 1, 1);
 
 // 7 fake user
-let fakeUser = new FakeUser(1);
-let lat = fakeUser.lat;
-let lng = fakeUser.lng;
+let fakeUser = new User();
+fakeUser.fake();
+console.log(fakeUser);
 
 // consoles
 
@@ -77,6 +68,23 @@ let lng = fakeUser.lng;
 // map.addMarker(user);
 // map.addMarker(politician);
 // map.addMarker(fakeUser);
+
+// 9 button clicks
+let save = document.getElementById("save");
+
+save.addEventListener("click", () => {
+  user.save();
+});
+
+user.on("save", () => {
+  document.getElementById("editable").innerHTML = "Hello World";
+});
+
+user.on("error", () => {
+  document.getElementById("editable").innerHTML = "Dun fucked up";
+});
+
+let change = document.getElementById("change");
 
 const politicianDecision = (politician: Politician, law: Law): string => {
   const name = politician.name;
