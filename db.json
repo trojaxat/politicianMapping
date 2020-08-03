@@ -4,6 +4,86 @@
       "name": "lisa axford",
       "age": 55,
       "id": 1
+    },
+    {
+      "name": "Nannie",
+      "age": 75,
+      "lat": -68.1089,
+      "lng": 116.8329,
+      "totalNumberOfVotes": 3.3759769683681027,
+      "id": 2
+    },
+    {
+      "name": "Cordia",
+      "age": 27,
+      "lat": -17.7609,
+      "lng": 56.6242,
+      "totalNumberOfVotes": 5.252420618265502,
+      "id": 3
+    },
+    {
+      "name": "Jared",
+      "age": 66,
+      "lat": -8.5612,
+      "lng": -84.4911,
+      "totalNumberOfVotes": 5.741506611611727,
+      "id": 4
+    },
+    {
+      "name": "Grace",
+      "age": 14,
+      "lat": 4.2738,
+      "lng": 24.3825,
+      "totalNumberOfVotes": 10.063960616506439,
+      "id": 5
+    },
+    {
+      "name": "Rosendo",
+      "age": 98,
+      "lat": 73.2521,
+      "lng": -144.8498,
+      "totalNumberOfVotes": 5.532830197601212,
+      "id": 6
+    },
+    {
+      "name": "Jan",
+      "age": 96,
+      "lat": -25.5487,
+      "lng": -23.5566,
+      "totalNumberOfVotes": 1.9075472173610386,
+      "id": 7
+    },
+    {
+      "name": "Caden",
+      "age": 51,
+      "lat": -14.1012,
+      "lng": 25.8196,
+      "totalNumberOfVotes": 9.621328408378217,
+      "id": 8
+    },
+    {
+      "name": "Caden",
+      "age": 51,
+      "lat": -14.1012,
+      "lng": 25.8196,
+      "totalNumberOfVotes": 9.621328408378217,
+      "id": 9
+    },
+    {
+      "name": "Triston",
+      "age": 13,
+      "lat": 46.6492,
+      "lng": -61.2667,
+      "totalNumberOfVotes": 4.902936547995563,
+      "id": 10
+    },
+    {
+      "name": "Triston",
+      "age": 13,
+      "lat": 46.6492,
+      "lng": -61.2667,
+      "totalNumberOfVotes": 4.902936547995563,
+      "id": 11
     }
   ]
 }

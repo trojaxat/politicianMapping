@@ -57,9 +57,20 @@ const user = User.buildUser(userProperties);
 let decision = new Decision(1, true, 1, 1, 1);
 
 // 7 fake user
-let fakeUser = new User();
-fakeUser.fake();
-console.log(fakeUser);
+let addRandom = document.getElementById("addRandom");
+let fakeUserProps = User.fake();
+let fakeUser = User.buildUser(fakeUserProps);
+addRandom.addEventListener("click", () => {
+  fakeUser.save();
+});
+
+fakeUser.on("save", () => {
+  document.getElementById("editable").innerHTML = "Another deep fake";
+});
+
+fakeUser.on("error", () => {
+  document.getElementById("editable").innerHTML = "Dun fucked up fakey";
+});
 
 // consoles
 
@@ -71,7 +82,6 @@ console.log(fakeUser);
 
 // 9 button clicks
 let save = document.getElementById("save");
-
 save.addEventListener("click", () => {
   user.save();
 });
@@ -81,10 +91,8 @@ user.on("save", () => {
 });
 
 user.on("error", () => {
-  document.getElementById("editable").innerHTML = "Dun fucked up";
+  document.getElementById("editable").innerHTML = "Dun fucked up really";
 });
-
-let change = document.getElementById("change");
 
 const politicianDecision = (politician: Politician, law: Law): string => {
   const name = politician.name;

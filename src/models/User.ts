@@ -27,15 +27,17 @@ export class User extends Model<UserProps> {
     );
   }
 
-  fake(): void {
-    this.set("name") = faker.name.firstName();
-    this..data.age = Math.floor(Math.random() * 101);
-    this.data.lat = parseFloat(faker.address.latitude());
-    this.data.lng = parseFloat(faker.address.longitude());
-    this.data.totalNumberOfVotes = Math.random() * 11;
+  static fake(): UserProps {
+    return {
+      name: faker.name.firstName(),
+      age: Math.floor(Math.random() * 101),
+      lat: parseFloat(faker.address.latitude()),
+      lng: parseFloat(faker.address.longitude()),
+      totalNumberOfVotes: Math.random() * 11,
+    };
   }
 
   markerContent(): string {
-    return `User name: ${this.name}`;
+    return `User name: ${this.data.name}`;
   }
 }
