@@ -1,10 +1,11 @@
 import axios from "axios";
-import { Law } from "./src/models/Law";
+import { Collection } from "./src/models/Collection";
 import { Decision } from "./src/models/Decision";
+import { Law } from "./src/models/Law";
 import { Parliament } from "./src/models/Parliament";
 import { Politician } from "./src/models/Politician";
 import { People } from "./src/models/People";
-import { User } from "./src/models/User";
+import { User, UserProps } from "./src/models/User";
 import { CustomMap } from "./src/models/CustomMap";
 
 // 1 parliament
@@ -57,6 +58,7 @@ const user = User.buildUser(userProperties);
 let decision = new Decision(1, true, 1, 1, 1);
 
 // 7 fake user
+
 let addRandom = document.getElementById("addRandom");
 let fakeUserProps = User.fake();
 let fakeUser = User.buildUser(fakeUserProps);
@@ -93,6 +95,15 @@ user.on("save", () => {
 user.on("error", () => {
   document.getElementById("editable").innerHTML = "Dun fucked up really";
 });
+
+// 10 collections
+const collection = User.buildUserCollection();
+console.log(collection);
+
+collection.on("change", () => {
+  console.log(collection);
+});
+collection.fetch();
 
 const politicianDecision = (politician: Politician, law: Law): string => {
   const name = politician.name;

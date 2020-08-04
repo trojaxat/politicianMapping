@@ -1,4 +1,5 @@
 import { Attributes } from "./Attributes";
+import { Collection } from "./Collection";
 import { Eventing } from "./Eventing";
 import faker from "faker";
 import { Mappable } from "./CustomMap";
@@ -27,6 +28,11 @@ export class User extends Model<UserProps> {
     );
   }
 
+  static buildUserCollection(): Collection<User, UserProps> {
+    return new Collection<User, UserProps>(rootUrl, (json: UserProps) =>
+      User.buildUser(json)
+    );
+  }
   static fake(): UserProps {
     return {
       name: faker.name.firstName(),

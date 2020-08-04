@@ -84,6 +84,22 @@
       "lng": -61.2667,
       "totalNumberOfVotes": 4.902936547995563,
       "id": 11
+    },
+    {
+      "name": "Mona",
+      "age": 93,
+      "lat": -4.2778,
+      "lng": 12.9972,
+      "totalNumberOfVotes": 8.17818630906877,
+      "id": 12
+    },
+    {
+      "name": "Zachary",
+      "age": 55,
+      "lat": 16.7478,
+      "lng": 8.6099,
+      "totalNumberOfVotes": 6.344526804817878,
+      "id": 13
     }
   ]
 }
