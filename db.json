@@ -100,6 +100,38 @@
       "lng": 8.6099,
       "totalNumberOfVotes": 6.344526804817878,
       "id": 13
+    },
+    {
+      "name": "Kayli",
+      "age": 75,
+      "lat": -24.7009,
+      "lng": -27.6103,
+      "totalNumberOfVotes": 4.460415127669768,
+      "id": 14
+    },
+    {
+      "name": "Kayli",
+      "age": 75,
+      "lat": -24.7009,
+      "lng": -27.6103,
+      "totalNumberOfVotes": 4.460415127669768,
+      "id": 15
+    },
+    {
+      "name": "Thurman",
+      "age": 54,
+      "lat": 87.0534,
+      "lng": 118.1414,
+      "totalNumberOfVotes": 4.240241203091936,
+      "id": 16
+    },
+    {
+      "name": "Eli",
+      "age": 99,
+      "lat": 66.732,
+      "lng": -101.9585,
+      "totalNumberOfVotes": 1.2675711233484406,
+      "id": 17
     }
   ]
 }

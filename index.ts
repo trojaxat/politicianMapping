@@ -53,8 +53,8 @@ let decision = new Decision(1, true, 1, 1, 1);
 
 // 7 fake user
 let addRandom = document.getElementById("addRandom");
-let fakeUserProps = User.fake();
-let fakeUser = User.buildUser(fakeUserProps);
+let fakeUser = User.buildUser(userProperties);
+fakeUser.fake();
 addRandom.addEventListener("click", () => {
   fakeUser.save();
 });
@@ -96,7 +96,7 @@ collection.on("change", () => {
 collection.fetch();
 
 // rendering html
-const userForm = new UserForm(document.getElementById("root"));
+const userForm = new UserForm(document.getElementById("root"), user);
 userForm.render();
 
 const politicianDecision = (politician: Politician, law: Law): string => {

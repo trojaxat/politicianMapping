@@ -33,15 +33,14 @@ export class User extends Model<UserProps> {
       User.buildUser(json)
     );
   }
-  static fake(): UserProps {
-    return {
-      name: faker.name.firstName(),
-      age: Math.floor(Math.random() * 101),
-      lat: parseFloat(faker.address.latitude()),
-      lng: parseFloat(faker.address.longitude()),
-      totalNumberOfVotes: Math.random() * 11,
-    };
-  }
+
+  fake = (): void => {
+    this.set({ name: faker.name.firstName() });
+    this.set({ age: Math.floor(Math.random() * 101) });
+    this.set({ lat: parseFloat(faker.address.latitude()) });
+    this.set({ lng: parseFloat(faker.address.longitude()) });
+    this.set({ totalNumberOfVotes: Math.random() * 11 });
+  };
 
   markerContent(): string {
     return `User name: ${this.data.name}`;
