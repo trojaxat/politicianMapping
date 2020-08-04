@@ -7,6 +7,7 @@ import { Politician } from "./src/models/Politician";
 import { People } from "./src/models/People";
 import { User, UserProps } from "./src/models/User";
 import { CustomMap } from "./src/models/CustomMap";
+import { UserForm } from "./src/views/userForm";
 
 // 1 parliament
 let parliament = new Parliament(1, "Bundesrepublic", 300, 1);
@@ -47,18 +48,10 @@ let userProperties = {
 // const user = new User(userProperties, 4, userLocation.lat, userLocation.lng);
 const user = User.buildUser(userProperties);
 
-// let me = new User(
-//   { name: "daniel axford", age: 31 },
-//   1,
-//   userLocation.lat,
-//   userLocation.lng
-// );
-
 // 6 decision from a single person
 let decision = new Decision(1, true, 1, 1, 1);
 
 // 7 fake user
-
 let addRandom = document.getElementById("addRandom");
 let fakeUserProps = User.fake();
 let fakeUser = User.buildUser(fakeUserProps);
@@ -73,8 +66,6 @@ fakeUser.on("save", () => {
 fakeUser.on("error", () => {
   document.getElementById("editable").innerHTML = "Dun fucked up fakey";
 });
-
-// consoles
 
 // 8 google map
 // const map = new CustomMap("map", lat, lng);
@@ -98,12 +89,15 @@ user.on("error", () => {
 
 // 10 collections
 const collection = User.buildUserCollection();
-console.log(collection);
 
 collection.on("change", () => {
   console.log(collection);
 });
 collection.fetch();
+
+// rendering html
+const userForm = new UserForm(document.getElementById("root"));
+userForm.render();
 
 const politicianDecision = (politician: Politician, law: Law): string => {
   const name = politician.name;
