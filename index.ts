@@ -7,7 +7,7 @@ import { Politician } from "./src/models/Politician";
 import { People } from "./src/models/People";
 import { User, UserProps } from "./src/models/User";
 import { CustomMap } from "./src/models/CustomMap";
-import { UserForm } from "./src/views/userForm";
+import { UserForm } from "./src/views/UserForm";
 
 // 1 parliament
 let parliament = new Parliament(1, "Bundesrepublic", 300, 1);
@@ -52,20 +52,8 @@ const user = User.buildUser(userProperties);
 let decision = new Decision(1, true, 1, 1, 1);
 
 // 7 fake user
-let addRandom = document.getElementById("addRandom");
-let fakeUser = User.buildUser(userProperties);
+const fakeUser = User.buildUser(userProperties);
 fakeUser.fake();
-addRandom.addEventListener("click", () => {
-  fakeUser.save();
-});
-
-fakeUser.on("save", () => {
-  document.getElementById("editable").innerHTML = "Another deep fake";
-});
-
-fakeUser.on("error", () => {
-  document.getElementById("editable").innerHTML = "Dun fucked up fakey";
-});
 
 // 8 google map
 // const map = new CustomMap("map", lat, lng);
@@ -73,31 +61,18 @@ fakeUser.on("error", () => {
 // map.addMarker(politician);
 // map.addMarker(fakeUser);
 
-// 9 button clicks
-let save = document.getElementById("save");
-save.addEventListener("click", () => {
-  user.save();
-});
-
-user.on("save", () => {
-  document.getElementById("editable").innerHTML = "Hello World";
-});
-
-user.on("error", () => {
-  document.getElementById("editable").innerHTML = "Dun fucked up really";
-});
-
-// 10 collections
+// 9 collections
 const collection = User.buildUserCollection();
-
-collection.on("change", () => {
-  console.log(collection);
-});
 collection.fetch();
 
 // rendering html
-const userForm = new UserForm(document.getElementById("root"), user);
-userForm.render();
+const root = document.getElementById("root");
+if (root) {
+  const userForm = new UserForm(root, user);
+  userForm.render();
+} else {
+  throw new Error("Html element or user not found");
+}
 
 const politicianDecision = (politician: Politician, law: Law): string => {
   const name = politician.name;
