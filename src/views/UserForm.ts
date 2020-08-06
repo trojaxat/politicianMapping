@@ -12,16 +12,13 @@ export class UserForm extends View<User, UserProps> {
     return {
       "click:.set-info": this.onSetGivenInformationClick,
       "click:.set-random": this.onSetRandomInformationClick,
-      "click:.save-model": this.onSaveClick(),
+      "click:.save-model": this.onSaveClick,
     };
   }
 
   template(): string {
     return `
         <div>
-            <h1> User Form </h1>
-            <div> User name: ${this.model.get("name")}</div>
-            <div> User age: ${this.model.get("age")}</div>
             <input class="age" type="number" placeholder="Age"/>
             <input class="name" type="text" placeholder="Name"/>
             <button class="set-info">Set given information</button>
@@ -33,7 +30,6 @@ export class UserForm extends View<User, UserProps> {
 
   onSetGivenInformationClick = (): void => {
     const inputs = this.parent.querySelectorAll("input");
-    console.log(this.parent);
     inputs.forEach((input: any): void => {
       this.model.set({ [input.className]: input.value });
     });

@@ -7,8 +7,9 @@ import { Politician } from "./src/models/Politician";
 import { People } from "./src/models/People";
 import { User, UserProps } from "./src/models/User";
 import { CustomMap } from "./src/models/CustomMap";
-import { UserForm } from "./src/views/UserForm";
 import { UserEdit } from "./src/views/UserEdit";
+import { UserForm } from "./src/views/UserForm";
+import { UserShow } from "./src/views/UserShow";
 
 // 1 parliament
 let parliament = new Parliament(1, "Bundesrepublic", 300, 1);
@@ -46,7 +47,6 @@ let userProperties = {
   age: 55,
 };
 
-// const user = new User(userProperties, 4, userLocation.lat, userLocation.lng);
 const user = User.buildUser(userProperties);
 
 // 6 decision from a single person
@@ -69,7 +69,7 @@ collection.fetch();
 // rendering html
 const root = document.getElementById("root");
 if (root) {
-  const userEdit = new UserEdit(root, user);
+  let userEdit = new UserEdit(root, user);
   userEdit.render();
 } else {
   throw new Error("Html element or user not found");

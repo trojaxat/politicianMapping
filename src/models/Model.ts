@@ -47,7 +47,7 @@ export class Model<T extends HasId> {
     });
   }
 
-  save(): void {
+  save = (): void => {
     this.sync
       .save(this.attributes.getAll())
       .then((response: AxiosResponse): void => {
@@ -56,5 +56,5 @@ export class Model<T extends HasId> {
       .catch(() => {
         this.trigger("error");
       });
-  }
+  };
 }

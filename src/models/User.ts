@@ -18,8 +18,6 @@ export interface UserProps {
 const rootUrl = "http://localhost:3000/users";
 
 export class User extends Model<UserProps> {
-  data: UserProps;
-
   static buildUser(attrs: UserProps) {
     return new User(
       new Attributes<UserProps>(attrs),
@@ -43,6 +41,9 @@ export class User extends Model<UserProps> {
   };
 
   markerContent(): string {
-    return `User name: ${this.data.name}`;
+    if (this.get("name")) {
+      return `User name: ${this.get("name")}`;
+    }
+    return `User name anonymous`;
   }
 }
