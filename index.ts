@@ -8,6 +8,7 @@ import { People } from "./src/models/People";
 import { User, UserProps } from "./src/models/User";
 import { CustomMap } from "./src/models/CustomMap";
 import { UserForm } from "./src/views/UserForm";
+import { UserEdit } from "./src/views/UserEdit";
 
 // 1 parliament
 let parliament = new Parliament(1, "Bundesrepublic", 300, 1);
@@ -68,8 +69,8 @@ collection.fetch();
 // rendering html
 const root = document.getElementById("root");
 if (root) {
-  const userForm = new UserForm(root, user);
-  userForm.render();
+  const userEdit = new UserEdit(root, user);
+  userEdit.render();
 } else {
   throw new Error("Html element or user not found");
 }

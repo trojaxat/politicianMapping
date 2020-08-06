@@ -140,6 +140,94 @@
       "lng": -131.3367,
       "totalNumberOfVotes": 4.103097224283465,
       "id": 18
+    },
+    {
+      "name": "Broderick",
+      "age": 48,
+      "lat": -28.8123,
+      "lng": -64.6714,
+      "totalNumberOfVotes": 3.7222875560627204,
+      "id": 19
+    },
+    {
+      "name": "norman",
+      "age": "34",
+      "lat": -28.8123,
+      "lng": -64.6714,
+      "totalNumberOfVotes": 3.7222875560627204,
+      "id": 20
+    },
+    {
+      "name": "Frederique",
+      "age": 57,
+      "lat": 81.9484,
+      "lng": 93.1237,
+      "totalNumberOfVotes": 6.097398327517563,
+      "id": 21
+    },
+    {
+      "name": "Russ",
+      "age": 47,
+      "lat": -7.135,
+      "lng": 9.8962,
+      "totalNumberOfVotes": 1.6051510017755148,
+      "id": 22
+    },
+    {
+      "name": "Myah",
+      "age": 6,
+      "lat": 47.9064,
+      "lng": 148.5952,
+      "totalNumberOfVotes": 1.3737154275893189,
+      "id": 23
+    },
+    {
+      "name": "Alexandria",
+      "age": 52,
+      "lat": 27.0244,
+      "lng": 136.0921,
+      "totalNumberOfVotes": 10.499265878962783,
+      "id": 24
+    },
+    {
+      "name": "Annamae",
+      "age": 72,
+      "lat": 49.2637,
+      "lng": 18.333,
+      "totalNumberOfVotes": 0.2682297855515974,
+      "id": 25
+    },
+    {
+      "name": "Dimitri",
+      "age": 91,
+      "lat": 70.0417,
+      "lng": 67.7333,
+      "totalNumberOfVotes": 0.18245072595716427,
+      "id": 26
+    },
+    {
+      "name": "Ayla",
+      "age": 37,
+      "lat": 63.283,
+      "lng": -127.7719,
+      "totalNumberOfVotes": 0.6375720932309399,
+      "id": 27
+    },
+    {
+      "name": "Domenick",
+      "age": 34,
+      "lat": 72.3428,
+      "lng": 177.5937,
+      "totalNumberOfVotes": 2.3301098016351456,
+      "id": 28
+    },
+    {
+      "name": "Eric",
+      "age": 59,
+      "lat": -13.0085,
+      "lng": -40.7691,
+      "totalNumberOfVotes": 4.217178306848305,
+      "id": 29
     }
   ]
 }
