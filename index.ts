@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Collection } from "./src/models/Collection";
+import { CollectionView } from "./src/views/CollectionView";
 import { Decision } from "./src/models/Decision";
 import { Law } from "./src/models/Law";
 import { Parliament } from "./src/models/Parliament";
@@ -8,6 +9,7 @@ import { People } from "./src/models/People";
 import { User, UserProps } from "./src/models/User";
 import { CustomMap } from "./src/models/CustomMap";
 import { UserEdit } from "./src/views/UserEdit";
+import { UserList } from "./src/views/UserList";
 import { UserForm } from "./src/views/UserForm";
 import { UserShow } from "./src/views/UserShow";
 
@@ -62,18 +64,27 @@ fakeUser.fake();
 // map.addMarker(politician);
 // map.addMarker(fakeUser);
 
-// 9 collections
-const collection = User.buildUserCollection();
-collection.fetch();
-
-// rendering html
 const root = document.getElementById("root");
+// rendering html
 if (root) {
   let userEdit = new UserEdit(root, user);
   userEdit.render();
 } else {
   throw new Error("Html element or user not found");
 }
+
+// 9 collections
+const userCollection = User.buildUserCollection();
+userCollection.on("change", () => {
+  const userCollectionDiv = document.createElement("userCollection");
+  if (userCollectionDiv) {
+    let userList = new UserList(userCollectionDiv, userCollection);
+    userList.render();
+    root.append(userCollectionDiv);
+  }
+});
+
+userCollection.fetch();
 
 const politicianDecision = (politician: Politician, law: Law): string => {
   const name = politician.name;

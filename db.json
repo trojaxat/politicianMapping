@@ -20,6 +20,134 @@
       "lng": 56.6242,
       "totalNumberOfVotes": 5.252420618265502,
       "id": 3
+    },
+    {
+      "name": "Art",
+      "age": 88,
+      "lat": -11.629,
+      "lng": -174.3596,
+      "totalNumberOfVotes": 4.128028682651586,
+      "id": 4
+    },
+    {
+      "name": "Daniel",
+      "age": "123123",
+      "lat": -11.629,
+      "lng": -174.3596,
+      "totalNumberOfVotes": 4.128028682651586,
+      "id": 5
+    },
+    {
+      "name": "Oliver",
+      "age": 85,
+      "lat": 32.4547,
+      "lng": 30.8894,
+      "totalNumberOfVotes": 6.496199819038869,
+      "id": 6
+    },
+    {
+      "name": "Tatyana",
+      "age": 40,
+      "lat": -77.7285,
+      "lng": -142.002,
+      "totalNumberOfVotes": 5.200313523786252,
+      "id": 7
+    },
+    {
+      "name": "Tatyana",
+      "age": 40,
+      "lat": -77.7285,
+      "lng": -142.002,
+      "totalNumberOfVotes": 5.200313523786252,
+      "id": 8
+    },
+    {
+      "name": "Freddy",
+      "age": 70,
+      "lat": 21.2644,
+      "lng": -26.3057,
+      "totalNumberOfVotes": 6.709947774474678,
+      "id": 9
+    },
+    {
+      "name": "Arnold",
+      "age": 72,
+      "lat": -3.8203,
+      "lng": -148.0136,
+      "totalNumberOfVotes": 1.3101229489762536,
+      "id": 10
+    },
+    {
+      "name": "Neva",
+      "age": 60,
+      "lat": -85.6685,
+      "lng": -145.1058,
+      "totalNumberOfVotes": 4.129573840769231,
+      "id": 11
+    },
+    {
+      "name": "Cora",
+      "age": 95,
+      "lat": -16.23,
+      "lng": -16.0002,
+      "totalNumberOfVotes": 4.266645491562345,
+      "id": 12
+    },
+    {
+      "name": "Cora",
+      "age": 95,
+      "lat": -16.23,
+      "lng": -16.0002,
+      "totalNumberOfVotes": 4.266645491562345,
+      "id": 13
+    },
+    {
+      "name": "Kian",
+      "age": 72,
+      "lat": -88.0514,
+      "lng": -85.3813,
+      "totalNumberOfVotes": 2.8918925153546375,
+      "id": 14
+    },
+    {
+      "name": "Ole",
+      "age": 22,
+      "lat": 2.6644,
+      "lng": -10.604,
+      "totalNumberOfVotes": 5.160451278074796,
+      "id": 15
+    },
+    {
+      "name": "Lincoln",
+      "age": 30,
+      "lat": -50.0506,
+      "lng": 115.3446,
+      "totalNumberOfVotes": 6.224905434195787,
+      "id": 16
+    },
+    {
+      "name": "Helen",
+      "age": 60,
+      "lat": -17.3869,
+      "lng": -77.4091,
+      "totalNumberOfVotes": 1.9233986476352962,
+      "id": 17
+    },
+    {
+      "name": "Dillan",
+      "age": 43,
+      "lat": -18.8566,
+      "lng": -5.7098,
+      "totalNumberOfVotes": 6.797826774099022,
+      "id": 18
+    },
+    {
+      "name": "Adela",
+      "age": 39,
+      "lat": 66.4374,
+      "lng": -21.6406,
+      "totalNumberOfVotes": 1.2659032127400813,
+      "id": 19
     }
   ]
 }
