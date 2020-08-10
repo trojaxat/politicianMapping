@@ -1,28 +1,50 @@
 "use strict";
 exports.__esModule = true;
 exports.PoliticianImport = void 0;
-var UrlScraper_1 = require("./UrlScraper");
+var UrlParser_1 = require("./UrlParser");
 var PoliticianImport = /** @class */ (function () {
-    function PoliticianImport() {
-        this.baseUrl = "https://www.bundestag.de";
-        this.politicianListElement = ".bt-open-in-overlay";
-        this.url = "https://www.bundestag.de/ajax/filterlist/de/abgeordnete/525246-525246/h_e3c112579919ef960d06dbb9d0d44b67";
+    function PoliticianImport(politicianWebsiteInfo) {
+        this.politicianWebsiteInfo = politicianWebsiteInfo;
+        // importPoliticians = () => {
+        //   let urls = this.getPoliticianUrls(
+        //     this.politiciansUrl,
+        //     this.politicianListElement
+        //   );
+        //   // urls.foreach() {
+        //   let politicianUrl = urls.href;
+        //   let politicianInfo = this.getPoliticianInformation(
+        //     politicianUrl,
+        //     politicianIndividualElement
+        //   );
+        //   let politicianCleanedInfo = this.cleanPoliticianInfo(politicianInfo);
+        //   let politician = Politician.buildPolitician(politicianCleanedInfo);
+        //   politician.save();
+        //   // }
+        // };
+        this.getPoliticianUrls = function (politiciansUrl, politicianListElement) {
+            var politiciansParser = new UrlParser_1.UrlParser(politiciansUrl, politicianListElement);
+            // go through each url and parse it
+            return politiciansParser.urlParse();
+        };
+        this.getPoliticianInformation = function (politicianUrl, politicianDetailElement) {
+            var politicianParser = new UrlParser_1.UrlParser(politicianUrl, politicianDetailElement);
+            return politicianParser.urlParse();
+        };
+        this.cleanPoliticianInfo = function (politicianObj) {
+            // if (politicianObj.href) {
+            //   let politicianDetailPage = this.baseUrl + politicianObj.href;
+            // }
+            if (politicianObj.title) {
+                delete Object.assign(politicianObj, {
+                    name: politicianObj.title
+                })["title"];
+            }
+            if (politicianObj["class"]) {
+                delete politicianObj["class"];
+            }
+            return politicianObj;
+        };
     }
-    PoliticianImport.prototype.importPoliticians = function () {
-        var scraper = new UrlScraper_1.UrlScraper(this.url, this.politicianListElement);
-        var politicianUrls = scraper.urlParse();
-        return politicianUrls;
-    };
     return PoliticianImport;
 }());
 exports.PoliticianImport = PoliticianImport;
-// politiciansDetailPage.forEach(function (value) {
-//   rp(politiciansDetailPage.value);
-//   let politicianObj = value;
-//   let politicianDetailPage = baseUrl + politicianObj.href;
-//   delete Object.assign(politicianObj, {
-//     name: politicianObj.title,
-//   })["title"];
-//   delete politicianObj.class;
-//   let politician = Politician.buildPolitician(politicianObj);
-//   politician.save();

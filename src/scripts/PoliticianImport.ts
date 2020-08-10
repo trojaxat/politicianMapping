@@ -1,44 +1,94 @@
-import { Politician } from "../models/Politician";
-import { UrlScraper } from "./UrlScraper";
+import {
+  Politician,
+  PoliticianModel,
+  PoliticianBase,
+} from "../models/Politician";
+import { UrlParser } from "./UrlParser";
 
-export class PoliticianImport {
-  baseUrl = "https://www.bundestag.de";
-  politicianListElement = ".bt-open-in-overlay";
-  politicianIndividualElement = ".bt-content-overlay";
-  politiciansUrl =
-    "https://www.bundestag.de/ajax/filterlist/de/abgeordnete/525246-525246/h_e3c112579919ef960d06dbb9d0d44b67";
-
-  importPoliticians() {
-    let scraper = new UrlScraper(
-      this.politiciansUrl,
-      this.politicianListElement
-    );
-    let politicianUrls = scraper.urlParse();
-
-    politicianUrls.forEach((element: string) => {
-      let politicianDetail = this.baseUrl + element;
-      let scraper = new UrlScraper(
-        politicianDetail,
-        this.politicianIndividualElement
-      );
-      let politicianInfo = scraper.urlParse();
-      let politician = Politician.buildPolitician(politicianInfo);
-      politician.save();
-    });
-
-    return politicianUrls;
-  }
+export interface PoliticianImportModel {
+  name?: string;
+  age?: number;
+  title?: string;
+  href?: string;
+  class?: string;
+  address?: string;
+  party?: string;
+  link?: string;
 }
 
-// politiciansDetailPage.forEach(function (value) {
-//   rp(politiciansDetailPage.value);
+export interface PoliticianWebsiteInfo {
+  baseUrl?: string;
+  politiciansUrl?: string;
+  politicianListElement?: string;
+  politicianDetailElement?: string;
+}
 
-//   let politicianObj = value;
-//   let politicianDetailPage = baseUrl + politicianObj.href;
-//   delete Object.assign(politicianObj, {
-//     name: politicianObj.title,
-//   })["title"];
-//   delete politicianObj.class;
+export class PoliticianImport {
+  constructor(public politicianWebsiteInfo: PoliticianWebsiteInfo) {}
 
-//   let politician = Politician.buildPolitician(politicianObj);
-//   politician.save();
+  importPoliticians = () => {
+    // if (
+    //   this.politicianWebsiteInfo.politiciansUrl &&
+    //   this.politicianWebsiteInfo.politicianListElement &&
+    //   this.politicianWebsiteInfo.politicianDetailElement
+    // ) {
+    //   let urls = this.getPoliticianUrls(
+    //     this.politicianWebsiteInfo.politiciansUrl,
+    //     this.politicianWebsiteInfo.politicianListElement
+    //   );
+    //   for (const url in urls) {
+    //     let politicianUrl = urls.href;
+    //     let politicianInfo = this.getPoliticianInformation(
+    //       politicianUrl,
+    //       this.politicianWebsiteInfo.politicianDetailElement
+    //     );
+    //     let politicianCleanedInfo = this.cleanPoliticianInfo(politicianInfo);
+    //     let politician = Politician.buildPolitician(politicianCleanedInfo);
+    //     politician.save();
+    //   }
+    // }
+  };
+
+  getPoliticianUrls = (
+    politiciansUrl: string,
+    politicianListElement: string
+  ) => {
+    let politiciansParser = new UrlParser(
+      politiciansUrl,
+      politicianListElement
+    );
+    // go through each url and parse it
+    return politiciansParser.urlParse();
+  };
+
+  getPoliticianInformation = (
+    politicianUrl: string,
+    politicianDetailElement: string
+  ) => {
+    let politicianParser = new UrlParser(
+      politicianUrl,
+      politicianDetailElement
+    );
+
+    return politicianParser.urlParse();
+  };
+
+  cleanPoliticianInfo = (politicianObj: PoliticianImportModel) => {
+    if (politicianObj.href) {
+      politicianObj.link =
+        this.politicianWebsiteInfo.baseUrl + politicianObj.href;
+    }
+
+    if (politicianObj.title) {
+      delete Object.assign(politicianObj, {
+        name: politicianObj.title,
+      })["title"];
+    }
+
+    if (politicianObj.class) {
+      delete politicianObj.class;
+    }
+
+    return politicianObj;
+  };
+}

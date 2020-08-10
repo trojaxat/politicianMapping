@@ -6,16 +6,19 @@ export interface Mappable {
 }
 
 export class CustomMap {
-  private googleMap: google.maps.Map;
+  private googleMap?: google.maps.Map;
 
   constructor(divId: string, lat: number, lng: number) {
-    this.googleMap = new google.maps.Map(document.getElementById(divId), {
-      zoom: 1,
-      center: {
-        lat,
-        lng,
-      },
-    });
+    const mapPosition = document.getElementById(divId);
+    if (mapPosition) {
+      this.googleMap = new google.maps.Map(mapPosition, {
+        zoom: 1,
+        center: {
+          lat,
+          lng,
+        },
+      });
+    }
   }
 
   addMarker(mappable: Mappable): void {

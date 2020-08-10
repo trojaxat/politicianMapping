@@ -1,7 +1,7 @@
 const rp = require("request-promise");
 const $ = require("cheerio");
 
-export class UrlScraper {
+export class UrlParser {
   url: string;
   htmlElementIdentifier: string;
 
@@ -10,11 +10,11 @@ export class UrlScraper {
     this.htmlElementIdentifier = htmlElementIdentifier;
   }
 
-  urlParse() {
+  urlParse = () => {
     let htmlElementIdentifier = this.htmlElementIdentifier;
 
     return rp(this.url)
-      .then(function (html: DocumentFragment) {
+      .then((html: DocumentFragment) => {
         let totalPositionsOfInterest = $(htmlElementIdentifier, html).length;
         let informationArray = [];
 
@@ -28,8 +28,13 @@ export class UrlScraper {
         }
         return informationArray;
       })
+      .then((urls: object[]) => {
+        console.log("UrlParser -> urlParse -> values", urls);
+        // Here the parsed values are returned
+        return urls;
+      })
       .catch(function (err: string) {
         throw new Error(err);
       });
-  }
+  };
 }

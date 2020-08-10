@@ -9,8 +9,11 @@ import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
 import { Mappable } from "./CustomMap";
 import { Model } from "./Model";
+import { PoliticianImportModel } from "../scripts/PoliticianImport";
 
-interface PoliticianModel {
+export type PoliticianBase = PoliticianModel | PoliticianImportModel;
+
+export interface PoliticianModel {
   id?: number;
   name?: string;
   age?: number;
@@ -18,13 +21,13 @@ interface PoliticianModel {
   party?: string;
   lat?: number;
   lng?: number;
-  trustworthy: boolean;
+  trustworthy?: boolean;
 }
 
 const rootUrl = "http://localhost:3000/politicians";
 
 export class Politician extends Model<PoliticianModel> {
-  static buildPolitician(attrs: PoliticianModel) {
+  static buildPolitician(attrs: PoliticianBase) {
     return new Politician(
       new Attributes<PoliticianModel>(attrs),
       new Eventing(),
