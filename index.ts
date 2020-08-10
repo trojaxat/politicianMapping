@@ -26,15 +26,15 @@ let law = new Law(
 );
 
 // 3 politician
-let politician = new Politician(
-  1,
-  "Santi Pornavalai",
-  25,
-  true,
-  "Afd",
-  13.4930915,
-  52.4930915
-);
+// let politician = new Politician(
+//   1,
+//   "Santi Pornavalai",
+//   25,
+//   true,
+//   "Afd",
+//   13.4930915,
+//   52.4930915
+// );
 
 // 4 peoples vote/decision
 let people = new People(1, 75.5, 67.2, true);
@@ -85,24 +85,3 @@ userCollection.on("change", () => {
 });
 
 userCollection.fetch();
-
-const politicianDecision = (politician: Politician, law: Law): string => {
-  const name = politician.name;
-  const decision = politician.decision;
-  const party = politician.party;
-  const lawTitle = law.title;
-  let decisionText = "disagreed";
-
-  if (decision) {
-    let decisionText = "agreed";
-  }
-
-  let text = `
-    Law Title: ${lawTitle}
-    The politician: ${name}, working with the party ${party} gave the decision: ${decisionText}
-    `;
-
-  return text;
-};
-
-let politicianText = politicianDecision(politician, law);

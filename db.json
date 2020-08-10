@@ -1,4 +1,146 @@
 {
+  "politicians": [
+    {
+      "href": "/abgeordnete/biografien/A/517818-517818",
+      "data-id": "517818",
+      "data-language": "de",
+      "name": "Abercron, Dr. Michael von",
+      "id": 1
+    },
+    {
+      "href": "/abgeordnete/biografien/A/517820-517820",
+      "data-id": "517820",
+      "data-language": "de",
+      "name": "Achelwilm, Doris",
+      "id": 2
+    },
+    {
+      "href": "/abgeordnete/biografien/A/517836-517836",
+      "data-id": "517836",
+      "data-language": "de",
+      "name": "Aggelidis, Grigorios",
+      "id": 3
+    },
+    {
+      "href": "/abgeordnete/biografien/A/517852-517852",
+      "data-id": "517852",
+      "data-language": "de",
+      "name": "Akbulut, Gökay",
+      "id": 4
+    },
+    {
+      "href": "/abgeordnete/biografien/A/albani_stephan-517864",
+      "data-id": "517864",
+      "data-language": "de",
+      "name": "Albani, Stephan",
+      "id": 5
+    },
+    {
+      "href": "/abgeordnete/biografien/A/517892-517892",
+      "data-id": "517892",
+      "data-language": "de",
+      "name": "Alt, Renata",
+      "id": 6
+    },
+    {
+      "href": "/abgeordnete/biografien/A/517882-517882",
+      "data-id": "517882",
+      "data-language": "de",
+      "name": "Altenkamp, Norbert",
+      "id": 7
+    },
+    {
+      "href": "/abgeordnete/biografien/A/altmaier_peter-517888",
+      "data-id": "517888",
+      "data-language": "de",
+      "name": "Altmaier, Peter",
+      "id": 8
+    },
+    {
+      "href": "/abgeordnete/biografien/A/517908-517908",
+      "data-id": "517908",
+      "data-language": "de",
+      "name": "Amthor, Philipp",
+      "id": 9
+    },
+    {
+      "href": "/abgeordnete/biografien/A/amtsberg_luise-517914",
+      "data-id": "517914",
+      "data-language": "de",
+      "name": "Amtsberg, Luise",
+      "id": 10
+    },
+    {
+      "href": "/abgeordnete/biografien/A/andreae_kerstin-517928",
+      "data-id": "517928",
+      "data-language": "de",
+      "name": "Andreae, Kerstin",
+      "id": 11
+    },
+    {
+      "href": "/abgeordnete/biografien/A/annen_niels-517946",
+      "data-id": "517946",
+      "data-language": "de",
+      "name": "Annen, Niels",
+      "id": 12
+    },
+    {
+      "href": "/abgeordnete/biografien/A/arndt_brauer_ingrid-517974",
+      "data-id": "517974",
+      "data-language": "de",
+      "name": "Arndt-Brauer, Ingrid",
+      "id": 13
+    },
+    {
+      "href": "/abgeordnete/biografien/A/517986-517986",
+      "data-id": "517986",
+      "data-language": "de",
+      "name": "Aschenberg-Dugnus, Christine",
+      "id": 14
+    },
+    {
+      "href": "/abgeordnete/biografien/A/auernhammer_artur-518012",
+      "data-id": "518012",
+      "data-language": "de",
+      "name": "Auernhammer, Artur",
+      "id": 15
+    },
+    {
+      "href": "/abgeordnete/biografien/A/518024-518024",
+      "data-id": "518024",
+      "data-language": "de",
+      "name": "Aumer, Peter",
+      "id": 16
+    },
+    {
+      "href": "/abgeordnete/biografien/B/518064-518064",
+      "data-id": "518064",
+      "data-language": "de",
+      "name": "Bach, Bela",
+      "id": 17
+    },
+    {
+      "href": "/abgeordnete/biografien/B/524852-524852",
+      "data-id": "524852",
+      "data-language": "de",
+      "name": "Badum, Lisa",
+      "id": 18
+    },
+    {
+      "href": "/abgeordnete/biografien/B/baehrens_heike-518086",
+      "data-id": "518086",
+      "data-language": "de",
+      "name": "Baehrens, Heike",
+      "id": 19
+    },
+    {
+      "href": "/abgeordnete/biografien/B/baer_dorothee-518098",
+      "data-id": "518098",
+      "data-language": "de",
+      "name": "Bär, Dorothee",
+      "id": 20
+    }
+  ],
   "users": [
     {
       "name": "lisa axford",

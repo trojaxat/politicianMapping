@@ -23,10 +23,14 @@
   "homepage": "https://github.com/trojaxat/typescript2020#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
     "concurrently": "^5.2.0",
     "faker": "^4.1.0",
     "googlemaps": "^1.12.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "puppeteer": "^5.2.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   },
   "devDependencies": {
     "typescript": "^3.9.7"
