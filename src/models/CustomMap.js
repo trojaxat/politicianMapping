@@ -3,13 +3,16 @@ exports.__esModule = true;
 exports.CustomMap = void 0;
 var CustomMap = /** @class */ (function () {
     function CustomMap(divId, lat, lng) {
-        this.googleMap = new google.maps.Map(document.getElementById(divId), {
-            zoom: 1,
-            center: {
-                lat: lat,
-                lng: lng
-            }
-        });
+        var mapPosition = document.getElementById(divId);
+        if (mapPosition) {
+            this.googleMap = new google.maps.Map(mapPosition, {
+                zoom: 1,
+                center: {
+                    lat: lat,
+                    lng: lng
+                }
+            });
+        }
     }
     CustomMap.prototype.addMarker = function (mappable) {
         var _this = this;

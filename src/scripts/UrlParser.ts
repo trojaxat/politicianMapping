@@ -1,40 +1,63 @@
-const rp = require("request-promise");
-const $ = require("cheerio");
+import axios, { AxiosPromise } from "axios";
+
+const cheerio = require("cheerio");
+
+export interface UrlObject {
+  href: string;
+}
 
 export class UrlParser {
   url: string;
-  htmlElementIdentifier: string;
+  htmlElementIdentifier: { [key: string]: string } = {};
 
-  constructor(url: string, htmlElementIdentifier: string) {
+  constructor(
+    url: string,
+    htmlElementIdentifier: { [key: string]: string } = {}
+  ) {
     this.url = url;
     this.htmlElementIdentifier = htmlElementIdentifier;
   }
 
+  fetch(): AxiosPromise {
+    return axios.get(`${this.url}`);
+  }
+
   urlParse = () => {
-    let htmlElementIdentifier = this.htmlElementIdentifier;
+    let htmlElementIdentifiers = this.htmlElementIdentifier;
+    let informationObj: { [key: string]: string } = {};
+    let promise = this.fetch();
 
-    return rp(this.url)
-      .then((html: DocumentFragment) => {
-        let totalPositionsOfInterest = $(htmlElementIdentifier, html).length;
-        let informationArray = [];
+    return promise
+      .then((response) => {
+        let html = response.data;
 
-        for (let i = 0; i < totalPositionsOfInterest; i++) {
-          if ($(htmlElementIdentifier, html)[i].attribs) {
-            let individualObj = $(htmlElementIdentifier, html)[i].attribs;
-            if (individualObj) {
-              informationArray.push(individualObj);
+        for (const key in htmlElementIdentifiers) {
+          let totalPositionsOfInterest = cheerio(htmlElementIdentifiers, html)
+            .length;
+          for (let i = 0; i < totalPositionsOfInterest; i++) {
+            const $ = cheerio.load(html, {
+              xmlMode: true,
+            });
+
+            let element = htmlElementIdentifiers[key];
+
+            if (key === "url") {
+              let stuffScraped = $(element)[i].attribs;
+              Object.assign(informationObj, { [key]: stuffScraped });
+            } else {
+              let stuffScraped = $(element)[i].text().trim();
+              Object.assign(informationObj, { [key]: stuffScraped });
             }
           }
+          console.log(
+            "UrlParser -> urlParse -> informationObj",
+            informationObj
+          );
+          return informationObj;
         }
-        return informationArray;
       })
-      .then((urls: object[]) => {
-        console.log("UrlParser -> urlParse -> values", urls);
-        // Here the parsed values are returned
-        return urls;
-      })
-      .catch(function (err: string) {
-        throw new Error(err);
+      .catch((error) => {
+        throw new Error(error);
       });
   };
 }

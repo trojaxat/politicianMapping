@@ -10,8 +10,12 @@ import { Eventing } from "./Eventing";
 import { Mappable } from "./CustomMap";
 import { Model } from "./Model";
 import { PoliticianImportModel } from "../scripts/PoliticianImport";
+import { UrlObject } from "../scripts/UrlParser";
 
-export type PoliticianBase = PoliticianModel | PoliticianImportModel;
+export type PoliticianBase =
+  | PoliticianModel
+  | PoliticianImportModel
+  | UrlObject;
 
 export interface PoliticianModel {
   id?: number;
@@ -22,6 +26,8 @@ export interface PoliticianModel {
   lat?: number;
   lng?: number;
   trustworthy?: boolean;
+  href?: string;
+  link?: string;
 }
 
 const rootUrl = "http://localhost:3000/politicians";
