@@ -30,31 +30,32 @@ export class UrlParser {
     return promise
       .then((response) => {
         let html = response.data;
+        const $ = cheerio.load(html, {
+          xmlMode: true,
+        });
 
+        // For each different html that we want to find
         for (const key in htmlElementIdentifiers) {
-          let totalPositionsOfInterest = cheerio(htmlElementIdentifiers, html)
+          let totalPositionsOfInterest = $(htmlElementIdentifiers[key], html)
             .length;
-          for (let i = 0; i < totalPositionsOfInterest; i++) {
-            const $ = cheerio.load(html, {
-              xmlMode: true,
-            });
 
+          // For each time we found the individual html
+          for (let i = 0; i < totalPositionsOfInterest; i++) {
             let element = htmlElementIdentifiers[key];
 
             if (key === "url") {
               let stuffScraped = $(element)[i].attribs;
+              Object.assign(informationObj, { [key + i]: stuffScraped });
+            } else if (key === "contact") {
+              let stuffScraped = $(element)[i].attribs.href;
               Object.assign(informationObj, { [key]: stuffScraped });
             } else {
               let stuffScraped = $(element)[i].text().trim();
               Object.assign(informationObj, { [key]: stuffScraped });
             }
           }
-          console.log(
-            "UrlParser -> urlParse -> informationObj",
-            informationObj
-          );
-          return informationObj;
         }
+        return informationObj;
       })
       .catch((error) => {
         throw new Error(error);

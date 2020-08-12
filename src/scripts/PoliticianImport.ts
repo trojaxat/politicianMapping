@@ -25,19 +25,26 @@ export class PoliticianImport {
   importPoliticians = () => {
     let self = this;
     this.getPoliticianUrls().then((urls) => {
-      console.log("PoliticianImport -> importPoliticians -> urls", urls);
+      for (const url in urls) {
+        let object = (urls[url] as unknown) as UrlObject;
+        const politicianInfo = self.getPoliticianInformation(object.href);
 
-      // urls.forEach(function (value) {
-      // let object = value as UrlObject;
-      // const politicianInfo = self.getPoliticianInformation(object.href);
-      // politicianInfo.then((politicianInfoObj) => {
-      // let politicianCleanedInfo = self.cleanPoliticianInfo(
-      //   politicianInfoObj
-      // );
-      // let politician = Politician.buildPolitician(politicianCleanedInfo);
-      // politician.save();
-      // });
-      // });
+        politicianInfo.then((politicianInfoObj) => {
+          console.log(
+            "PoliticianImport -> importPoliticians -> politicianInfoObj",
+            politicianInfoObj
+          );
+          // let politicianCleanedInfo = self.cleanPoliticianInfo(
+          //   politicianInfoObj
+          // );
+          // let politician = Politician.buildPolitician(politicianCleanedInfo);
+          // console.log(
+          //   "PoliticianImport -> importPoliticians -> politician",
+          //   politician
+          // );
+          // politician.save();
+        });
+      }
     });
   };
 
