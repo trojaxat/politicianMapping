@@ -62,29 +62,39 @@ var PoliticianImport_1 = require("./src/scripts/PoliticianImport");
 //   }
 // });
 // userCollection.fetch();
+// let x = axios.get(
+//   `https://www.bundestag.de/abgeordnete/biografien/B/baer_dorothee-518098`
+// );
+// x.then((e) => {
+//   let fixedObj: { [key: string]: string } = {};
+//   for (const key in detailsObj) {
+//     const $ = cheerio.load(e.data, {
+//       xmlMode: true,
+//     });
+//     let element = detailsObj[key];
+//     let stuffScraped = $(element).text().trim();
+//     Object.assign(fixedObj, { [key]: stuffScraped });
+//   }
+// }).catch((e) => {
+//   console.log(e);
+// });
+// };
+var cheerio = require("cheerio");
 var baseUrl = "https://www.bundestag.de";
-var politiciansUrl = "https://www.bundestag.de/ajax/filterlist/de/abgeordnete/525246-525246/h_e3c112579919ef960d06dbb9d0d44b67";
 var politicianListElement = ".bt-open-in-overlay";
-var politicianIndividualElement = ".bt-content-overlay";
-var politicianWebsiteInfo = {
-    baseUrl: baseUrl,
-    politiciansUrl: politiciansUrl,
-    politicianListElement: politicianListElement,
-    politicianIndividualElement: politicianIndividualElement
+var politiciansUrl = "https://www.bundestag.de/ajax/filterlist/de/abgeordnete/525246-525246/h_e3c112579919ef960d06dbb9d0d44b67";
+var politicianDetailObject = {
+    contact: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
+    job: "#mod518098 > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > div > p",
+    name: "#mod518098 > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > h3",
+    personalWebsite: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
+    personalInfo: "#ptv1 > div > div:nth-child(1)"
 };
-var politicianImporter = new PoliticianImport_1.PoliticianImport(politicianWebsiteInfo);
-var urls = politicianImporter.getPoliticianUrls(politiciansUrl, politicianListElement);
-console.log("urls", urls);
-// for (const url in urls) {
-//   let politicianUrl = urls.href;
-//   console.log("justt url", url);
-//   let politicianInfo = politicianImporter.getPoliticianInformation(
-//     politicianUrl,
-//     politicianIndividualElement
-//   );
-//   let politicianCleanedInfo = politicianImporter.cleanPoliticianInfo(
-//     politicianInfo
-//   );
-//   let politician = Politician.buildPolitician(politicianCleanedInfo);
-//   politician.save();
-// }
+var politiciansWebsiteInfo = {
+    baseUrl: baseUrl,
+    politicianListElement: politicianListElement,
+    politiciansUrl: politiciansUrl,
+    politicianDetailObject: politicianDetailObject
+};
+var politicianImporter = new PoliticianImport_1.PoliticianImport(politiciansWebsiteInfo);
+politicianImporter.importPoliticians();

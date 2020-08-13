@@ -2,31 +2,48 @@
 exports.__esModule = true;
 exports.UrlParser = void 0;
 var axios_1 = require("axios");
-var rp = require("request-promise");
-var $ = require("cheerio");
+var cheerio = require("cheerio");
 var UrlParser = /** @class */ (function () {
     function UrlParser(url, htmlElementIdentifier) {
         var _this = this;
+        if (htmlElementIdentifier === void 0) { htmlElementIdentifier = {}; }
+        this.htmlElementIdentifier = {};
         this.urlParse = function () {
-            var htmlElementIdentifier = _this.htmlElementIdentifier;
-            var informationArray = [];
+            var htmlElementIdentifiers = _this.htmlElementIdentifier;
+            var informationObj = {};
             var promise = _this.fetch();
-            console.log("UrlParser -> urlParse -> promise", promise);
-            promise.then(function (html) {
-                var totalPositionsOfInterest = $(htmlElementIdentifier, html).length;
-                console.log("UrlParser -> urlParse -> totalPositionsOfInterest", totalPositionsOfInterest);
-                for (var i = 0; i < totalPositionsOfInterest; i++) {
-                    if ($(htmlElementIdentifier, html)[i].attribs) {
-                        var individualObj = $(htmlElementIdentifier, html)[i].attribs;
-                        if (individualObj) {
-                            console.log("UrlParser -> urlParse -> individualObj", individualObj);
-                            informationArray.push(individualObj);
+            return promise
+                .then(function (response) {
+                var _a, _b;
+                var html = response.data;
+                var $ = cheerio.load(html, {
+                    xmlMode: true
+                });
+                // For each different html that we want to find
+                for (var key in htmlElementIdentifiers) {
+                    var totalPositionsOfInterest = $(htmlElementIdentifiers[key], html)
+                        .length;
+                    // For each time we found the individual html
+                    for (var i = 0; i < totalPositionsOfInterest; i++) {
+                        var element = htmlElementIdentifiers[key];
+                        if (key === "url") {
+                            var stuffScraped = $(element)[i].attribs;
+                            Object.assign(informationObj, (_a = {}, _a[key + i] = stuffScraped, _a));
+                        }
+                        else if (key === "contact") {
+                            var stuffScraped = $(element)[i].attribs.href;
+                            Object.assign(informationObj, (_b = {}, _b[key] = stuffScraped, _b));
+                        }
+                        else {
+                            // let stuffScraped = $(element)[i].text().trim();
+                            // Object.assign(informationObj, { [key]: stuffScraped });
                         }
                     }
                 }
-                return informationArray;
+                return informationObj;
+            })["catch"](function (error) {
+                throw new Error("this is an error in urlparse" + error);
             });
-            console.log("UrlParser -> urlParse -> informationArray", informationArray);
         };
         this.url = url;
         this.htmlElementIdentifier = htmlElementIdentifier;

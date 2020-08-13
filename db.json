@@ -149,6 +149,22 @@
       "lng": -21.6406,
       "totalNumberOfVotes": 1.2659032127400813,
       "id": 19
+    },
+    {
+      "name": "lisa",
+      "age": "6",
+      "lat": 68.834,
+      "lng": -104.2195,
+      "totalNumberOfVotes": 10.99162036386139,
+      "id": 20
+    },
+    {
+      "name": "Jarod",
+      "age": 77,
+      "lat": -85.4499,
+      "lng": 63.5347,
+      "totalNumberOfVotes": 0.7564401369647439,
+      "id": 21
     }
   ]
 }

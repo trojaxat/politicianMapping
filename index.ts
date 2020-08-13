@@ -71,22 +71,21 @@ import { UserShow } from "./src/views/UserShow";
 //   let userEdit = new UserEdit(root, user);
 //   userEdit.render();
 // } else {
-  //   throw new Error("Html element or user not found");
-  // }
-  
-  // // 9 collections
-  // const userCollection = User.buildUserCollection();
-  // userCollection.on("change", () => {
-    //   const userCollectionDiv = document.createElement("userCollection");
-    //   if (userCollectionDiv) {
-      //     let userList = new UserList(userCollectionDiv, userCollection);
-      //     userList.render();
-      //     root.append(userCollectionDiv);
-      //   }
-      // });
-      
-      // userCollection.fetch();
-      
+//   throw new Error("Html element or user not found");
+// }
+
+// // 9 collections
+// const userCollection = User.buildUserCollection();
+// userCollection.on("change", () => {
+//   const userCollectionDiv = document.createElement("userCollection");
+//   if (userCollectionDiv) {
+//     let userList = new UserList(userCollectionDiv, userCollection);
+//     userList.render();
+//     root.append(userCollectionDiv);
+//   }
+// });
+
+// userCollection.fetch();
 
 // let x = axios.get(
 //   `https://www.bundestag.de/abgeordnete/biografien/B/baer_dorothee-518098`
@@ -107,7 +106,7 @@ import { UserShow } from "./src/views/UserShow";
 // }).catch((e) => {
 //   console.log(e);
 // });
-};
+// };
 
 const cheerio = require("cheerio");
 
@@ -122,10 +121,10 @@ let politicianDetailObject: { [key: string]: string } = {
     "#mod518098 > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > div > p",
   name:
     "#mod518098 > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > h3",
-    personalWebsite:
+  personalWebsite:
     "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
-    personalInfo: "#ptv1 > div > div:nth-child(1)",
-}
+  personalInfo: "#ptv1 > div > div:nth-child(1)",
+};
 
 let politiciansWebsiteInfo = {
   baseUrl,

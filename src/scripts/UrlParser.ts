@@ -50,15 +50,15 @@ export class UrlParser {
               let stuffScraped = $(element)[i].attribs.href;
               Object.assign(informationObj, { [key]: stuffScraped });
             } else {
-              let stuffScraped = $(element)[i].text().trim();
-              Object.assign(informationObj, { [key]: stuffScraped });
+              // let stuffScraped = $(element)[i].text().trim();
+              // Object.assign(informationObj, { [key]: stuffScraped });
             }
           }
         }
         return informationObj;
       })
       .catch((error) => {
-        throw new Error(error);
+        throw new Error("this is an error in urlparse" + error);
       });
   };
 }
