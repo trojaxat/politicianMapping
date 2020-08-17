@@ -1,4 +1,15 @@
-import axios, { AxiosPromise } from "axios";
+/**
+ *  This works by calling urlparser with a url string and a type of selector from the html of the page,
+ *  url example "https://stackoverflow.com/questions/36607979/how-to-get-around-property-does-not-exist-on-object/45090885"
+ *
+ *  selector example { picture: "#left-sidebar > div.left-sidebar--sticky-container.js-sticky-leftnav"}
+ *  multiple selectors can be given into the object
+ *
+ *  the selector can be generated found in dev tools of chrome, right click on html element, copy, copy selector
+ *  then calling .urlParse(), which returns a promise, then() can be used to see the results
+ *
+ * */
+import axios, { AxiosPromise, AxiosResponse } from "axios";
 
 const cheerio = require("cheerio");
 
@@ -22,9 +33,9 @@ export class UrlParser {
     return axios.get(`${this.url}`);
   }
 
-  urlParse = () => {
+  urlParse = (): Promise<{ [key: string]: any }> => {
     let htmlElementIdentifiers = this.htmlElementIdentifier;
-    let informationObj: { [key: string]: string } = {};
+    let informationObj: { [key: string]: any } = {};
     let promise = this.fetch();
 
     return promise
@@ -43,16 +54,8 @@ export class UrlParser {
           for (let i = 0; i < totalPositionsOfInterest; i++) {
             let element = htmlElementIdentifiers[key];
 
-            if (key === "url") {
-              let stuffScraped = $(element)[i].attribs;
-              Object.assign(informationObj, { [key + i]: stuffScraped });
-            } else if (key === "contact") {
-              let stuffScraped = $(element)[i].attribs.href;
-              Object.assign(informationObj, { [key]: stuffScraped });
-            } else {
-              // let stuffScraped = $(element)[i].text().trim();
-              // Object.assign(informationObj, { [key]: stuffScraped });
-            }
+            let stuffScraped = $(element)[i];
+            Object.assign(informationObj, { [key + " " + i]: stuffScraped });
           }
         }
         return informationObj;

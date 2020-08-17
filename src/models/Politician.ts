@@ -27,7 +27,9 @@ export interface PoliticianModel {
   lng?: number;
   trustworthy?: boolean;
   href?: string;
-  link?: string;
+  link?: string[];
+  contact?: string[];
+  info?: string[];
 }
 
 const rootUrl = "http://localhost:3000/politicians";

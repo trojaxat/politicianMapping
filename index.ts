@@ -104,7 +104,7 @@ import { UserShow } from "./src/views/UserShow";
 //     Object.assign(fixedObj, { [key]: stuffScraped });
 //   }
 // }).catch((e) => {
-//   console.log(e);
+//   throw new Error(e);
 // });
 // };
 
@@ -118,12 +118,11 @@ let politiciansUrl =
 let politicianDetailObject: { [key: string]: string } = {
   contact: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
   job:
-    "#mod518098 > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > div > p",
+    " > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > div > p",
   name:
-    "#mod518098 > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > h3",
-  personalWebsite:
-    "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
-  personalInfo: "#ptv1 > div > div:nth-child(1)",
+    " > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > h3",
+  link: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
+  info: "#ptv1 > div > div:nth-child(1)",
 };
 
 let politiciansWebsiteInfo = {
