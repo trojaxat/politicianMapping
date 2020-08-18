@@ -54,17 +54,68 @@ export class PoliticianImport {
                 politicianUrlId
               );
 
-              politicianInfo.then((politicianInfoObj) => {
-                let politicianCleanedInfo: PoliticianImportModel | void = self.cleanPoliticianInfo(
-                  politicianInfoObj
-                );
-                console.log(
-                  "PoliticianImport -> importPoliticians -> politicianCleanedInfo",
-                  politicianCleanedInfo
-                );
-                // let politician = Politician.buildPolitician(politicianCleanedInfo);
-                // politician.save();
-              });
+              politicianInfo
+                .then((politicianInfoObj) => {
+                  for (const attribute in politicianInfoObj) {
+                    console.log(
+                      "PoliticianImport -> importPoliticians -> attribute",
+                      attribute
+                    );
+                    let attributeName: string;
+                    attributeName = attribute.replace(/ .*/, "");
+
+                    if (politicianValueInAttributes.includes(attributeName)) {
+                      let value = (politicianInfoObj[attribute]
+                        .attribs as unknown) as PoliticianValueInAttributes;
+
+                      if (value.class) {
+                        delete value.class;
+                      }
+
+                      if (value.title) {
+                        delete Object.assign(politicianInfoObj, {
+                          name: value.title,
+                        })["title"];
+                      }
+                    } else if (politicianValueInChild.includes(attributeName)) {
+                      let value = politicianInfoObj[attribute];
+
+                      if (attributeName === "job") {
+                        Object.assign(politicianInfoObj, {
+                          [attributeName]: value.children[0].data.trim(),
+                        });
+                      }
+
+                      if (attributeName === "name") {
+                        let information = value.children[0].data;
+                        let name = information.split(",")[0];
+                        let party = information.split(",")[1];
+
+                        Object.assign(politicianInfoObj, {
+                          [attributeName]: name.trim(),
+                          party: party.trim(),
+                        });
+                      }
+                    }
+                    console.log(
+                      "PoliticianImport -> importPoliticians -> politicianInfoObj",
+                      politicianInfoObj
+                    );
+                    // Object.assign(politicianInfoObj, {
+                    //   [attribute]: value,
+                    // });
+                  }
+
+                  // console.log(
+                  //   "PoliticianImport -> importPoliticians -> politicianInfoObj",
+                  //   politicianInfoObj
+                  // );
+                  // let politician = Politician.buildPolitician(politicianCleanedInfo);
+                  // politician.save();
+                })
+                .catch((error) => {
+                  throw Error("Politician Import" + error);
+                });
             }
           }
         }
@@ -106,9 +157,7 @@ export class PoliticianImport {
     return politicianParser.urlParse();
   };
 
-  cleanPoliticianInfo = (object: {
-    [key: string]: any;
-  }): PoliticianImportModel | void => {
+  static cleanPoliticianInfo = (object: { [key: string]: any }) => {
     let politicianObj: PoliticianImportModel | undefined;
 
     for (const attribute in object) {
@@ -128,8 +177,6 @@ export class PoliticianImport {
             name: value.title,
           })["title"];
         }
-
-        console.log("politicianObj", politicianObj);
       } else if (politicianValueInChild.includes(attributeName)) {
         // add to obj
       }
@@ -137,6 +184,7 @@ export class PoliticianImport {
         [attribute]: value,
       });
     }
+
     return politicianObj;
   };
 

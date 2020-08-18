@@ -30,7 +30,9 @@ export class UrlParser {
   }
 
   fetch(): AxiosPromise {
-    return axios.get(`${this.url}`);
+    return axios.get(`${this.url}`).catch((error) => {
+      throw Error(error);
+    });
   }
 
   urlParse = (): Promise<{ [key: string]: any }> => {
@@ -61,7 +63,7 @@ export class UrlParser {
         return informationObj;
       })
       .catch((error) => {
-        throw new Error("this is an error in urlparse" + error);
+        throw Error("Urlparse error: " + error);
       });
   };
 }

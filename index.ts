@@ -122,7 +122,7 @@ let politicianDetailObject: { [key: string]: string } = {
   name:
     " > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > h3",
   link: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
-  info: "#ptv1 > div > div:nth-child(1)",
+  info: "#ptv1 > div > div:nth-child(1) > p",
 };
 
 let politiciansWebsiteInfo = {
