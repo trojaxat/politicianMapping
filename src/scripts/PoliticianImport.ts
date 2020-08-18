@@ -1,4 +1,8 @@
-import { Politician, PoliticianBase } from "../models/Politician";
+import {
+  Politician,
+  PoliticianBase,
+  PoliticianModel,
+} from "../models/Politician";
 import { UrlParser, UrlObject } from "./UrlParser";
 import { database } from "faker";
 
@@ -28,6 +32,7 @@ interface PoliticianValueInAttributes {
   href: string;
   class: string;
   title: string;
+  attribs: object;
 }
 const politicianValueInChild = ["name", "job"];
 
@@ -57,10 +62,7 @@ export class PoliticianImport {
               politicianInfo
                 .then((politicianInfoObj) => {
                   for (const attribute in politicianInfoObj) {
-                    console.log(
-                      "PoliticianImport -> importPoliticians -> attribute",
-                      attribute
-                    );
+                    let politician;
                     let attributeName: string;
                     attributeName = attribute.replace(/ .*/, "");
 
@@ -73,15 +75,26 @@ export class PoliticianImport {
                       }
 
                       if (value.title) {
-                        delete Object.assign(politicianInfoObj, {
+                        Object.assign(politician, {
                           name: value.title,
-                        })["title"];
+                        });
+                      }
+
+                      if (attributeName === "link") {
+                        if (politician && politician[attributeName]) {
+                          let link = politician[attributeName];
+                          // fix here to push to the object to return
+                          // link.push(value.attribs)
+                          Object.assign(politician, {
+                            [attributeName]: link,
+                          });
+                        }
                       }
                     } else if (politicianValueInChild.includes(attributeName)) {
                       let value = politicianInfoObj[attribute];
 
                       if (attributeName === "job") {
-                        Object.assign(politicianInfoObj, {
+                        Object.assign(politician, {
                           [attributeName]: value.children[0].data.trim(),
                         });
                       }
@@ -91,19 +104,16 @@ export class PoliticianImport {
                         let name = information.split(",")[0];
                         let party = information.split(",")[1];
 
-                        Object.assign(politicianInfoObj, {
+                        Object.assign(politician, {
                           [attributeName]: name.trim(),
                           party: party.trim(),
                         });
                       }
                     }
-                    console.log(
-                      "PoliticianImport -> importPoliticians -> politicianInfoObj",
-                      politicianInfoObj
-                    );
-                    // Object.assign(politicianInfoObj, {
-                    //   [attribute]: value,
-                    // });
+                    // console.log(
+                    //   "PoliticianImport -> importPoliticians -> politicianInfoObj",
+                    //   politicianInfoObj
+                    // );
                   }
 
                   // console.log(
