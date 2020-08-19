@@ -31,8 +31,12 @@ const politicianValueInAttributes = ["link", "info", "contact"];
 interface PoliticianValueInAttributes {
   href: string;
   class: string;
-  title: string;
+  title?: string;
   attribs: object;
+  name?: string;
+  job?: string;
+  party?: string;
+  address?: string;
 }
 const politicianValueInChild = ["name", "job"];
 
@@ -51,8 +55,8 @@ export class PoliticianImport {
           const foundArray = stringValues.match(regexDataIdContext);
 
           if (foundArray !== null && foundArray[0]) {
+            // This solution removes everything thats not a number, other solution with regex possible: /\d{6}/gm;
             let politicianUrlId = Number(foundArray[0].replace(/\D/g, ""));
-            // Above solution just removes everything thats not a number, other solution with regex: /\d{6}/gm;
             if (typeof politicianUrlId === "number") {
               const politicianInfo = self.getPoliticianInformation(
                 urlObject.href,
@@ -61,66 +65,63 @@ export class PoliticianImport {
 
               politicianInfo
                 .then((politicianInfoObj) => {
+                  let politician = Object.create(politicianInfoObj);
                   for (const attribute in politicianInfoObj) {
-                    let politician;
                     let attributeName: string;
                     attributeName = attribute.replace(/ .*/, "");
 
                     if (politicianValueInAttributes.includes(attributeName)) {
-                      let value = (politicianInfoObj[attribute]
-                        .attribs as unknown) as PoliticianValueInAttributes;
+                      let value = politicianInfoObj[attribute]
+                        .attribs as PoliticianValueInAttributes;
+                      if (Object.keys(value).length !== 0) {
+                        if (attributeName === "info") {
+                          console.log("attributeName", attributeName);
+                        }
 
-                      if (value.class) {
-                        delete value.class;
-                      }
+                        if (attributeName === "contact") {
+                          console.log("attributeName", attributeName);
+                        }
 
-                      if (value.title) {
-                        Object.assign(politician, {
-                          name: value.title,
-                        });
-                      }
+                        if (attributeName === "link") {
+                          if (value.class) {
+                            delete value.class;
+                          }
 
-                      if (attributeName === "link") {
-                        if (politician && politician[attributeName]) {
-                          let link = politician[attributeName];
-                          // fix here to push to the object to return
-                          // link.push(value.attribs)
-                          Object.assign(politician, {
-                            [attributeName]: link,
-                          });
+                          let politicianLinkObj = {
+                            link: value.href,
+                            title: value.title,
+                          };
+
+                          if (politician.link) {
+                            politician.link.push(politicianLinkObj);
+                          } else {
+                            politician.link = [politicianLinkObj];
+                          }
                         }
                       }
                     } else if (politicianValueInChild.includes(attributeName)) {
                       let value = politicianInfoObj[attribute];
 
                       if (attributeName === "job") {
-                        Object.assign(politician, {
-                          [attributeName]: value.children[0].data.trim(),
-                        });
+                        politician[
+                          attributeName
+                        ] = value.children[0].data.trim();
                       }
 
                       if (attributeName === "name") {
                         let information = value.children[0].data;
-                        let name = information.split(",")[0];
-                        let party = information.split(",")[1];
 
-                        Object.assign(politician, {
-                          [attributeName]: name.trim(),
-                          party: party.trim(),
-                        });
+                        politician[attributeName] = information
+                          .split(",")[0]
+                          .trim();
+                        politician["party"] = information.split(",")[1].trim();
                       }
                     }
-                    // console.log(
-                    //   "PoliticianImport -> importPoliticians -> politicianInfoObj",
-                    //   politicianInfoObj
-                    // );
                   }
-
-                  // console.log(
-                  //   "PoliticianImport -> importPoliticians -> politicianInfoObj",
-                  //   politicianInfoObj
-                  // );
-                  // let politician = Politician.buildPolitician(politicianCleanedInfo);
+                  return politician;
+                })
+                .then((politicianInfo) => {
+                  let politician = Politician.buildPolitician(politicianInfo);
                   // politician.save();
                 })
                 .catch((error) => {

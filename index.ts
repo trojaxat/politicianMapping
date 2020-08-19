@@ -109,7 +109,9 @@ import { UserShow } from "./src/views/UserShow";
 // };
 
 const cheerio = require("cheerio");
+const cors = require("cors");
 
+// const proxyurl = "https://cors-anywhere.herokuapp.com/";
 let baseUrl = "https://www.bundestag.de";
 let politicianListElement = ".bt-open-in-overlay";
 let politiciansUrl =
