@@ -1,10 +1,5 @@
-import {
-  Politician,
-  PoliticianBase,
-  PoliticianModel,
-} from "../models/Politician";
+import { Politician } from "../models/Politician";
 import { UrlParser, UrlObject } from "./UrlParser";
-import { database } from "faker";
 
 export interface PoliticianImportModel {
   name?: string;
@@ -26,8 +21,6 @@ export interface PoliticianWebsiteInfo {
   politicianDetailObject: { [key: string]: string };
 }
 
-const politicianValueInAttributes = ["link"];
-
 interface PoliticianValueInAttributes {
   href: string;
   class: string;
@@ -38,7 +31,10 @@ interface PoliticianValueInAttributes {
   party?: string;
   address?: string;
 }
+
+const politicianValueInAttributes = ["link"];
 const politicianValueInChild = ["name", "job", "info", "contact"];
+const politicianValueString = ["name", "job"];
 
 export class PoliticianImport {
   constructor(public politicianWebsiteInfo: PoliticianWebsiteInfo) {}
@@ -74,65 +70,55 @@ export class PoliticianImport {
                       let value = politicianInfoObj[attribute]
                         .attribs as PoliticianValueInAttributes;
                       if (Object.keys(value).length !== 0) {
-                        if (attributeName === "link") {
-                          if (value.class) {
-                            delete value.class;
-                          }
+                        if (value.class) {
+                          delete value.class;
+                        }
 
-                          let politicianLinkObj = {
-                            link: value.href,
-                            title: value.title,
-                          };
-
-                          if (politician.link) {
-                            politician.link.push(politicianLinkObj);
-                          } else {
-                            politician.link = [politicianLinkObj];
-                          }
+                        if (politician.link) {
+                          politician.link.push(value);
+                        } else {
+                          politician.link = [value];
                         }
                       }
                     } else if (politicianValueInChild.includes(attributeName)) {
                       let value = politicianInfoObj[attribute];
-                      let string = value.children[0].data
-                        .replace(/\n/g, "")
-                        .trim();
-
-                      if (attributeName === "contact") {
-                        if (politician.contact) {
-                          politician.contact.push({ contact: string });
-                        } else {
-                          politician.contact = [{ contact: string }];
-                        }
-                      }
-
-                      if (attributeName === "info") {
-                        if (politician.info) {
-                          politician.info.push({ info: string });
-                        } else {
-                          politician.info = [{ info: string }];
-                        }
-                      }
-
-                      if (attributeName === "job") {
-                        politician[attributeName] = string;
-                      }
-
-                      if (attributeName === "name") {
-                        let information = value.children[0].data;
-
-                        politician[attributeName] = information
-                          .split(",")[0]
+                      if (typeof value.children[0].data === "string") {
+                        let string = value.children[0].data
+                          .replace(/\n/g, "")
                           .trim();
-                        politician["party"] = information.split(",")[1].trim();
+
+                        if (politicianValueString.includes(attributeName)) {
+                          if (attributeName === "name") {
+                            let information = value.children[0].data;
+
+                            politician[attributeName] = information
+                              .split(",")[0]
+                              .trim();
+                            politician["party"] = information
+                              .split(",")[1]
+                              .trim();
+                          } else {
+                            politician[attributeName] = string;
+                          }
+                        } else {
+                          if (politician[attributeName]) {
+                            politician[attributeName].push({
+                              [attributeName]: string,
+                            });
+                          } else {
+                            politician[attributeName] = [
+                              { [attributeName]: string },
+                            ];
+                          }
+                        }
                       }
                     }
                   }
-
+                  // try getting this info the function instead
                   console.log(
                     "PoliticianImport -> importPoliticians -> politician",
                     politician
                   );
-
                   return politician;
                 })
                 .then((politicianInfo) => {
@@ -183,51 +169,7 @@ export class PoliticianImport {
     return politicianParser.urlParse();
   };
 
-  static cleanPoliticianInfo = (object: { [key: string]: any }) => {
-    let politicianObj: PoliticianImportModel | undefined;
-
-    for (const attribute in object) {
-      let attributeName: string;
-      attributeName = attribute.replace(/ .*/, "");
-      let value = (object[attribute]
-        .attribs as unknown) as PoliticianValueInAttributes;
-
-      if (politicianValueInAttributes.includes(attributeName)) {
-        // add to obj
-        if (value.class) {
-          delete value.class;
-        }
-
-        if (value.title) {
-          delete Object.assign(value, {
-            name: value.title,
-          })["title"];
-        }
-      } else if (politicianValueInChild.includes(attributeName)) {
-        // add to obj
-      }
-      Object.assign(politicianObj, {
-        [attribute]: value,
-      });
-    }
-
-    return politicianObj;
-  };
-
-  setAsPolitician = (object: object) => {
-    // let politicianObj = object as PoliticianBase;
-    // if (politicianObj.href) {
-    //   politicianObj.link =
-    //     this.politicianWebsiteInfo.baseUrl + politicianObj.href;
-    // }
-    // if (politicianObj.title) {
-    //   delete Object.assign(politicianObj, {
-    //     name: politicianObj.title,
-    //   })["title"];
-    // }
-    // if (politicianObj.class) {
-    //   delete politicianObj.class;
-    // }
-    // return politicianObj;
-  };
+  // cleanInfo = (object: { [key: string]: any }) => {
+  //   // this needs to clean the info as an abstract method, with specialization allowed
+  // };
 }
