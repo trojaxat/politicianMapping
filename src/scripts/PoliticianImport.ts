@@ -26,7 +26,7 @@ export interface PoliticianWebsiteInfo {
   politicianDetailObject: { [key: string]: string };
 }
 
-const politicianValueInAttributes = ["link", "info", "contact"];
+const politicianValueInAttributes = ["link"];
 
 interface PoliticianValueInAttributes {
   href: string;
@@ -38,7 +38,7 @@ interface PoliticianValueInAttributes {
   party?: string;
   address?: string;
 }
-const politicianValueInChild = ["name", "job"];
+const politicianValueInChild = ["name", "job", "info", "contact"];
 
 export class PoliticianImport {
   constructor(public politicianWebsiteInfo: PoliticianWebsiteInfo) {}
@@ -74,14 +74,6 @@ export class PoliticianImport {
                       let value = politicianInfoObj[attribute]
                         .attribs as PoliticianValueInAttributes;
                       if (Object.keys(value).length !== 0) {
-                        if (attributeName === "info") {
-                          console.log("attributeName", attributeName);
-                        }
-
-                        if (attributeName === "contact") {
-                          console.log("attributeName", attributeName);
-                        }
-
                         if (attributeName === "link") {
                           if (value.class) {
                             delete value.class;
@@ -101,11 +93,28 @@ export class PoliticianImport {
                       }
                     } else if (politicianValueInChild.includes(attributeName)) {
                       let value = politicianInfoObj[attribute];
+                      let string = value.children[0].data
+                        .replace(/\n/g, "")
+                        .trim();
+
+                      if (attributeName === "contact") {
+                        if (politician.contact) {
+                          politician.contact.push({ contact: string });
+                        } else {
+                          politician.contact = [{ contact: string }];
+                        }
+                      }
+
+                      if (attributeName === "info") {
+                        if (politician.info) {
+                          politician.info.push({ info: string });
+                        } else {
+                          politician.info = [{ info: string }];
+                        }
+                      }
 
                       if (attributeName === "job") {
-                        politician[
-                          attributeName
-                        ] = value.children[0].data.trim();
+                        politician[attributeName] = string;
                       }
 
                       if (attributeName === "name") {
@@ -118,6 +127,12 @@ export class PoliticianImport {
                       }
                     }
                   }
+
+                  console.log(
+                    "PoliticianImport -> importPoliticians -> politician",
+                    politician
+                  );
+
                   return politician;
                 })
                 .then((politicianInfo) => {
