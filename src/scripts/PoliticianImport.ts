@@ -1,5 +1,5 @@
+import { Import, WebsiteInfo } from "./Import";
 import { Politician } from "../models/Politician";
-import { UrlParser, UrlObject } from "./UrlParser";
 
 export interface PoliticianImportModel {
   name?: string;
@@ -12,13 +12,6 @@ export interface PoliticianImportModel {
   link?: string[];
   contact?: string[];
   info?: string[];
-}
-
-export interface PoliticianWebsiteInfo {
-  baseUrl: string;
-  politiciansUrl: string;
-  politicianListElement: string;
-  politicianDetailObject: { [key: string]: string };
 }
 
 interface PoliticianValueInAttributes {
@@ -36,140 +29,86 @@ const politicianValueInAttributes = ["link"];
 const politicianValueInChild = ["name", "job", "info", "contact"];
 const politicianValueString = ["name", "job"];
 
-export class PoliticianImport {
-  constructor(public politicianWebsiteInfo: PoliticianWebsiteInfo) {}
+export class PoliticianImport extends Import<WebsiteInfo> {
+  public regexDataIdContext = /"data-id":"\d{6}"/gm;
 
-  importPoliticians = () => {
+  /**
+   * This gets each individual model and then cleans the info, to how we would like to have it,
+   * then it adds it specifically into the required model.
+   * Currently this can be not implemented into the Import class, because buildPolitician is currently static.
+   *
+   * @param href
+   * @param id
+   */
+  saveInfo = (href: string, id?: number): void => {
     let self = this;
-    this.getPoliticianUrls()
-      .then((urls) => {
-        for (const url in urls) {
-          let urlObject = (urls[url].attribs as unknown) as UrlObject;
-          let stringValues = JSON.stringify(urlObject);
+    let info = self.getInformation(href, id);
 
-          const regexDataIdContext = /"data-id":"\d{6}"/gm;
-          const foundArray = stringValues.match(regexDataIdContext);
-
-          if (foundArray !== null && foundArray[0]) {
-            // This solution removes everything thats not a number, other solution with regex possible: /\d{6}/gm;
-            let politicianUrlId = Number(foundArray[0].replace(/\D/g, ""));
-            if (typeof politicianUrlId === "number") {
-              const politicianInfo = self.getPoliticianInformation(
-                urlObject.href,
-                politicianUrlId
-              );
-
-              politicianInfo
-                .then((politicianInfoObj) => {
-                  let politician = Object.create(politicianInfoObj);
-                  for (const attribute in politicianInfoObj) {
-                    let attributeName: string;
-                    attributeName = attribute.replace(/ .*/, "");
-
-                    if (politicianValueInAttributes.includes(attributeName)) {
-                      let value = politicianInfoObj[attribute]
-                        .attribs as PoliticianValueInAttributes;
-                      if (Object.keys(value).length !== 0) {
-                        if (value.class) {
-                          delete value.class;
-                        }
-
-                        if (politician.link) {
-                          politician.link.push(value);
-                        } else {
-                          politician.link = [value];
-                        }
-                      }
-                    } else if (politicianValueInChild.includes(attributeName)) {
-                      let value = politicianInfoObj[attribute];
-                      if (typeof value.children[0].data === "string") {
-                        let string = value.children[0].data
-                          .replace(/\n/g, "")
-                          .trim();
-
-                        if (politicianValueString.includes(attributeName)) {
-                          if (attributeName === "name") {
-                            let information = value.children[0].data;
-
-                            politician[attributeName] = information
-                              .split(",")[0]
-                              .trim();
-                            politician["party"] = information
-                              .split(",")[1]
-                              .trim();
-                          } else {
-                            politician[attributeName] = string;
-                          }
-                        } else {
-                          if (politician[attributeName]) {
-                            politician[attributeName].push({
-                              [attributeName]: string,
-                            });
-                          } else {
-                            politician[attributeName] = [
-                              { [attributeName]: string },
-                            ];
-                          }
-                        }
-                      }
-                    }
-                  }
-                  // try getting this info the function instead
-                  console.log(
-                    "PoliticianImport -> importPoliticians -> politician",
-                    politician
-                  );
-                  return politician;
-                })
-                .then((politicianInfo) => {
-                  let politician = Politician.buildPolitician(politicianInfo);
-                  // politician.save();
-                })
-                .catch((error) => {
-                  throw Error("Politician Import" + error);
-                });
-            }
-          }
-        }
+    info
+      .then((infoObj) => {
+        let foundInfo = this.cleanInfo(infoObj);
+        console.log("PoliticianImport -> foundInfo", foundInfo);
+        let model = Politician.buildPolitician(foundInfo);
+        // model.save();
       })
       .catch((error) => {
-        throw Error(error);
+        throw Error("Model Import" + error);
       });
   };
 
-  getPoliticianUrls = (): Promise<{ [key: string]: any }> => {
-    let politiciansParser = new UrlParser(
-      this.politicianWebsiteInfo.politiciansUrl,
-      { url: this.politicianWebsiteInfo.politicianListElement }
-    );
+  /**
+   * This should eventually be the only class method, which is specific to the classes that extend import class.
+   * Each website will have different things about the way it displays or provides information and so,
+   * will need a different clean method so that we have information standardization
+   *
+   * @param politicianInfoObj
+   */
+  cleanInfo = (politicianInfoObj: { [key: string]: any }) => {
+    let politician = Object.create(politicianInfoObj);
+    for (const attribute in politicianInfoObj) {
+      let attributeName: string;
+      attributeName = attribute.replace(/ .*/, "");
 
-    return politiciansParser.urlParse();
+      if (politicianValueInAttributes.includes(attributeName)) {
+        let value = politicianInfoObj[attribute]
+          .attribs as PoliticianValueInAttributes;
+        if (Object.keys(value).length !== 0) {
+          if (value.class) {
+            delete value.class;
+          }
+
+          if (politician.link) {
+            politician.link.push(value);
+          } else {
+            politician.link = [value];
+          }
+        }
+      } else if (politicianValueInChild.includes(attributeName)) {
+        let value = politicianInfoObj[attribute];
+        if (typeof value.children[0].data === "string") {
+          let string = value.children[0].data.replace(/\n/g, "").trim();
+
+          if (politicianValueString.includes(attributeName)) {
+            if (attributeName === "name") {
+              let information = value.children[0].data;
+
+              politician[attributeName] = information.split(",")[0].trim();
+              politician["party"] = information.split(",")[1].trim();
+            } else {
+              politician[attributeName] = string;
+            }
+          } else {
+            if (politician[attributeName]) {
+              politician[attributeName].push({
+                [attributeName]: string,
+              });
+            } else {
+              politician[attributeName] = [{ [attributeName]: string }];
+            }
+          }
+        }
+      }
+    }
+    return politician;
   };
-
-  getPoliticianInformation = (politicianUrl: string, politicianId: number) => {
-    let politicianIdentifier = "#mod" + politicianId;
-    let politicianFullUrl = this.politicianWebsiteInfo.baseUrl + politicianUrl;
-
-    let politicianObject = Object.create(
-      this.politicianWebsiteInfo.politicianDetailObject
-    );
-
-    // Make html identifier specific to this politicians name
-    politicianObject.name =
-      politicianIdentifier +
-      this.politicianWebsiteInfo.politicianDetailObject.name;
-
-    // Make html identifier specific to this politicians job
-    politicianObject.job =
-      politicianIdentifier +
-      this.politicianWebsiteInfo.politicianDetailObject.job;
-
-    let politicianParser = new UrlParser(politicianFullUrl, politicianObject);
-
-    return politicianParser.urlParse();
-  };
-
-  // cleanInfo = (object: { [key: string]: any }) => {
-  //   // this needs to clean the info as an abstract method, with specialization allowed
-  // };
 }

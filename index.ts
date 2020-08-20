@@ -13,6 +13,7 @@ import { UserEdit } from "./src/views/UserEdit";
 import { UserList } from "./src/views/UserList";
 import { UserForm } from "./src/views/UserForm";
 import { UserShow } from "./src/views/UserShow";
+import { WebsiteInfo } from "./src/scripts/Import";
 
 // // 1 parliament
 // let parliament = new Parliament(1, "Bundesrepublic", 300, 1);
@@ -113,11 +114,11 @@ const cors = require("cors");
 
 // const proxyurl = "https://cors-anywhere.herokuapp.com/";
 let baseUrl = "https://www.bundestag.de";
-let politicianListElement = ".bt-open-in-overlay";
-let politiciansUrl =
+let listElement = ".bt-open-in-overlay";
+let url =
   "https://www.bundestag.de/ajax/filterlist/de/abgeordnete/525246-525246/h_e3c112579919ef960d06dbb9d0d44b67";
 
-let politicianDetailObject: { [key: string]: string } = {
+let detailObject: { [key: string]: string } = {
   contact: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
   job:
     " > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > div > p",
@@ -127,13 +128,13 @@ let politicianDetailObject: { [key: string]: string } = {
   info: "#ptv1 > div > div:nth-child(1) > p",
 };
 
-let politiciansWebsiteInfo = {
+let politiciansWebsiteInfo: WebsiteInfo = {
   baseUrl,
-  politicianListElement,
-  politiciansUrl,
-  politicianDetailObject,
+  listElement,
+  url,
+  detailObject,
 };
 
 let politicianImporter = new PoliticianImport(politiciansWebsiteInfo);
 
-politicianImporter.importPoliticians();
+politicianImporter.getMultipleModels();
