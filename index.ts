@@ -5,15 +5,15 @@ import { Decision } from "./src/models/Decision";
 import { Law } from "./src/models/Law";
 import { Parliament } from "./src/models/Parliament";
 import { Politician } from "./src/models/Politician";
-import { PoliticianImport } from "./src/scripts/PoliticianImport";
 import { People } from "./src/models/People";
 import { User, UserProps } from "./src/models/User";
 import { CustomMap } from "./src/models/CustomMap";
 import { UserEdit } from "./src/views/UserEdit";
 import { UserList } from "./src/views/UserList";
 import { UserForm } from "./src/views/UserForm";
+import { ScriptExecutor } from "./src/scripts/ScriptExecutor";
+import { BundestagPolitician } from "./src/importConst/BundestagPolitician";
 import { UserShow } from "./src/views/UserShow";
-import { WebsiteInfo } from "./src/scripts/Import";
 
 // // 1 parliament
 // let parliament = new Parliament(1, "Bundesrepublic", 300, 1);
@@ -109,32 +109,7 @@ import { WebsiteInfo } from "./src/scripts/Import";
 // });
 // };
 
-const cheerio = require("cheerio");
-const cors = require("cors");
-
-// const proxyurl = "https://cors-anywhere.herokuapp.com/";
-let baseUrl = "https://www.bundestag.de";
-let listElement = ".bt-open-in-overlay";
-let url =
-  "https://www.bundestag.de/ajax/filterlist/de/abgeordnete/525246-525246/h_e3c112579919ef960d06dbb9d0d44b67";
-
-let detailObject: { [key: string]: string } = {
-  contact: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
-  job:
-    " > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > div > p",
-  name:
-    " > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > h3",
-  link: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
-  info: "#ptv1 > div > div:nth-child(1) > p",
-};
-
-let politiciansWebsiteInfo: WebsiteInfo = {
-  baseUrl,
-  listElement,
-  url,
-  detailObject,
-};
-
-let politicianImporter = new PoliticianImport(politiciansWebsiteInfo);
-
-politicianImporter.getMultipleModels();
+let websiteInfo = BundestagPolitician.getBundestagPoliticianWebsiteInfo();
+let selector: string = "Politician";
+let executor = new ScriptExecutor(selector, websiteInfo);
+executor.scriptSelector();
