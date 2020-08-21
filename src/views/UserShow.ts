@@ -2,6 +2,7 @@ import { User, UserProps } from "../models/User";
 import { View } from "./View";
 
 export class UserShow extends View<User, UserProps> {
+  // create here a method to return UserShow as a type, so that it can pass on the property R into generic List
   template(): string {
     return `
         <div>

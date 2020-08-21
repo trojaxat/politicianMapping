@@ -8,7 +8,6 @@ import { ApiSync } from "./ApiSync";
 import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
 import { Collection } from "./Collection";
-import { Mappable } from "./CustomMap";
 import { Model } from "./Model";
 import { PoliticianImportModel } from "../scripts/PoliticianImport";
 import { UrlObject } from "../scripts/UrlParser";
@@ -22,6 +21,7 @@ export interface PoliticianModel {
   id?: number;
   name?: string;
   age?: number;
+  job?: string;
   decisions?: number;
   party?: string;
   lat?: number;
@@ -33,21 +33,21 @@ export interface PoliticianModel {
   info?: string[];
 }
 
-const rootUrl = "http://localhost:3000/politicians";
-
 export class Politician extends Model<PoliticianModel> {
+  protected static rootUrl = "http://localhost:3000/politicians";
+
   static build(attrs: PoliticianBase) {
     return new Politician(
       new Attributes<PoliticianModel>(attrs),
       new Eventing(),
-      new ApiSync<PoliticianModel>(rootUrl)
+      new ApiSync<PoliticianModel>(this.rootUrl)
     );
   }
 
   static buildCollection(): Collection<Politician, PoliticianModel> {
     return new Collection<Politician, PoliticianModel>(
-      rootUrl,
-      (json: PoliticianModel) => Politician.build(json)
+      this.rootUrl,
+      (json: PoliticianModel) => this.build(json)
     );
   }
 

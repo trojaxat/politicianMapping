@@ -2,7 +2,6 @@ import { Attributes } from "./Attributes";
 import { Collection } from "./Collection";
 import { Eventing } from "./Eventing";
 import faker from "faker";
-import { Mappable } from "./CustomMap";
 import { Model } from "./Model";
 import { ApiSync } from "./ApiSync";
 
@@ -15,20 +14,20 @@ export interface UserProps {
   lng?: number;
 }
 
-const rootUrl = "http://localhost:3000/users";
-
 export class User extends Model<UserProps> {
+  protected static rootUrl: string = "http://localhost:3000/users";
+
   static build(attrs: UserProps) {
     return new User(
       new Attributes<UserProps>(attrs),
       new Eventing(),
-      new ApiSync<UserProps>(rootUrl)
+      new ApiSync<UserProps>(this.rootUrl)
     );
   }
 
   static buildCollection(): Collection<User, UserProps> {
-    return new Collection<User, UserProps>(rootUrl, (json: UserProps) =>
-      User.build(json)
+    return new Collection<User, UserProps>(this.rootUrl, (json: UserProps) =>
+      this.build(json)
     );
   }
 

@@ -1,18 +1,19 @@
 import axios from "axios";
+import { BundestagPolitician } from "./src/importConst/BundestagPolitician";
 import { Collection } from "./src/models/Collection";
 import { CollectionView } from "./src/views/CollectionView";
+import { CustomMap } from "./src/models/CustomMap";
 import { Decision } from "./src/models/Decision";
 import { Law } from "./src/models/Law";
+import { ScriptExecutor } from "./src/scripts/ScriptExecutor";
 import { Parliament } from "./src/models/Parliament";
 import { Politician } from "./src/models/Politician";
 import { People } from "./src/models/People";
+import { PoliticianList } from "./src/views/PoliticianList";
 import { User, UserProps } from "./src/models/User";
-import { CustomMap } from "./src/models/CustomMap";
 import { UserEdit } from "./src/views/UserEdit";
 import { UserList } from "./src/views/UserList";
 import { UserForm } from "./src/views/UserForm";
-import { ScriptExecutor } from "./src/scripts/ScriptExecutor";
-import { BundestagPolitician } from "./src/importConst/BundestagPolitician";
 import { UserShow } from "./src/views/UserShow";
 
 // 1 parliament
@@ -27,7 +28,7 @@ let law = new Law(
   true
 );
 
-// 3 politician
+//3 politician
 // let politician = new Politician(
 //   1,
 //   "Santi Pornavalai",
@@ -94,7 +95,10 @@ politicianCollection.on("change", () => {
     "politicianCollection"
   );
   if (politicianCollectionDiv) {
-    let userList = new UserList(politicianCollectionDiv, politicianCollection);
+    let userList = new PoliticianList(
+      politicianCollectionDiv,
+      politicianCollection
+    );
     userList.render();
     root.append(politicianCollectionDiv);
   }
