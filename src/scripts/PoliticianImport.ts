@@ -35,7 +35,7 @@ export class PoliticianImport extends Import<WebsiteInfo> {
   /**
    * This gets each individual model and then cleans the info, to how we would like to have it,
    * then it adds it specifically into the required model.
-   * Currently this can be not implemented into the Import class, because buildPolitician is currently static.
+   * Currently this can be not implemented into the Import class, because build is currently static.
    *
    * @param href
    * @param id
@@ -48,7 +48,7 @@ export class PoliticianImport extends Import<WebsiteInfo> {
       .then((infoObj) => {
         let foundInfo = this.cleanInfo(infoObj);
         console.log("PoliticianImport -> foundInfo", foundInfo);
-        let model = Politician.buildPolitician(foundInfo);
+        let model = Politician.build(foundInfo);
         // model.save();
       })
       .catch((error) => {

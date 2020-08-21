@@ -7,6 +7,7 @@
 import { ApiSync } from "./ApiSync";
 import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
+import { Collection } from "./Collection";
 import { Mappable } from "./CustomMap";
 import { Model } from "./Model";
 import { PoliticianImportModel } from "../scripts/PoliticianImport";
@@ -35,11 +36,18 @@ export interface PoliticianModel {
 const rootUrl = "http://localhost:3000/politicians";
 
 export class Politician extends Model<PoliticianModel> {
-  static buildPolitician(attrs: PoliticianBase) {
+  static build(attrs: PoliticianBase) {
     return new Politician(
       new Attributes<PoliticianModel>(attrs),
       new Eventing(),
       new ApiSync<PoliticianModel>(rootUrl)
+    );
+  }
+
+  static buildCollection(): Collection<Politician, PoliticianModel> {
+    return new Collection<Politician, PoliticianModel>(
+      rootUrl,
+      (json: PoliticianModel) => Politician.build(json)
     );
   }
 
