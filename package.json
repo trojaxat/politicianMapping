@@ -1,0 +1,45 @@
+{
+  "name": "politicianmapping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/src/index.js",
+    "start:db": "json-server -w db.json",
+    "start:parcel": "parcel ./src/index.html",
+    "start": "concurrently npm:start:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trojaxat/typescript2020.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trojaxat/typescript2020/issues"
+  },
+  "homepage": "https://github.com/trojaxat/typescript2020#readme",
+  "dependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/cookie-session": "^2.0.41",
+    "@types/express": "^4.17.7",
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "concurrently": "^5.2.0",
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "googlemaps": "^1.12.0",
+    "nodemon": "^2.0.4",
+    "puppeteer": "^5.2.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.7"
+  }
+}

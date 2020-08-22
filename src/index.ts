@@ -1,4 +1,6 @@
 import axios from "axios";
+import express, { Request, Response } from "express";
+
 import { BundestagPolitician } from "./importConst/BundestagPolitician";
 import { Collection } from "./models/Collection";
 import { CollectionView } from "./views/CollectionView";
@@ -15,6 +17,19 @@ import { UserEdit } from "./views/UserEdit";
 import { UserList } from "./views/UserList";
 import { UserForm } from "./views/UserForm";
 import { UserShow } from "./views/UserShow";
+
+// const app = express();
+// app.get("/", (req: Request, res: Response) => {
+//   res.send(`
+//   <div>
+//   <h1> Hi there!<h1>
+//   </div>
+//   `);
+// });
+
+// app.listen(3000, () => {
+//   console.log("listening on port 3000");
+// });
 
 // 1 parliament
 let parliament = new Parliament(1, "Bundesrepublic", 300, 1);
