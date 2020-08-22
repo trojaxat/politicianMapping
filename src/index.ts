@@ -1,20 +1,20 @@
 import axios from "axios";
-import { BundestagPolitician } from "./src/importConst/BundestagPolitician";
-import { Collection } from "./src/models/Collection";
-import { CollectionView } from "./src/views/CollectionView";
-import { CustomMap } from "./src/models/CustomMap";
-import { Decision } from "./src/models/Decision";
-import { Law } from "./src/models/Law";
-import { ScriptExecutor } from "./src/scripts/ScriptExecutor";
-import { Parliament } from "./src/models/Parliament";
-import { Politician } from "./src/models/Politician";
-import { People } from "./src/models/People";
-import { PoliticianList } from "./src/views/PoliticianList";
-import { User, UserProps } from "./src/models/User";
-import { UserEdit } from "./src/views/UserEdit";
-import { UserList } from "./src/views/UserList";
-import { UserForm } from "./src/views/UserForm";
-import { UserShow } from "./src/views/UserShow";
+import { BundestagPolitician } from "./importConst/BundestagPolitician";
+import { Collection } from "./models/Collection";
+import { CollectionView } from "./views/CollectionView";
+import { CustomMap } from "./models/CustomMap";
+import { Decision } from "./models/Decision";
+import { Law } from "./models/Law";
+import { ScriptExecutor } from "./scripts/ScriptExecutor";
+import { Parliament } from "./models/Parliament";
+import { Politician } from "./models/Politician";
+import { People } from "./models/People";
+import { PoliticianList } from "./views/PoliticianList";
+import { User, UserProps } from "./models/User";
+import { UserEdit } from "./views/UserEdit";
+import { UserList } from "./views/UserList";
+import { UserForm } from "./views/UserForm";
+import { UserShow } from "./views/UserShow";
 
 // 1 parliament
 let parliament = new Parliament(1, "Bundesrepublic", 300, 1);
