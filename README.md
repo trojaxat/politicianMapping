@@ -12,4 +12,7 @@ Currently everything runs through the index file in the main folder, more inform
 git clone
 npm install
 npm start
+
+localhost:1234/
+
 ```
