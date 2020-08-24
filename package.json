@@ -7,7 +7,6 @@
     "start:build": "tsc -w",
     "start:run": "nodemon build/src/index.js",
     "start:db": "json-server -w db.json",
-    "start:parcel": "parcel ./src/index.html",
     "start": "concurrently npm:start:*"
   },
   "repository": {
@@ -40,6 +39,6 @@
     "request-promise": "^4.2.6"
   },
   "devDependencies": {
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.6"
   }
 }
