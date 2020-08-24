@@ -32,14 +32,6 @@ const politicianValueString = ["name", "job"];
 export class PoliticianImport extends Import<WebsiteInfo> {
   public regexDataIdContext = /"data-id":"\d{6}"/gm;
 
-  /**
-   * This gets each individual model and then cleans the info, to how we would like to have it,
-   * then it adds it specifically into the required model.
-   * Currently this can be not implemented into the Import class, because build is currently static.
-   *
-   * @param href
-   * @param id
-   */
   saveInfo = (href: string, id?: number): void => {
     let self = this;
     let info = self.getInformation(href, id);
@@ -56,13 +48,6 @@ export class PoliticianImport extends Import<WebsiteInfo> {
       });
   };
 
-  /**
-   * This should eventually be the only class method, which is specific to the classes that extend import class.
-   * Each website will have different things about the way it displays or provides information and so,
-   * will need a different clean method so that we have information standardization
-   *
-   * @param politicianInfoObj
-   */
   cleanInfo = (politicianInfoObj: { [key: string]: any }) => {
     let politician = Object.create(politicianInfoObj);
     for (const attribute in politicianInfoObj) {

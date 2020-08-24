@@ -1,4 +1,8 @@
 import { Router, Response, Request, NextFunction } from "express";
+import { BundestagParty } from "../importConst/BundestagParty";
+import { ScriptExecutor } from "../scripts/ScriptExecutor";
+import { Party } from "../models/Party";
+import { PartyList } from "../views/PartyList";
 
 interface RequestWithBody extends Request {
   body: { [key: string]: string | undefined };
@@ -17,6 +21,23 @@ function requireAuth(req: Request, res: Response, next: NextFunction): void {
 }
 
 router.get("/", (req: Request, res: Response) => {
+  // let websiteInfo = BundestagParty.getBundestagPartyWebsiteInfo();
+  // let selector: string = "Party";
+  // let executor = new ScriptExecutor(selector, websiteInfo);
+  // executor.scriptSelector();
+
+  // const partyCollection = Party.buildCollection();
+  // partyCollection.on("change", () => {
+  //   const partyCollectionDiv = document.createElement("partyCollection");
+  //   if (partyCollectionDiv) {
+  //     let userList = new PartyList(partyCollectionDiv, partyCollection);
+  //     userList.render();
+  //     res.send(partyCollectionDiv);
+  //   }
+  // });
+
+  // partyCollection.fetch();
+
   if (req.session && req.session.loggedIn) {
     res.send(`
     <div>  

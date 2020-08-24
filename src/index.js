@@ -1,11 +1,18 @@
 "use strict";
 exports.__esModule = true;
 var loginRoutes_1 = require("./routes/loginRoutes");
-var express = require("express");
-var app = express();
+// const express = require("express");
+var express_1 = require("express");
+var body_parser_1 = require("body-parser");
+var cookie_session_1 = require("cookie-session");
+// "start:parcel": "parcel ./src/index.html",
+var app = express_1["default"]();
+// This is required for typescript to see the response of the http
+app.use(body_parser_1["default"].urlencoded({ extended: true }));
+app.use(cookie_session_1["default"]({ keys: ["asdd"] }));
 app.use(loginRoutes_1.router);
 app.listen(1111, function () {
-    console.log("listening on port 1111");
+    console.log("App listening on port 1111");
 });
 // // 1 parliament
 // let parliament = new Parliament(1, "Bundesrepublic", 300, 1);

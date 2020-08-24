@@ -1,4 +1,5 @@
 import { PoliticianImport } from "./PoliticianImport";
+import { PartyImport } from "./PartyImport";
 import { WebsiteInfo } from "./Import";
 
 /**
@@ -21,7 +22,8 @@ export class ScriptExecutor {
         break;
       }
       case "Party": {
-        console.log("Good");
+        let partyImporter = new PartyImport(this.websiteInfo);
+        partyImporter.getMultipleModels();
         break;
       }
       case "Voter": {

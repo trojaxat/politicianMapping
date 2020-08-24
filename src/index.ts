@@ -20,6 +20,7 @@ import { Law } from "./models/Law";
 import { ScriptExecutor } from "./scripts/ScriptExecutor";
 import { Parliament } from "./models/Parliament";
 import { Politician } from "./models/Politician";
+import { Party } from "./models/Party";
 import { People } from "./models/People";
 import { PoliticianList } from "./views/PoliticianList";
 import { User, UserProps } from "./models/User";
