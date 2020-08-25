@@ -2,7 +2,7 @@
  * External imports
  */
 import axios from "axios";
-import { router } from "./routes/loginRoutes";
+import { router } from "../routes/loginRoutes";
 // const express = require("express");
 import express from "express";
 import bodyParser from "body-parser";
@@ -11,24 +11,30 @@ import cookieSession from "cookie-session";
 /**
  * Internal imports
  */
-import { BundestagPolitician } from "./importConst/BundestagPolitician";
-import { Collection } from "./models/Collection";
-import { CollectionView } from "./views/CollectionView";
-import { CustomMap } from "./models/CustomMap";
-import { Decision } from "./models/Decision";
-import { Law } from "./models/Law";
-import { ScriptExecutor } from "./scripts/ScriptExecutor";
-import { Parliament } from "./models/Parliament";
-import { Politician } from "./models/Politician";
-import { Party } from "./models/Party";
-import { People } from "./models/People";
-import { PoliticianList } from "./views/PoliticianList";
-import { User, UserProps } from "./models/User";
-import { UserEdit } from "./views/UserEdit";
-import { UserList } from "./views/UserList";
-import { UserForm } from "./views/UserForm";
-import { UserShow } from "./views/UserShow";
+import { BundestagPolitician } from "../importConst/BundestagPolitician";
+import { Collection } from "../models/Collection";
+import { CollectionView } from "../views/CollectionView";
+import { CustomMap } from "../models/CustomMap";
+import { Decision } from "../models/Decision";
+import { Law } from "../models/Law";
+import { ScriptExecutor } from "../scripts/ScriptExecutor";
+import { Parliament } from "../models/Parliament";
+import { Politician } from "../models/Politician";
+import { Party } from "../models/Party";
+import { People } from "../models/People";
+import { PoliticianList } from "../views/PoliticianList";
+import { User, UserProps } from "../models/User";
+import { UserEdit } from "../views/UserEdit";
+import { UserList } from "../views/UserList";
+import { UserForm } from "../views/UserForm";
+import { UserShow } from "../views/UserShow";
 
+// "scripts": {
+//   "start:build": "tsc -w",
+//   "start:run": "nodemon build/src/index.js",
+//   "start:db": "json-server -w db.json",
+//   "start": "concurrently npm:start:*"
+// },
 // "start:parcel": "parcel ./src/index.html",
 
 const app = express();

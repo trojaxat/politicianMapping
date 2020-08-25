@@ -4,3 +4,5 @@
 /src/.cache
 /build
 node_modules
+.history
+/yarn-error.log
