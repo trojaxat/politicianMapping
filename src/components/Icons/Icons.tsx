@@ -8,7 +8,7 @@ class Icons extends React.Component {
 
     this.state = {
       something: 23,
-      icons: "",
+      icons: null,
     };
   }
 

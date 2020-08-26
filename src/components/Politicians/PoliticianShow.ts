@@ -1,5 +1,5 @@
-import { Politician, PoliticianModel } from "../models/Politician";
-import { View } from "./View";
+import { Politician, PoliticianModel } from "../../models/Politician";
+import { View } from "../../views/View";
 
 export class PoliticianShow extends View<Politician, PoliticianModel> {
   template(): string {

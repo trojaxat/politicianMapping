@@ -1,0 +1,5 @@
+.politicianList {
+  display: contents;
+  position: fixed;
+  z-index: 2;
+}

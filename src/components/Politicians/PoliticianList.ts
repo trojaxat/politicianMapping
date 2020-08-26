@@ -1,5 +1,5 @@
-import { CollectionView } from "./CollectionView";
-import { Politician, PoliticianModel } from "../models/Politician";
+import { CollectionView } from "../../views/CollectionView";
+import { Politician, PoliticianModel } from "../../models/Politician";
 import { PoliticianShow } from "./PoliticianShow";
 
 export class PoliticianList extends CollectionView<

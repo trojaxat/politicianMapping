@@ -1,5 +1,5 @@
-import { CollectionView } from "./CollectionView";
-import { Party, PartyModel } from "../models/Party";
+import { CollectionView } from "../../views/CollectionView";
+import { Party, PartyModel } from "../../models/Party";
 import { PartyShow } from "./PartyShow";
 
 export class PartyList extends CollectionView<Party, PartyModel> {

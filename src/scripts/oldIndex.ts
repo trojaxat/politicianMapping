@@ -22,7 +22,7 @@ import { Parliament } from "../models/Parliament";
 import { Politician } from "../models/Politician";
 import { Party } from "../models/Party";
 import { People } from "../models/People";
-import { PoliticianList } from "../views/PoliticianList";
+import { PoliticianList } from "../components/Politicians/PoliticianList";
 import { User, UserProps } from "../models/User";
 import { UserEdit } from "../views/UserEdit";
 import { UserList } from "../views/UserList";
@@ -126,11 +126,11 @@ app.listen(1111, () => {
 //     "politicianCollection"
 //   );
 //   if (politicianCollectionDiv) {
-//     let userList = new PoliticianList(
+//     let politicianList = new PoliticianList(
 //       politicianCollectionDiv,
 //       politicianCollection
 //     );
-//     userList.render();
+//     politicianList.render();
 //     root.append(politicianCollectionDiv);
 //   }
 // });

@@ -1,5 +1,5 @@
-import { ApiSync } from "./ApiSync";
-import { AxiosResponse } from "axios";
+// import { ApiSync } from "./ApiSync";
+import { AxiosResponse, AxiosPromise } from "axios";
 
 interface ModelAttributes<T> {
   set(value: T): void;
@@ -9,10 +9,10 @@ interface ModelAttributes<T> {
 
 // This was here to be able to give different api sync implementations, type composition etc
 // but currently its better to import only one
-// interface ApiSync<T> {
-//   fetch(id: number): AxiosPromise;
-//   save(data: T): AxiosPromise;
-// }
+interface ApiSync<T> {
+  fetch(id: number): AxiosPromise;
+  save(data: T): AxiosPromise;
+}
 
 interface Events {
   on(eventName: string, callback: () => void): void;
