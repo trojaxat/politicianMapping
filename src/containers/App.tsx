@@ -33,8 +33,7 @@ interface AppProps {
 }
 
 const initialState = {};
-
-class _App extends React.Component<AppProps, InitialState> {
+export class _App extends React.Component<AppProps> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
@@ -78,8 +77,8 @@ class _App extends React.Component<AppProps, InitialState> {
       <div className="App">
         Hello
         <main>
-          <Icons icons={icons} />
-          <PoliticianSingle politicians={politicians} />
+          <Icons {...icons} />
+          <PoliticianSingle {...politicians} />
           <div className="navLinks pl0">
             <button
               className="navLeft f4"
@@ -110,7 +109,7 @@ class _App extends React.Component<AppProps, InitialState> {
 }
 
 const mapStateToProps = ({ todos }: StoreState): { todos: Todo[] } => {
-  return { todos: todos };
+  return { todos };
 };
 
 export const App = connect(mapStateToProps, { fetchTodos })(_App);

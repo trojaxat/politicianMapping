@@ -16,9 +16,8 @@ class PoliticianSingle extends React.Component {
   }
 
   render(): JSX.Element {
-    const { politicians } = this.props;
+    const politicians = (this.props as any).politicians;
     console.log(politicians);
-    // let politicianModel = politician as Politician;
 
     if (politicians) {
       let jsx: string = "";

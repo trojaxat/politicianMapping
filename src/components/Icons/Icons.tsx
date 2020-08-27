@@ -16,12 +16,9 @@ class Icons extends React.Component {
   }
 
   render(): JSX.Element {
-    let icons;
-    console.log(this.props.icons);
+    let icons = (this.props as any).icons;
     if (icons) {
-      icons = this.props.icons.foreach((icon: any) => (
-        <li key={icon.id}>{icon.link}</li>
-      ));
+      icons = icons.foreach((icon: any) => <li key={icon.id}>{icon.link}</li>);
     }
 
     return (

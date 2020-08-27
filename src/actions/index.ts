@@ -19,7 +19,7 @@ export interface FetchUsersAction {
   payload: User[];
 }
 
-const url = "http://localhost:3000/users";
+const url = "https://jsonplaceholder.typicode.com/todos";
 
 export const fetchTodos = () => {
   return async (dispatch: Dispatch) => {
