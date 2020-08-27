@@ -1,9 +1,12 @@
 import React from "react";
-import { Politician, PoliticianModel } from "../models/Politician";
+import { Politician, PoliticianModel } from "../../models/Politician";
 import "./Politicians.css";
 
+interface PoliticianSingleInterface {
+  politicians?: Politician[];
+}
 class PoliticianSingle extends React.Component {
-  constructor(props: any) {
+  constructor(props: PoliticianSingleInterface) {
     super(props);
 
     this.state = {
@@ -13,20 +16,23 @@ class PoliticianSingle extends React.Component {
   }
 
   render(): JSX.Element {
-    console.log(this.props.politician);
-    const { politician } = this.props;
-    console.log(politician);
+    const { politicians } = this.props;
+    console.log(politicians);
     // let politicianModel = politician as Politician;
 
-    if (politician) {
-      return (
-        <div className="politician">
+    if (politicians) {
+      let jsx: string = "";
+      politicians.forEach((politician: Politician) => {
+        jsx =
+          jsx +
+          `<div className="politician">
           <h5> Politician </h5>
           <div>Politician name: {politician.get("name")}</div>
           <div> Politician party: {politician.get("party")}</div>
           <div> Politician job: {politician.get("job")}</div>
-        </div>
-      );
+        </div>`;
+      });
+      return (jsx as unknown) as JSX.Element;
     } else {
       return (
         <div className="politician">

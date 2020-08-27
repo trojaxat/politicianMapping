@@ -1,43 +1,57 @@
-import React from "react";
+/**
+ * External imports
+ */
+import { connect } from "react-redux";
 import Icons from "../components/Icons/Icons";
-import { Politician, PoliticianModel } from "../models/Politician";
-import { User, UserProps } from "../models/User";
 import PoliticianSingle from "../components/Politicians/PoliticianSingle";
-import { Collection } from "../models/Collection";
-import "./App.css";
+import React from "react";
 
-export interface InitialProps {
-  icons: object[] | null;
-}
+/**
+ * Internal imports
+ */
+import { Politician, PoliticianModel } from "../models/Politician";
+import { StoreState } from "../reducers";
+import { Todo, fetchTodos } from "../actions";
+import { User, UserProps } from "../models/User";
+
+import "./App.css";
 
 export interface InitialState {
   value: string;
   route: string;
-  icons: object[] | null;
-  politicians: Collection<Politician, PoliticianModel> | null;
-  politician: Politician | null;
+  icons: object[];
+  politicians?: Politician[];
 }
 
-const initialState = {
-  icons: null,
-  politicians: null,
-};
+interface AppProps {
+  todos: Todo[];
+  fetchTodos(): any;
+  value?: string;
+  route?: string;
+  icons?: object[];
+  politicians?: Politician[];
+}
 
-class Application extends React.Component<InitialProps, InitialState> {
-  constructor(props: InitialProps) {
+const initialState = {};
+
+class _App extends React.Component<AppProps, InitialState> {
+  constructor(props: AppProps) {
     super(props);
     this.state = {
       value: "",
       route: "signOut",
+      politicians: [],
       icons: [
         { link: "http://placekitten.com/g/600/300", id: "1" },
         { link: "http://placekitten.com/408/287", id: "2" },
         { link: "https://placebear.com/200/300", id: "3" },
         { link: "https://placekitten.com/200/138", id: "4" },
       ],
-      politicians: null,
-      politician: null,
     };
+  }
+
+  componentDidMount() {
+    this.props.fetchTodos();
   }
 
   onRouteChange = (route: string) => {
@@ -45,28 +59,27 @@ class Application extends React.Component<InitialProps, InitialState> {
       this.setState(initialState);
     } else if (route === "politicianList") {
       const politicianCollection = Politician.buildCollection();
-      let promise = politicianCollection.fetch();
-      promise.then((politician) => {
-        this.setState({ politicians: politicianCollection });
-      });
+      let politicians = politicianCollection.fetch();
+      // console.log(politicians);
+      // this.setState({ politicians: politicianCollection });
     } else if (route === "politician") {
       const politician = Politician.build({ id: 1 });
       politician.fetch();
-      this.setState({ politician: politician });
+      // this.setState({ politician: politician });
     }
 
     this.setState({ route: route });
   };
 
   render = () => {
-    const { icons, politician } = this.state;
+    const { icons, politicians } = this.state;
 
     return (
-      <div className="Application">
+      <div className="App">
         Hello
         <main>
           <Icons icons={icons} />
-          <PoliticianSingle politician={politician} />
+          <PoliticianSingle politicians={politicians} />
           <div className="navLinks pl0">
             <button
               className="navLeft f4"
@@ -96,4 +109,8 @@ class Application extends React.Component<InitialProps, InitialState> {
   };
 }
 
-export default Application;
+const mapStateToProps = ({ todos }: StoreState): { todos: Todo[] } => {
+  return { todos: todos };
+};
+
+export const App = connect(mapStateToProps, { fetchTodos })(_App);

@@ -15,12 +15,13 @@ export class Collection<T, K> {
     return this.events.trigger;
   }
 
-  fetch(): Promise<void> {
+  fetch(): T[] {
     const promise = Axios.get(this.rootUrl).then((response: AxiosResponse) => {
       response.data.forEach((value: K) => {
         this.models.push(this.deserialize(value));
       });
+      return this.models;
     });
-    return promise;
+    return this.models;
   }
 }

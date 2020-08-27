@@ -1,9 +1,12 @@
 import React from "react";
 import "./Icons.css";
-import { InitialState, InitialProps } from "../../containers/Application";
+
+export interface IconsProps {
+  icons: object[];
+}
 
 class Icons extends React.Component {
-  constructor(props: InitialProps) {
+  constructor(props: IconsProps) {
     super(props);
 
     this.state = {
@@ -14,9 +17,12 @@ class Icons extends React.Component {
 
   render(): JSX.Element {
     let icons;
-    icons = this.props.icons.map((icon: any) => (
-      <li key={icon.id}>{icon.link}</li>
-    ));
+    console.log(this.props.icons);
+    if (icons) {
+      icons = this.props.icons.foreach((icon: any) => (
+        <li key={icon.id}>{icon.link}</li>
+      ));
+    }
 
     return (
       <div className="Icons br">
