@@ -2,14 +2,15 @@
  * External imports
  */
 import { connect } from "react-redux";
-import Icons from "../components/Icons/Icons";
-import PoliticianSingle from "../components/Politicians/PoliticianSingle";
 import React from "react";
 import "babel-polyfill";
 
 /**
  * Internal imports
  */
+import Icons from "../components/Icons/Icons";
+import { TodosView, TodoProps } from "../components/Todos/TodosView";
+import { PoliticiansView } from "../components/Politicians/PoliticiansView";
 import { Politician, PoliticianModel } from "../models/Politician";
 import { StoreState } from "../reducers";
 import { Todo, fetchTodos, deleteTodo } from "../actions";
@@ -25,9 +26,7 @@ export interface InitialState {
 }
 
 interface AppProps {
-  todos: Todo[];
-  fetchTodos: Function;
-  deleteTodo: typeof deleteTodo;
+  todos?: Todo[];
   value?: string;
   route?: string;
   icons?: object[];
@@ -52,40 +51,15 @@ class _App extends React.Component<AppProps, InitialState> {
     };
   }
 
-  componentDidUpdate(prevProps: AppProps): void {
-    if (!prevProps.todos.length && this.props.todos.length) {
-      this.setState({ fetching: false });
-    }
-  }
-  onButtonClick(): void {
-    this.props.fetchTodos().then((): void => {
-      this.setState({ fetching: false });
-    });
-    this.setState({ fetching: true });
-  }
-
-  onTodoClick = (id: number): void => {
-    this.props.deleteTodo(id);
-  };
-
-  renderList(): JSX.Element[] {
-    return this.props.todos.map((todo: Todo) => {
-      return (
-        <div onClick={() => this.onTodoClick(todo.id)} key={todo.id}>
-          {todo.title}
-        </div>
-      );
-    });
-  }
+  componentDidUpdate(prevProps: AppProps): void {}
 
   onRouteChange = (route: string) => {
     if (route === "signOut") {
       this.setState(initialState);
     } else if (route === "politicianList") {
-      const politicianCollection = Politician.buildCollection();
-      let politicians = politicianCollection.fetch();
-      // console.log(politicians);
-      // this.setState({ politicians: politicianCollection });
+      // const politicianCollection = Politician.buildCollection();
+      // let politicians = politicianCollection.fetch();
+      this.setState({ fetching: true });
     } else if (route === "politician") {
       const politician = Politician.build({ id: 1 });
       politician.fetch();
@@ -99,14 +73,16 @@ class _App extends React.Component<AppProps, InitialState> {
     const politicians = (this.state as any).politicians;
     const icons = (this.state as any).icons;
     const todos = (this.props as any).todos;
-    const fetching = (this.state as any).fetching;
 
     return (
       <div className="App">
         Hello
         <main>
           <Icons {...icons} />
-          <PoliticianSingle {...politicians} />
+          <PoliticiansView {...politicians} />
+          <div>
+            <TodosView {...todos} />
+          </div>
           <div className="navLinks pl0">
             <button
               className="navLeft f4"
@@ -129,17 +105,6 @@ class _App extends React.Component<AppProps, InitialState> {
             >
               {"Politician"}
             </button>
-            <div>
-              <button
-                className="navLeft f4"
-                id="todos"
-                onClick={() => this.onButtonClick}
-              >
-                {"Todos"}
-              </button>
-              {this.state.fetching ? "Loading" : null}
-              {this.renderList()}
-            </div>
           </div>
         </main>
       </div>
@@ -147,8 +112,9 @@ class _App extends React.Component<AppProps, InitialState> {
   };
 }
 
-const mapStateToProps = ({ todos }: StoreState): { todos: Todo[] } => {
-  return { todos };
-};
+// const mapStateToProps = ({ todos }: StoreState): { todos: Todo[] } => {
+//   return { todos };
+// };
 
-export const App = connect(mapStateToProps, { fetchTodos, deleteTodo })(_App);
+export const App = connect()(_App);
+// export const App = connect(mapStateToProps, { fetchTodos, deleteTodo })(_App);

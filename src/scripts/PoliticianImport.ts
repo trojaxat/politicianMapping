@@ -39,7 +39,6 @@ export class PoliticianImport extends Import<WebsiteInfo> {
     info
       .then((infoObj) => {
         let foundInfo = this.cleanInfo(infoObj);
-        console.log("PoliticianImport -> foundInfo", foundInfo);
         let model = Politician.build(foundInfo);
         // model.save();
       })

@@ -44,7 +44,7 @@ app.use(cookieSession({ keys: ["asdd"] }));
 app.use(router);
 
 app.listen(1111, () => {
-  console.log("App listening on port 1111");
+  let string = "App listening on port 1111";
 });
 
 // // 1 parliament

@@ -1,8 +1,7 @@
 import { User } from "../models/User";
-import { FetchUsersAction } from "../actions";
-import { ActionTypes } from "../actions/types";
+import { Action, ActionTypes } from "../actions";
 
-export const usersReducer = (state: User[] = [], action: FetchUsersAction) => {
+export const usersReducer = (state: User[] = [], action: Action) => {
   switch (action.type) {
     case ActionTypes.fetchUsers:
       return action.payload;

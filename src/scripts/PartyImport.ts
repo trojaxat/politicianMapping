@@ -39,7 +39,6 @@ export class PartyImport extends Import<WebsiteInfo> {
     info
       .then((infoObj) => {
         let foundInfo = this.cleanInfo(infoObj);
-        console.log("PartyImport -> foundInfo", foundInfo);
         let model = Party.build(foundInfo);
         // model.save();
       })
