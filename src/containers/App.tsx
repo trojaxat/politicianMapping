@@ -8,12 +8,14 @@ import "babel-polyfill";
 /**
  * Internal imports
  */
-import Icons from "../components/Icons/Icons";
+import Icon from "../components/Icon/Icon";
 import { TodosView, TodoProps } from "../components/Todos/TodosView";
 import { PoliticiansView } from "../components/Politicians/PoliticiansView";
 import SignIn from "../components/SignIn/SignIn";
 import Register from "../components/Register/Register";
 import LanguageSwitcher from "../components/LanguageSwitcher/LanguageSwitcher";
+import PoliticalInformationForm from "../components/PoliticalInformationForm/PoliticalInformationForm";
+import SearchBar from "../components/SearchBar/SearchBar";
 import { Politician, PoliticianModel } from "../models/Politician";
 import { StoreState } from "../reducers";
 import { Todo, fetchTodos, deleteTodo } from "../actions";
@@ -57,6 +59,7 @@ class _App extends React.Component<AppProps, InitialState> {
 
   loadUser = (user: User) => {
     this.setState({ user: user });
+    this.setState({ login: true });
   };
 
   changeUserLanguage = (language: string) => {
@@ -64,23 +67,55 @@ class _App extends React.Component<AppProps, InitialState> {
   };
 
   onRouteChange = (route: string) => {
-    if (route === "home") {
-      this.setState(initialState);
-    } else if (route === "signIn") {
-    } else if (route === "logOut") {
-      this.setState({ login: false });
-    } else if (route === "register") {
-    } else if (route === "politician") {
-    } else if (route === "politicianFilterList") {
-    } else if (route === "politicianRatingList") {
-    } else if (route === "addUserInformation") {
-    } else if (route === "submitPoliticalInformation") {
-    } else if (route === "savePoliticalInformation") {
-    } else if (route === "userMapView") {
-    } else {
-      // this is for the language switcher to reload the page in new language
+    switch (route) {
+      case "home": {
+        //statements;
+        this.setState(initialState);
+        break;
+      }
+      case "signIn": {
+        //statements;
+        break;
+      }
+      case "logOut": {
+        //statements;
+        this.setState({ login: false });
+        break;
+      }
+      case "register": {
+        //statements;
+        break;
+      }
+      case "politician": {
+        //statements;
+        break;
+      }
+      case "politicianFilterList": {
+        //statements;
+        break;
+      }
+      case "addUserInformation": {
+        //statements;
+        break;
+      }
+      case "submitPoliticalInformation": {
+        //statements;
+        break;
+      }
+      case "savePoliticalInformation": {
+        //statements;
+        break;
+      }
+      case "userMapView": {
+        //statements;
+        break;
+      }
+      default: {
+        //statements;
+        // this is for the language switcher to reload the page in new language
+        break;
+      }
     }
-
     this.setState({ route: route });
   };
 
@@ -88,39 +123,14 @@ class _App extends React.Component<AppProps, InitialState> {
     const politicians = (this.state as any).politicians;
     const icons = (this.state as any).icons;
     const todos = (this.props as any).todos;
-
+    const importModels = ["politician", "party"];
     return (
       <div className="App">
-        Hello
+        <h1>Politician Mapping</h1>
         <main>
-          <Icons {...icons} />
+          <Icon {...icons} />
           <PoliticiansView {...politicians} />
-          <div>
-            <TodosView {...todos} />
-          </div>
-          <div className="navLinks pl0">
-            <button
-              className="navLeft f4"
-              id="home"
-              onClick={() => this.onRouteChange("home")}
-            >
-              {"Home"}
-            </button>
-            <button
-              className="navLeft f4"
-              id="polilist"
-              onClick={() => this.onRouteChange("politicianList")}
-            >
-              {"PoliticianList"}
-            </button>
-            <button
-              className="navLeft f4"
-              id="poli"
-              onClick={() => this.onRouteChange("politician")}
-            >
-              {"Politician"}
-            </button>
-          </div>
+          <TodosView {...todos} />
           <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
           <Register
             loadUser={this.loadUser}
@@ -130,6 +140,8 @@ class _App extends React.Component<AppProps, InitialState> {
             changeUserLanguage={this.changeUserLanguage}
             onRouteChange={this.onRouteChange}
           />
+          <SearchBar />
+          <PoliticalInformationForm importModels={importModels} />
         </main>
       </div>
     );
