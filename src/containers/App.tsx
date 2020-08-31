@@ -11,6 +11,9 @@ import "babel-polyfill";
 import Icons from "../components/Icons/Icons";
 import { TodosView, TodoProps } from "../components/Todos/TodosView";
 import { PoliticiansView } from "../components/Politicians/PoliticiansView";
+import SignIn from "../components/SignIn/SignIn";
+import Register from "../components/Register/Register";
+import LanguageSwitcher from "../components/LanguageSwitcher/LanguageSwitcher";
 import { Politician, PoliticianModel } from "../models/Politician";
 import { StoreState } from "../reducers";
 import { Todo, fetchTodos, deleteTodo } from "../actions";
@@ -18,11 +21,13 @@ import { User, UserProps } from "../models/User";
 import "./App.css";
 
 export interface InitialState {
-  fetching: boolean;
-  value: string;
+  language: string;
+  login: boolean;
+  user: User | null;
+  role: string;
+  country: string;
   route: string;
-  icons: object[];
-  politicians?: Politician[];
+  searchTerm: string;
 }
 
 interface AppProps {
@@ -38,32 +43,42 @@ class _App extends React.Component<AppProps, InitialState> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      value: "",
-      fetching: false,
-      route: "signOut",
-      politicians: [],
-      icons: [
-        { link: "http://placekitten.com/g/600/300", id: "1" },
-        { link: "http://placekitten.com/408/287", id: "2" },
-        { link: "https://placebear.com/200/300", id: "3" },
-        { link: "https://placekitten.com/200/138", id: "4" },
-      ],
+      language: "en_GB",
+      login: false,
+      user: null,
+      role: "",
+      country: "germany",
+      route: "home",
+      searchTerm: "",
     };
   }
 
   componentDidUpdate(prevProps: AppProps): void {}
 
+  loadUser = (user: User) => {
+    this.setState({ user: user });
+  };
+
+  changeUserLanguage = (language: string) => {
+    this.setState({ language: language });
+  };
+
   onRouteChange = (route: string) => {
-    if (route === "signOut") {
+    if (route === "home") {
       this.setState(initialState);
-    } else if (route === "politicianList") {
-      // const politicianCollection = Politician.buildCollection();
-      // let politicians = politicianCollection.fetch();
-      this.setState({ fetching: true });
+    } else if (route === "signIn") {
+    } else if (route === "logOut") {
+      this.setState({ login: false });
+    } else if (route === "register") {
     } else if (route === "politician") {
-      const politician = Politician.build({ id: 1 });
-      politician.fetch();
-      // this.setState({ politician: politician });
+    } else if (route === "politicianFilterList") {
+    } else if (route === "politicianRatingList") {
+    } else if (route === "addUserInformation") {
+    } else if (route === "submitPoliticalInformation") {
+    } else if (route === "savePoliticalInformation") {
+    } else if (route === "userMapView") {
+    } else {
+      // this is for the language switcher to reload the page in new language
     }
 
     this.setState({ route: route });
@@ -106,6 +121,15 @@ class _App extends React.Component<AppProps, InitialState> {
               {"Politician"}
             </button>
           </div>
+          <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+          <Register
+            loadUser={this.loadUser}
+            onRouteChange={this.onRouteChange}
+          />
+          <LanguageSwitcher
+            changeUserLanguage={this.changeUserLanguage}
+            onRouteChange={this.onRouteChange}
+          />
         </main>
       </div>
     );
