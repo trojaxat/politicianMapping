@@ -4,26 +4,30 @@
 import { connect } from "react-redux";
 import React from "react";
 import "babel-polyfill";
-import { Router, Route } from "react-router";
-import { createBrowserHistory } from "history";
+import history from "../history";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 /**
  * Internal imports
  */
 import Icon from "../components/Icon/Icon";
-import { TodosView, TodoProps } from "../components/Todos/TodosView";
+import { TodosView, TodosProps } from "../components/Todos/TodosView";
 import { PoliticiansView } from "../components/Politicians/PoliticiansView";
-import SignIn from "../components/SignIn/SignIn";
-import Register from "../components/Register/Register";
-import LanguageSwitcher from "../components/LanguageSwitcher/LanguageSwitcher";
-import PoliticalInformationForm from "../components/PoliticalInformationForm/PoliticalInformationForm";
-import SearchBar from "../components/SearchBar/SearchBar";
+import SignIn, { SignInProps } from "../components/SignIn/SignIn";
+import Register, { RegisterProps } from "../components/Register/Register";
+import LanguageSwitcher, {
+  LanguageSwitcherProps,
+} from "../components/LanguageSwitcher/LanguageSwitcher";
+import PoliticalInformationForm, {
+  PoliticalInformationFormProps,
+} from "../components/PoliticalInformationForm/PoliticalInformationForm";
+import SearchBar, { SearchBarProps } from "../components/SearchBar/SearchBar";
 import { Politician, PoliticianModel } from "../models/Politician";
 import { StoreState } from "../reducers";
 import { Todo, fetchTodos, deleteTodo } from "../actions";
 import { User, UserProps } from "../models/User";
+import LoginBar, { LoginBarProps } from "../components/LoginBar/LoginBar";
 import "./App.css";
-import LoginBar from "../components/LoginBar/LoginBar";
 
 export interface InitialState {
   language: string;
@@ -33,15 +37,12 @@ export interface InitialState {
   country: string;
   route: string;
   searchTerm: string;
-}
-
-interface AppProps {
   todos?: Todo[];
-  value?: string;
-  route?: string;
   icons?: object[];
   politicians?: Politician[];
 }
+
+interface AppProps {}
 
 const initialState = {};
 class _App extends React.Component<AppProps, InitialState> {
@@ -77,6 +78,7 @@ class _App extends React.Component<AppProps, InitialState> {
         break;
       }
       case "signIn": {
+        console.log("Signed in clicked");
         this.setState({ login: true });
         //statements;
         break;
@@ -126,63 +128,90 @@ class _App extends React.Component<AppProps, InitialState> {
   render(): JSX.Element {
     const politicians = (this.state as any).politicians;
     const icons = (this.state as any).icons;
-    const todos = (this.props as any).todos;
+    const todos = (this.state as any).todos;
     const modelOptions = ["Politician", "Party"];
 
     return (
-      <Router history={history}>
-        <Route path="/" component={LoginBar} login={this.state.login} />
-        <Route path="/" component={SearchBar} />
-        <Route
-          path="/"
-          component={LanguageSwitcher}
-          changeUserLanguage={this.changeUserLanguage}
-          onRouteChange={this.onRouteChange}
-        />
+      <Router>
+        <Switch>
+          <Route
+            path="/"
+            component={(props: LoginBarProps) => (
+              <LoginBar
+                {...props}
+                login={this.state.login}
+                onRouteChange={this.onRouteChange}
+              />
+            )}
+          />
+          <Route
+            path="/"
+            component={(props: LanguageSwitcherProps) => (
+              <LanguageSwitcher
+                {...props}
+                changeUserLanguage={this.changeUserLanguage}
+                onRouteChange={this.onRouteChange}
+              />
+            )}
+          />
+          <Route
+            path="/"
+            component={(props: SearchBarProps) => <SearchBar {...props} />}
+          />
+          <Route path="/" component={PoliticiansView} {...politicians} />
 
-        <Route
-          path="/signIn"
-          component={SignIn}
-          loadUser={this.loadUser}
-          onRouteChange={this.onRouteChange}
-        />
-        <Route
-          path="/register"
-          component={Register}
-          loadUser={this.loadUser}
-          onRouteChange={this.onRouteChange}
-        />
+          <Route
+            path="/politicians"
+            component={PoliticiansView}
+            {...politicians}
+          />
 
-        <Route
-          path="/politicians"
-          component={PoliticiansView}
-          {...politicians}
-        />
+          <Route
+            path="/signIn"
+            component={(props: SignInProps) => (
+              <SignIn
+                {...props}
+                loadUser={this.loadUser}
+                onRouteChange={this.onRouteChange}
+              />
+            )}
+          />
+          <Route
+            path="/register"
+            component={(props: RegisterProps) => (
+              <Register
+                {...props}
+                loadUser={this.loadUser}
+                onRouteChange={this.onRouteChange}
+              />
+            )}
+          />
 
-        <Route
-          path="/addPoliticalInfo"
-          component={PoliticalInformationForm}
-          modelOptions={modelOptions}
-        />
+          <Route
+            path="/addPoliticalInfo"
+            component={(props: PoliticalInformationFormProps) => (
+              <PoliticalInformationForm
+                {...props}
+                modelOptions={modelOptions}
+              />
+            )}
+          />
 
-        <Route path="/icons" component={Icon} {...icons} />
-        <Route path="/todos" component={TodosView} {...todos} />
+          <Route path="/icons" component={Icon} {...icons} />
+          <Route
+            path="/todos"
+            ccomponent={(props: TodosProps) => <TodosView {...props} />}
+          />
+        </Switch>
       </Router>
     );
   }
 }
 
-/* <div className="App">
-<h1>Politician Mapping</h1>
-<main>
-</main>
-</div> */
-
 // const mapStateToProps = ({ todos }: StoreState): { todos: Todo[] } => {
 //   return { todos };
 // };
 
-const history = createBrowserHistory();
 export const App = connect()(_App);
 
 // export const App = connect(mapStateToProps, { fetchTodos, deleteTodo })(_App);

@@ -1,12 +1,13 @@
 import React from "react";
 import "./SignIn.css";
+import { RouteComponentProps } from "react-router-dom";
 
 export interface SignInState {
   signInEmail: string;
   signInPassword: string;
 }
 
-export interface SignInProps {
+export interface SignInProps extends RouteComponentProps {
   onRouteChange: Function;
   loadUser: Function;
 }

@@ -1,12 +1,14 @@
 import React from "react";
 import "./LoginBar.css";
+import { RouteComponentProps } from "react-router-dom";
 
 export interface LoginBarState {
   route: string;
 }
 
-export interface LoginBarProps {
+export interface LoginBarProps extends RouteComponentProps {
   login: boolean;
+  onRouteChange: Function;
 }
 
 class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
@@ -17,26 +19,23 @@ class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
     };
   }
 
-  onLoginClick = (event: any) => {
+  onRouteButtonClick = (event: any) => {
+    let history = this.props.history;
+    history.push("/login");
     this.setState({ route: event.target.value });
-  };
-
-  onLogoutClick = (event: any) => {
-    this.setState({ route: event.target.value });
-  };
-
-  onRegisterClick = (event: any) => {
-    this.setState({ route: event.target.value });
+    this.props.onRouteChange(event.target.value);
   };
 
   render(): JSX.Element {
-    console.log("render -> const", this.props.login);
-
     if (this.props.login) {
       return (
         <div>
           <strong>Politician Mapping</strong>
-          <button onClick={this.onRegisterClick} id="logout_route">
+          <button
+            value="logOut"
+            onClick={this.onRouteButtonClick}
+            id="logout_route"
+          >
             {"Logout"}
           </button>
         </div>
@@ -45,10 +44,18 @@ class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
       return (
         <div>
           <strong>Politician Mapping</strong>
-          <button onClick={this.onLoginClick} id="login_route">
+          <button
+            value="signIn"
+            onClick={this.onRouteButtonClick}
+            id="login_route"
+          >
             {"Login"}
           </button>
-          <button onClick={this.onRegisterClick} id="register_route">
+          <button
+            value="register"
+            onClick={this.onRouteButtonClick}
+            id="register_route"
+          >
             {"Register"}
           </button>
         </div>
@@ -56,4 +63,5 @@ class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
     }
   }
 }
+
 export default LoginBar;

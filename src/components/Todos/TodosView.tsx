@@ -1,36 +1,37 @@
 import { connect } from "react-redux";
 import { StoreState } from "../../reducers";
 import { Todo, fetchTodos, deleteTodo } from "../../actions";
+import { RouteComponentProps } from "react-router-dom";
+
 import React from "react";
 import "./Todos.css";
 
-export interface TodoProps {
-  todos: Todo[];
+export interface TodosProps extends RouteComponentProps {
   fetchTodos: Function;
   deleteTodo: typeof deleteTodo;
 }
 
-export interface TodoState {
+export interface TodosState {
   todos: Todo[];
   fetching: boolean;
 }
 
-const initialState: TodoState = {
+const initialState: TodosState = {
   fetching: false,
   todos: [],
 };
 
-class _TodosView extends React.Component<TodoProps, TodoState> {
-  constructor(props: TodoProps) {
+class _TodosView extends React.Component<TodosProps, TodosState> {
+  constructor(props: TodosProps) {
     super(props);
 
     this.state = initialState;
   }
 
-  componentDidUpdate(prevProps: TodoProps): void {
-    if (!prevProps.todos.length && this.props.todos.length) {
-      this.setState({ fetching: false });
-    }
+  componentDidUpdate(prevProps: TodosProps): void {
+    // if (!prevProps.state.length && this.state.todos.length) {
+    //   this.setState({ fetching: false });
+    // }
   }
 
   onTodosFetchClick(): void {
@@ -45,7 +46,7 @@ class _TodosView extends React.Component<TodoProps, TodoState> {
   };
 
   renderList(): JSX.Element[] {
-    return this.props.todos.map((todo: Todo) => {
+    return this.state.todos.map((todo: Todo) => {
       return (
         <div onClick={() => this.onTodoClick(todo.id)} key={todo.id}>
           {todo.title}

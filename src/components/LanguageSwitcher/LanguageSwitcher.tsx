@@ -1,11 +1,12 @@
 import React from "react";
 import "./LanguageSwitcher.css";
+import { RouteComponentProps } from "react-router-dom";
 
 export interface LanguageSwitcherState {
   language: string;
 }
 
-export interface LanguageSwitcherProps {
+export interface LanguageSwitcherProps extends RouteComponentProps {
   onRouteChange: Function;
   changeUserLanguage: Function;
 }

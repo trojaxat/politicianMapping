@@ -1,19 +1,20 @@
 import React from "react";
 import "./register.css";
+import { RouteComponentProps } from "react-router-dom";
 
-export interface registerState {
+export interface RegisterState {
   registerEmail: string;
   registerPassword: string;
   registerUsername: string;
 }
 
-export interface registerProps {
+export interface RegisterProps extends RouteComponentProps {
   onRouteChange: Function;
   loadUser: Function;
 }
 
-class Register extends React.Component<registerProps, registerState> {
-  constructor(props: registerProps) {
+class Register extends React.Component<RegisterProps, RegisterState> {
+  constructor(props: RegisterProps) {
     super(props);
     this.state = {
       registerEmail: "",

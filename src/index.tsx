@@ -6,17 +6,16 @@ import ReactDom from "react-dom";
 import thunk from "redux-thunk";
 import "./css/styles/index.scss";
 import { reducers } from "./reducers";
-import { createBrowserHistory } from "history";
 import { Router, Route } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 
 const store = createStore(reducers, applyMiddleware(thunk));
-const history = createBrowserHistory();
 
 ReactDom.render(
   <Provider store={store}>
-    <Router history={history}>
+    <BrowserRouter>
       <App />
-    </Router>
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );

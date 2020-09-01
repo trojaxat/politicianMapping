@@ -1,6 +1,7 @@
 import React from "react";
 import { ScriptExecutor } from "../../scripts/ScriptExecutor";
 import { WebsiteInfo } from "../../scripts/Import";
+import { RouteComponentProps } from "react-router-dom";
 import "./PoliticalInformationForm.css";
 
 export interface PoliticalInformationFormState {
@@ -9,7 +10,7 @@ export interface PoliticalInformationFormState {
   formValue: { [key: string]: string } | null;
 }
 
-export interface PoliticalInformationFormProps {
+export interface PoliticalInformationFormProps extends RouteComponentProps {
   modelOptions: string[];
 }
 
