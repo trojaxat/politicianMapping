@@ -21,6 +21,7 @@ import { StoreState } from "../reducers";
 import { Todo, fetchTodos, deleteTodo } from "../actions";
 import { User, UserProps } from "../models/User";
 import "./App.css";
+import LoginBar from "../components/LoginBar/LoginBar";
 
 export interface InitialState {
   language: string;
@@ -74,6 +75,7 @@ class _App extends React.Component<AppProps, InitialState> {
         break;
       }
       case "signIn": {
+        this.setState({ login: true });
         //statements;
         break;
       }
@@ -123,11 +125,13 @@ class _App extends React.Component<AppProps, InitialState> {
     const politicians = (this.state as any).politicians;
     const icons = (this.state as any).icons;
     const todos = (this.props as any).todos;
-    const importModels = ["politician", "party"];
+    const modelOptions = ["Politician", "Party"];
+
     return (
       <div className="App">
         <h1>Politician Mapping</h1>
         <main>
+          <LoginBar login={this.state.login} />
           <Icon {...icons} />
           <PoliticiansView {...politicians} />
           <TodosView {...todos} />
@@ -141,7 +145,7 @@ class _App extends React.Component<AppProps, InitialState> {
             onRouteChange={this.onRouteChange}
           />
           <SearchBar />
-          <PoliticalInformationForm importModels={importModels} />
+          <PoliticalInformationForm modelOptions={modelOptions} />
         </main>
       </div>
     );
