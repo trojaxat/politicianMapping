@@ -46,11 +46,14 @@ class PoliticalInformationForm extends React.Component<
   };
 
   render(): JSX.Element {
-    const modelOptions: string[] = (this.props as any).modelOptions;
+    const modelDropDown: string[] = (this.props as any).modelOptions;
 
-    let importOptions = this.props.modelOptions.map((icon: any) => (
-      <option key={icon}>{icon}</option>
-    ));
+    let importOptions: JSX.Element[] = [<option>{"None available"}</option>];
+    if (typeof modelDropDown !== "undefined") {
+      importOptions = modelDropDown.map((icon: any) => (
+        <option key={icon}>{icon}</option>
+      ));
+    }
 
     // think this through before doing it
     return (

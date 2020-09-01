@@ -4,6 +4,8 @@
 import { connect } from "react-redux";
 import React from "react";
 import "babel-polyfill";
+import { Router, Route } from "react-router";
+import { createBrowserHistory } from "history";
 
 /**
  * Internal imports
@@ -121,40 +123,66 @@ class _App extends React.Component<AppProps, InitialState> {
     this.setState({ route: route });
   };
 
-  render = () => {
+  render(): JSX.Element {
     const politicians = (this.state as any).politicians;
     const icons = (this.state as any).icons;
     const todos = (this.props as any).todos;
     const modelOptions = ["Politician", "Party"];
 
     return (
-      <div className="App">
-        <h1>Politician Mapping</h1>
-        <main>
-          <LoginBar login={this.state.login} />
-          <Icon {...icons} />
-          <PoliticiansView {...politicians} />
-          <TodosView {...todos} />
-          <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
-          <Register
-            loadUser={this.loadUser}
-            onRouteChange={this.onRouteChange}
-          />
-          <LanguageSwitcher
-            changeUserLanguage={this.changeUserLanguage}
-            onRouteChange={this.onRouteChange}
-          />
-          <SearchBar />
-          <PoliticalInformationForm modelOptions={modelOptions} />
-        </main>
-      </div>
+      <Router history={history}>
+        <Route path="/" component={LoginBar} login={this.state.login} />
+        <Route path="/" component={SearchBar} />
+        <Route
+          path="/"
+          component={LanguageSwitcher}
+          changeUserLanguage={this.changeUserLanguage}
+          onRouteChange={this.onRouteChange}
+        />
+
+        <Route
+          path="/signIn"
+          component={SignIn}
+          loadUser={this.loadUser}
+          onRouteChange={this.onRouteChange}
+        />
+        <Route
+          path="/register"
+          component={Register}
+          loadUser={this.loadUser}
+          onRouteChange={this.onRouteChange}
+        />
+
+        <Route
+          path="/politicians"
+          component={PoliticiansView}
+          {...politicians}
+        />
+
+        <Route
+          path="/addPoliticalInfo"
+          component={PoliticalInformationForm}
+          modelOptions={modelOptions}
+        />
+
+        <Route path="/icons" component={Icon} {...icons} />
+        <Route path="/todos" component={TodosView} {...todos} />
+      </Router>
     );
-  };
+  }
 }
+
+/* <div className="App">
+<h1>Politician Mapping</h1>
+<main>
+</main>
+</div> */
 
 // const mapStateToProps = ({ todos }: StoreState): { todos: Todo[] } => {
 //   return { todos };
 // };
 
+const history = createBrowserHistory();
 export const App = connect()(_App);
+
 // export const App = connect(mapStateToProps, { fetchTodos, deleteTodo })(_App);
