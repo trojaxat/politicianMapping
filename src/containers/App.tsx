@@ -172,15 +172,18 @@ class _App extends React.Component<AppProps, InitialState> {
           )}
         />
 
-        <Route
-          path="/"
-          component={(props: SearchBarProps) => <SearchBar {...props} />}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            component={(props: SearchBarProps) => <SearchBar {...props} />}
+          />
+          <Route
+            path="/search"
+            component={(props: SearchBarProps) => <SearchBar {...props} />}
+          />
+        </Switch>
 
-        <Route
-          path="/search"
-          component={(props: SearchBarProps) => <SearchBar {...props} />}
-        />
         <Route
           path="/search/politicians"
           component={PoliticiansView}
@@ -189,6 +192,7 @@ class _App extends React.Component<AppProps, InitialState> {
 
         <Switch>
           <Route
+            exact
             path="/signIn"
             component={(props: SignInProps) => (
               <SignIn
