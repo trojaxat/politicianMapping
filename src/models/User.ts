@@ -17,6 +17,7 @@ import { ApiSync } from "./ApiSync";
 export interface UserProps {
   id?: number;
   username?: string;
+  language?: string;
   name?: string;
   age?: number;
   totalNumberOfVotes?: number;

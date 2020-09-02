@@ -9,7 +9,23 @@ export interface LoginBarProps extends RouteComponentProps {
   login: boolean;
   history: History<LocationState>;
   onRouteChange: Function;
+  getLanguageStrings: Function;
 }
+
+export const loginBarStrings: object = {
+  en: {
+    title: "Politician mapping",
+    login: "Log in",
+    logout: "Log out",
+    register: "Register",
+  },
+  de: {
+    title: "Politiker auskarten",
+    login: "Einloggen",
+    logout: "Ausloggen",
+    register: "Registrieren",
+  },
+};
 
 class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
   constructor(props: LoginBarProps) {
@@ -26,36 +42,38 @@ class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
   };
 
   render(): JSX.Element {
+    const strings = this.props.getLanguageStrings(loginBarStrings);
+
     if (this.props.login) {
       return (
         <div>
-          <strong>Politician Mapping</strong>
+          <strong>{strings.title}</strong>
           <button
             value="logOut"
             onClick={this.onRouteButtonClick}
             id="logout_route"
           >
-            {"Logout"}
+            {strings.logout}
           </button>
         </div>
       );
     } else {
       return (
         <div>
-          <strong>Politician Mapping</strong>
+          <strong>{strings.title}</strong>
           <button
             value="signIn"
             onClick={this.onRouteButtonClick}
             id="login_route"
           >
-            {"Login"}
+            {strings.login}
           </button>
           <button
             value="register"
             onClick={this.onRouteButtonClick}
             id="register_route"
           >
-            {"Register"}
+            {strings.register}
           </button>
         </div>
       );

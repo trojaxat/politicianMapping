@@ -79,7 +79,6 @@ class _App extends React.Component<AppProps, InitialState> {
         break;
       }
       case "signIn": {
-        console.log("Signed in clicked");
         if (this.state.user) {
           this.setState({ login: true });
         }
@@ -168,6 +167,7 @@ class _App extends React.Component<AppProps, InitialState> {
               {...props}
               login={this.state.login}
               onRouteChange={this.onRouteChange}
+              getLanguageStrings={this.getLanguageStrings}
             />
           )}
         />

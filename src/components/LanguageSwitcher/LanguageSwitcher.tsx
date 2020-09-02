@@ -18,10 +18,12 @@ export const languageSwitcherStrings: object = {
   en: {
     none: "None available",
     languageHeader: "Select language",
+    language: "Language",
   },
   de: {
     none: "Keine zur Verfugung",
     languageHeader: "Sprache Auswahl",
+    language: "Sprache",
   },
 };
 
@@ -39,8 +41,12 @@ class LanguageSwitcher extends React.Component<
   componentDidUpdate(prevProps: LanguageSwitcherProps): void {}
 
   onLanguageChange = (event: any) => {
-    this.setState({ language: event.target.value });
-    this.props.changeUserLanguage(event.target.value);
+    const strings = this.props.getLanguageStrings(languageSwitcherStrings);
+
+    if (event.target.value) {
+      this.setState({ language: event.target.value });
+      this.props.changeUserLanguage(event.target.value);
+    }
   };
 
   render(): JSX.Element {
@@ -58,6 +64,9 @@ class LanguageSwitcher extends React.Component<
       <div>
         <strong>{strings.languageHeader}</strong>
         <select value={this.state.language} onChange={this.onLanguageChange}>
+          <option defaultValue="" key={strings.language}>
+            {strings.language}
+          </option>
           {importOptions}
         </select>
       </div>
