@@ -6,7 +6,10 @@ export interface SearchBarState {
   result: any;
 }
 
-export interface SearchBarProps {}
+export interface SearchBarProps {
+  onRouteChange: Function;
+  searchTerm: Function;
+}
 
 class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   constructor(props: SearchBarProps) {
@@ -21,9 +24,35 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     this.setState({ searchTerm: event.target.value });
   };
 
+  /**
+   * doesnt work yet
+   * @param string
+   */
+  searchTerm = (string: string) => {
+    fetch("https://salty-oasis-94587.herokuapp.com/signin", {
+      method: "get",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        searchTerm: this.state.searchTerm,
+      }),
+    })
+      .then((response) => response.json())
+      .then((value) => {
+        if (value.id) {
+          this.setState({ result: value });
+        }
+      });
+  };
+
   onButtonSearch = () => {
-    let result: any = "I dont know";
-    this.setState({ result: result });
+    if (typeof this.props.history !== "undefined") {
+      let history = this.props.history;
+      let uri: string = "/search" + this.state.searchTerm;
+      history.push(uri);
+      let result = this.searchTerm(uri);
+      this.props.onRouteChange(uri);
+      this.setState({ result: result });
+    }
   };
 
   render(): JSX.Element {
@@ -34,7 +63,7 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
           type="text"
           onChange={this.onSearchChange}
         />
-        <button onClick={this.onButtonSearch} id="submitHashtag">
+        <button value="search" onClick={this.onButtonSearch} id="submitHashtag">
           {" "}
           {"Search"}
         </button>

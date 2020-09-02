@@ -1,29 +1,28 @@
 import React from "react";
 import "./LoginBar.css";
+import { History, LocationState } from "history";
 import { RouteComponentProps } from "react-router-dom";
 
-export interface LoginBarState {
-  route: string;
-}
+export interface LoginBarState {}
 
 export interface LoginBarProps extends RouteComponentProps {
   login: boolean;
+  history: History<LocationState>;
   onRouteChange: Function;
 }
 
 class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
   constructor(props: LoginBarProps) {
     super(props);
-    this.state = {
-      route: "",
-    };
   }
 
   onRouteButtonClick = (event: any) => {
-    let history = this.props.history;
-    history.push("/login");
-    this.setState({ route: event.target.value });
-    this.props.onRouteChange(event.target.value);
+    if (typeof this.props.history !== "undefined") {
+      let history = this.props.history;
+      let uri = "/" + event.target.value;
+      history.push(uri);
+      this.props.onRouteChange(event.target.value);
+    }
   };
 
   render(): JSX.Element {

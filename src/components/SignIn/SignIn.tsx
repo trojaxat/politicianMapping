@@ -29,6 +29,14 @@ class SignIn extends React.Component<SignInProps, SignInState> {
     this.setState({ signInPassword: event.target.value });
   };
 
+  onRouteButtonClick = (event: any) => {
+    if (typeof this.props.history !== "undefined") {
+      let history = this.props.history;
+      history.push("/register");
+      this.props.onRouteChange(event.target.value);
+    }
+  };
+
   onSubmitSignIn = () => {
     fetch("https://salty-oasis-94587.herokuapp.com/signin", {
       method: "post",
@@ -75,7 +83,9 @@ class SignIn extends React.Component<SignInProps, SignInState> {
           <input type="submit" value="Sign In" onClick={this.onSubmitSignIn} />
         </div>
         <div>
-          <p onClick={() => this.props.onRouteChange("register")}>Register</p>
+          <button value="register" onClick={this.onRouteButtonClick}>
+            Register
+          </button>
         </div>
       </div>
     );

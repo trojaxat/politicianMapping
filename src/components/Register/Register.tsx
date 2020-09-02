@@ -23,6 +23,14 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     };
   }
 
+  onRouteButtonClick = (event: any) => {
+    if (typeof this.props.history !== "undefined") {
+      let history = this.props.history;
+      history.push("/signIn");
+      this.props.onRouteChange(event.target.value);
+    }
+  };
+
   onUsernameChange = (event: any) => {
     this.setState({ registerUsername: event.target.value });
   };
@@ -34,7 +42,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   onPasswordChange = (event: any) => {
     this.setState({ registerPassword: event.target.value });
   };
-  onSubmitregister = (event: any) => {
+
+  onSubmitRegister = (event: any) => {
     fetch("https://salty-oasis-94587.herokuapp.com/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -93,12 +102,14 @@ class Register extends React.Component<RegisterProps, RegisterState> {
         <div>
           <input
             type="submit"
-            value="register"
-            onClick={this.onSubmitregister}
+            value="Register"
+            onClick={this.onSubmitRegister}
           />
 
           <div>
-            <p onClick={() => this.props.onRouteChange("signIn")}>Sign In</p>
+            <button value="signIn" onClick={this.onRouteButtonClick}>
+              Sign In
+            </button>
           </div>
         </div>
       </div>

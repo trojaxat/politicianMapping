@@ -79,12 +79,15 @@ class _App extends React.Component<AppProps, InitialState> {
       }
       case "signIn": {
         console.log("Signed in clicked");
-        this.setState({ login: true });
+        if (this.state.user) {
+          this.setState({ login: true });
+        }
         //statements;
         break;
       }
       case "logOut": {
         //statements;
+        this.setState({ user: null });
         this.setState({ login: false });
         break;
       }
@@ -133,39 +136,43 @@ class _App extends React.Component<AppProps, InitialState> {
 
     return (
       <Router>
+        <Route
+          path="/"
+          component={(props: LanguageSwitcherProps) => (
+            <LanguageSwitcher
+              {...props}
+              changeUserLanguage={this.changeUserLanguage}
+              onRouteChange={this.onRouteChange}
+            />
+          )}
+        />
+        <Route
+          path="/"
+          component={(props: LoginBarProps) => (
+            <LoginBar
+              {...props}
+              login={this.state.login}
+              onRouteChange={this.onRouteChange}
+            />
+          )}
+        />
+
+        <Route
+          path="/"
+          component={(props: SearchBarProps) => <SearchBar {...props} />}
+        />
+
+        <Route
+          path="/search"
+          component={(props: SearchBarProps) => <SearchBar {...props} />}
+        />
+        <Route
+          path="/search/politicians"
+          component={PoliticiansView}
+          {...politicians}
+        />
+
         <Switch>
-          <Route
-            path="/"
-            component={(props: LoginBarProps) => (
-              <LoginBar
-                {...props}
-                login={this.state.login}
-                onRouteChange={this.onRouteChange}
-              />
-            )}
-          />
-          <Route
-            path="/"
-            component={(props: LanguageSwitcherProps) => (
-              <LanguageSwitcher
-                {...props}
-                changeUserLanguage={this.changeUserLanguage}
-                onRouteChange={this.onRouteChange}
-              />
-            )}
-          />
-          <Route
-            path="/"
-            component={(props: SearchBarProps) => <SearchBar {...props} />}
-          />
-          <Route path="/" component={PoliticiansView} {...politicians} />
-
-          <Route
-            path="/politicians"
-            component={PoliticiansView}
-            {...politicians}
-          />
-
           <Route
             path="/signIn"
             component={(props: SignInProps) => (
@@ -186,23 +193,20 @@ class _App extends React.Component<AppProps, InitialState> {
               />
             )}
           />
-
-          <Route
-            path="/addPoliticalInfo"
-            component={(props: PoliticalInformationFormProps) => (
-              <PoliticalInformationForm
-                {...props}
-                modelOptions={modelOptions}
-              />
-            )}
-          />
-
-          <Route path="/icons" component={Icon} {...icons} />
-          <Route
-            path="/todos"
-            ccomponent={(props: TodosProps) => <TodosView {...props} />}
-          />
         </Switch>
+
+        <Route
+          path="/addPoliticalInfo"
+          component={(props: PoliticalInformationFormProps) => (
+            <PoliticalInformationForm {...props} modelOptions={modelOptions} />
+          )}
+        />
+
+        <Route path="/icons" component={Icon} {...icons} />
+        <Route
+          path="/todos"
+          component={(props: TodosProps) => <TodosView {...props} />}
+        />
       </Router>
     );
   }
