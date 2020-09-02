@@ -25,11 +25,11 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   };
 
   /**
-   * doesnt work yet
+   * doesnt work yet, db not set up
    * @param string
    */
   searchTerm = (string: string) => {
-    fetch("https://salty-oasis-94587.herokuapp.com/signin", {
+    fetch("https://salty-oasis-94587.herokuapp.com/searchTerm", {
       method: "get",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -6,6 +6,7 @@ import React from "react";
 import "babel-polyfill";
 import history from "../history";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { languageStrings } from "../language/languageStrings";
 
 /**
  * Internal imports
@@ -49,7 +50,7 @@ class _App extends React.Component<AppProps, InitialState> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      language: "en_GB",
+      language: "it",
       login: false,
       user: null,
       role: "",
@@ -128,11 +129,22 @@ class _App extends React.Component<AppProps, InitialState> {
     this.setState({ route: route });
   };
 
+  getLanguageStrings = (stringObject: object) => {
+    let strings = languageStrings(stringObject, this.state.language);
+    let returnedString = [strings[this.state.language]][0];
+
+    if (typeof returnedString === "undefined") {
+      returnedString = [strings["en"]][0];
+    }
+    return returnedString;
+  };
+
   render(): JSX.Element {
     const politicians = (this.state as any).politicians;
     const icons = (this.state as any).icons;
     const todos = (this.state as any).todos;
     const modelOptions = ["Politician", "Party"];
+    const languagesAvailable = ["en", "de", "it"];
 
     return (
       <Router>
@@ -141,6 +153,9 @@ class _App extends React.Component<AppProps, InitialState> {
           component={(props: LanguageSwitcherProps) => (
             <LanguageSwitcher
               {...props}
+              languagesAvailable={languagesAvailable}
+              language={this.state.language}
+              getLanguageStrings={this.getLanguageStrings}
               changeUserLanguage={this.changeUserLanguage}
               onRouteChange={this.onRouteChange}
             />

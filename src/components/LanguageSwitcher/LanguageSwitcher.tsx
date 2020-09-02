@@ -9,7 +9,21 @@ export interface LanguageSwitcherState {
 export interface LanguageSwitcherProps extends RouteComponentProps {
   onRouteChange: Function;
   changeUserLanguage: Function;
+  getLanguageStrings: Function;
+  languagesAvailable: string[];
+  language: string;
 }
+
+export const languageSwitcherStrings: object = {
+  en: {
+    none: "None available",
+    languageHeader: "Select language",
+  },
+  de: {
+    none: "Keine zur Verfugung",
+    languageHeader: "Sprache Auswahl",
+  },
+};
 
 class LanguageSwitcher extends React.Component<
   LanguageSwitcherProps,
@@ -22,25 +36,30 @@ class LanguageSwitcher extends React.Component<
     };
   }
 
+  componentDidUpdate(prevProps: LanguageSwitcherProps): void {}
+
   onLanguageChange = (event: any) => {
     this.setState({ language: event.target.value });
+    this.props.changeUserLanguage(event.target.value);
   };
 
   render(): JSX.Element {
+    const strings = this.props.getLanguageStrings(languageSwitcherStrings);
+    const languagesDropDown: string[] = (this.props as any).languagesAvailable;
+
+    let importOptions: JSX.Element[] = [<option>{strings.none}</option>];
+    if (typeof languagesDropDown !== "undefined") {
+      importOptions = languagesDropDown.map((language: any) => (
+        <option key={language}>{language}</option>
+      ));
+    }
+
     return (
       <div>
-        <fieldset id="language">
-          Language
-          <div>
-            <label htmlFor="language">Language</label>
-            <input
-              type="language"
-              name="language"
-              id="language"
-              //   onChange={this.props.changeUserLanguage()}
-            />
-          </div>
-        </fieldset>
+        <strong>{strings.languageHeader}</strong>
+        <select value={this.state.language} onChange={this.onLanguageChange}>
+          {importOptions}
+        </select>
       </div>
     );
   }
