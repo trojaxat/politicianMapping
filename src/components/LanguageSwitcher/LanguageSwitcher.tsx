@@ -1,6 +1,7 @@
 import React from "react";
 import "./LanguageSwitcher.css";
 import { RouteComponentProps } from "react-router-dom";
+import styled from "styled-components";
 
 export interface LanguageSwitcherState {
   language: string;
@@ -60,8 +61,20 @@ class LanguageSwitcher extends React.Component<
       ));
     }
 
+    const LanguageSwitcher = styled.h1`
+      display: table-cell;
+      font-size: 1.5em;
+      padding: 0.5rem 0px;
+      margin: 0.5rem 1rem;
+      border: 2px solid black;
+      border-radius: 3px;
+      float: right;
+      text-align: center;
+      color: palevioletred;
+    `;
+
     return (
-      <div>
+      <LanguageSwitcher>
         <strong>{strings.languageHeader}</strong>
         <select value={this.state.language} onChange={this.onLanguageChange}>
           <option defaultValue="" key={strings.language}>
@@ -69,7 +82,7 @@ class LanguageSwitcher extends React.Component<
           </option>
           {importOptions}
         </select>
-      </div>
+      </LanguageSwitcher>
     );
   }
 }

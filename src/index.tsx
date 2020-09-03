@@ -8,14 +8,18 @@ import "./css/styles/index.scss";
 import { reducers } from "./reducers";
 import { Router, Route } from "react-router";
 import { BrowserRouter } from "react-router-dom";
+import styled from "styled-components";
 
 const store = createStore(reducers, applyMiddleware(thunk));
+const AppCss = styled.div``;
 
 ReactDom.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <AppCss>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AppCss>
   </Provider>,
   document.getElementById("root")
 );

@@ -1,5 +1,5 @@
 import React from "react";
-import "./SearchBar.css";
+import styled from "styled-components";
 
 export interface SearchBarState {
   searchTerm: string;
@@ -11,7 +11,7 @@ export interface SearchBarProps {
   searchTerm: Function;
 }
 
-class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
+export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   constructor(props: SearchBarProps) {
     super(props);
     this.state = {
@@ -20,6 +20,10 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     };
   }
 
+  /**
+   * this doesnt work atm due to styled components
+   * @param event
+   */
   onSearchChange = (event: any) => {
     this.setState({ searchTerm: event.target.value });
   };
@@ -56,19 +60,42 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   };
 
   render(): JSX.Element {
+    const SearchBarCss = styled.div`
+      display: table-cell;
+      vertical-align: middle;
+    `;
+
+    const SearchCss = styled.div`
+      font-size: 1.5em;
+      margin-left: auto;
+      margin-right: auto;
+      border: 2px solid black;
+      border-radius: 3px;
+      text-align: center;
+      color: palevioletred;
+    `;
+
     return (
-      <div>
-        <input
-          placeholder={"Search for politician..."}
-          type="text"
-          onChange={this.onSearchChange}
-        />
-        <button value="search" onClick={this.onButtonSearch} id="submitHashtag">
-          {" "}
-          {"Search"}
-        </button>
-      </div>
+      <SearchBarCss>
+        <SearchCss>
+          <input
+            placeholder={"Search for politician..."}
+            type="text"
+            name="searchTerm"
+            id="searchTerm"
+            onChange={this.onSearchChange}
+          />
+          <button
+            value="search"
+            onClick={this.onButtonSearch}
+            id="submitHashtag"
+          >
+            {"Search"}
+          </button>
+        </SearchCss>
+      </SearchBarCss>
     );
   }
 }
+
 export default SearchBar;

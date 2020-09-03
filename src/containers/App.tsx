@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import React from "react";
 import "babel-polyfill";
 import history from "../history";
+import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { languageStrings } from "../language/languageStrings";
 
@@ -144,88 +145,98 @@ class _App extends React.Component<AppProps, InitialState> {
     const todos = (this.state as any).todos;
     const modelOptions = ["Politician", "Party"];
     const languagesAvailable = ["en", "de", "it"];
+    const MainCss = styled.div`
+      display: table;
+      width: 100%;
+      height: 100%;
+    `;
 
     return (
       <Router>
-        <Route
-          path="/"
-          component={(props: LanguageSwitcherProps) => (
-            <LanguageSwitcher
-              {...props}
-              languagesAvailable={languagesAvailable}
-              language={this.state.language}
-              getLanguageStrings={this.getLanguageStrings}
-              changeUserLanguage={this.changeUserLanguage}
-              onRouteChange={this.onRouteChange}
-            />
-          )}
-        />
-        <Route
-          path="/"
-          component={(props: LoginBarProps) => (
-            <LoginBar
-              {...props}
-              login={this.state.login}
-              onRouteChange={this.onRouteChange}
-              getLanguageStrings={this.getLanguageStrings}
-            />
-          )}
-        />
-
-        <Switch>
+        <MainCss>
           <Route
-            exact
             path="/"
-            component={(props: SearchBarProps) => <SearchBar {...props} />}
-          />
-          <Route
-            path="/search"
-            component={(props: SearchBarProps) => <SearchBar {...props} />}
-          />
-        </Switch>
-
-        <Route
-          path="/search/politicians"
-          component={PoliticiansView}
-          {...politicians}
-        />
-
-        <Switch>
-          <Route
-            exact
-            path="/signIn"
-            component={(props: SignInProps) => (
-              <SignIn
+            component={(props: LanguageSwitcherProps) => (
+              <LanguageSwitcher
                 {...props}
-                loadUser={this.loadUser}
+                languagesAvailable={languagesAvailable}
+                language={this.state.language}
+                getLanguageStrings={this.getLanguageStrings}
+                changeUserLanguage={this.changeUserLanguage}
                 onRouteChange={this.onRouteChange}
               />
             )}
           />
           <Route
-            path="/register"
-            component={(props: RegisterProps) => (
-              <Register
+            path="/"
+            component={(props: LoginBarProps) => (
+              <LoginBar
                 {...props}
-                loadUser={this.loadUser}
+                login={this.state.login}
                 onRouteChange={this.onRouteChange}
+                getLanguageStrings={this.getLanguageStrings}
               />
             )}
           />
-        </Switch>
 
-        <Route
-          path="/addPoliticalInfo"
-          component={(props: PoliticalInformationFormProps) => (
-            <PoliticalInformationForm {...props} modelOptions={modelOptions} />
-          )}
-        />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              component={(props: SearchBarProps) => <SearchBar {...props} />}
+            />
+            <Route
+              path="/search"
+              component={(props: SearchBarProps) => <SearchBar {...props} />}
+            />
+          </Switch>
 
-        <Route path="/icons" component={Icon} {...icons} />
-        <Route
-          path="/todos"
-          component={(props: TodosProps) => <TodosView {...props} />}
-        />
+          <Route
+            path="/search/politicians"
+            component={PoliticiansView}
+            {...politicians}
+          />
+
+          <Switch>
+            <Route
+              exact
+              path="/signIn"
+              component={(props: SignInProps) => (
+                <SignIn
+                  {...props}
+                  loadUser={this.loadUser}
+                  onRouteChange={this.onRouteChange}
+                />
+              )}
+            />
+            <Route
+              path="/register"
+              component={(props: RegisterProps) => (
+                <Register
+                  {...props}
+                  loadUser={this.loadUser}
+                  onRouteChange={this.onRouteChange}
+                />
+              )}
+            />
+          </Switch>
+
+          <Route
+            path="/addPoliticalInfo"
+            component={(props: PoliticalInformationFormProps) => (
+              <PoliticalInformationForm
+                {...props}
+                modelOptions={modelOptions}
+              />
+            )}
+          />
+
+          <Route path="/icons" component={Icon} {...icons} />
+          <Route
+            path="/todos"
+            component={(props: TodosProps) => <TodosView {...props} />}
+          />
+        </MainCss>
       </Router>
     );
   }
