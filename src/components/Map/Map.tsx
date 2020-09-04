@@ -104,10 +104,10 @@ class Map extends React.Component<MapProps, MapState> {
         <strong>{strings.title}</strong>
         <MapsComponent
           id="maps"
-          zoomSettings={{ zoomFactor: 4 }}
+          zoomSettings={{ zoomFactor: 5 }}
           centerPosition={{
-            latitude: -30,
-            longitude: 95,
+            latitude: -20,
+            longitude: 35,
           }}
         >
           <Inject services={[Marker, NavigationLine]} />
