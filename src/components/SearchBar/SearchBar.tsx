@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import { SearchCss, SearchBarCss } from "./SearchBarCss";
 
 export interface SearchBarState {
   searchTerm: string;
@@ -20,12 +20,12 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     };
   }
 
-  /**
-   * this doesnt work atm due to styled components
-   * @param event
-   */
   onSearchChange = (event: any) => {
     this.setState({ searchTerm: event.target.value });
+    console.log(
+      "SearchBar -> onSearchChange -> event.target.value",
+      event.target.value
+    );
   };
 
   /**
@@ -60,21 +60,6 @@ export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   };
 
   render(): JSX.Element {
-    const SearchBarCss = styled.div`
-      display: table-cell;
-      vertical-align: middle;
-    `;
-
-    const SearchCss = styled.div`
-      font-size: 1.5em;
-      margin-left: auto;
-      margin-right: auto;
-      border: 2px solid black;
-      border-radius: 3px;
-      text-align: center;
-      color: palevioletred;
-    `;
-
     return (
       <SearchBarCss>
         <SearchCss>

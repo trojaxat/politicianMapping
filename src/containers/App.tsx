@@ -5,31 +5,40 @@ import { connect } from "react-redux";
 import React from "react";
 import "babel-polyfill";
 import history from "../history";
-import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { languageStrings } from "../language/languageStrings";
 
 /**
- * Internal imports
+ * Component imports
  */
 import Icon from "../components/Icon/Icon";
-import { TodosView, TodosProps } from "../components/Todos/TodosView";
-import { PoliticiansView } from "../components/Politicians/PoliticiansView";
-import SignIn, { SignInProps } from "../components/SignIn/SignIn";
-import Register, { RegisterProps } from "../components/Register/Register";
 import LanguageSwitcher, {
   LanguageSwitcherProps,
 } from "../components/LanguageSwitcher/LanguageSwitcher";
+import LoginBar, { LoginBarProps } from "../components/LoginBar/LoginBar";
+import Map, { MapProps, Mappable } from "../components/Map/Map";
+import Osm from "../components/Map/Osm";
+import { PoliticiansView } from "../components/Politicians/PoliticiansView";
 import PoliticalInformationForm, {
   PoliticalInformationFormProps,
 } from "../components/PoliticalInformationForm/PoliticalInformationForm";
+import Register, { RegisterProps } from "../components/Register/Register";
+import SignIn, { SignInProps } from "../components/SignIn/SignIn";
+import { TodosView, TodosProps } from "../components/Todos/TodosView";
 import SearchBar, { SearchBarProps } from "../components/SearchBar/SearchBar";
+
+/**
+ * Model imports
+ */
 import { Politician, PoliticianModel } from "../models/Politician";
-import { StoreState } from "../reducers";
-import { Todo, fetchTodos, deleteTodo } from "../actions";
 import { User, UserProps } from "../models/User";
-import LoginBar, { LoginBarProps } from "../components/LoginBar/LoginBar";
-import "./App.css";
+
+/**
+ * Other imports
+ */
+import { Todo, fetchTodos, deleteTodo } from "../actions";
+import { StoreState } from "../reducers";
+import { MainCss } from "./AppCss";
 
 export interface InitialState {
   language: string;
@@ -42,6 +51,7 @@ export interface InitialState {
   todos?: Todo[];
   icons?: object[];
   politicians?: Politician[];
+  coordinates: Mappable | null;
 }
 
 interface AppProps {}
@@ -58,6 +68,7 @@ class _App extends React.Component<AppProps, InitialState> {
       country: "germany",
       route: "home",
       searchTerm: "",
+      coordinates: null,
     };
   }
 
@@ -145,11 +156,6 @@ class _App extends React.Component<AppProps, InitialState> {
     const todos = (this.state as any).todos;
     const modelOptions = ["Politician", "Party"];
     const languagesAvailable = ["en", "de", "it"];
-    const MainCss = styled.div`
-      display: table;
-      width: 100%;
-      height: 100%;
-    `;
 
     return (
       <Router>
@@ -228,6 +234,13 @@ class _App extends React.Component<AppProps, InitialState> {
                 {...props}
                 modelOptions={modelOptions}
               />
+            )}
+          />
+
+          <Route
+            path="/"
+            component={(props: MapProps) => (
+              <Map {...props} getLanguageStrings={this.getLanguageStrings} />
             )}
           />
 

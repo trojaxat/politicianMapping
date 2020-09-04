@@ -1,8 +1,7 @@
 import React from "react";
-import "./LoginBar.css";
+import { LoginBarCss } from "./LoginBarCss";
 import { History, LocationState } from "history";
 import { RouteComponentProps } from "react-router-dom";
-import styled from "styled-components";
 
 export interface LoginBarState {}
 
@@ -45,21 +44,9 @@ class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
   render(): JSX.Element {
     const strings = this.props.getLanguageStrings(loginBarStrings);
 
-    const LoginBar = styled.h1`
-      display: table-cell;
-      font-size: 1.5em;
-      padding: 0.5rem 0px;
-      margin: 0.5rem 1rem;
-      border: 2px solid black;
-      border-radius: 3px;
-      float: left;
-      text-align: center;
-      color: palevioletred;
-    `;
-
     if (this.props.login) {
       return (
-        <LoginBar>
+        <LoginBarCss>
           <strong>{strings.title}</strong>
           <button
             value="logOut"
@@ -68,11 +55,11 @@ class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
           >
             {strings.logout}
           </button>
-        </LoginBar>
+        </LoginBarCss>
       );
     } else {
       return (
-        <LoginBar>
+        <LoginBarCss>
           <strong>{strings.title}</strong>
           <button
             value="signIn"
@@ -88,7 +75,7 @@ class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
           >
             {strings.register}
           </button>
-        </LoginBar>
+        </LoginBarCss>
       );
     }
   }

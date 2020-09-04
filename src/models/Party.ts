@@ -41,11 +41,4 @@ export class Party extends Model<PartyModel> {
       this.build(json)
     );
   }
-
-  markerContent(): string {
-    if (this.get("name")) {
-      return `Party name: ${this.get("name")}`;
-    }
-    return `Party name unknown`;
-  }
 }
