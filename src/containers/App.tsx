@@ -156,6 +156,13 @@ class _App extends React.Component<AppProps, InitialState> {
     const todos = (this.state as any).todos;
     const modelOptions = ["Politician", "Party"];
     const languagesAvailable = ["en", "de", "it"];
+    const mappable: Mappable = {
+      zoomFactor: 4,
+      position: {
+        lng: 29.394708,
+        lat: -94.954653,
+      },
+    };
 
     return (
       <Router>
@@ -240,7 +247,11 @@ class _App extends React.Component<AppProps, InitialState> {
           <Route
             path="/"
             component={(props: MapProps) => (
-              <Map {...props} getLanguageStrings={this.getLanguageStrings} />
+              <Map
+                {...props}
+                mappable={mappable}
+                getLanguageStrings={this.getLanguageStrings}
+              />
             )}
           />
 

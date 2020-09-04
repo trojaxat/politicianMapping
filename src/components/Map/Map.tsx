@@ -15,18 +15,19 @@ import {
   Inject,
 } from "@syncfusion/ej2-react-maps";
 
-export interface MapState {
-  center: { position: Mappable };
-  zoomFactor: number;
-}
+export interface MapState {}
 
 export interface Mappable {
-  lat: number;
-  lng: number;
-  markerContent: string;
+  position: {
+    lat: number;
+    lng: number;
+  };
+  zoomFactor: number;
+  markerContent?: string;
 }
 
 export interface MapProps extends RouteComponentProps {
+  mappable: Mappable;
   history: History<LocationState>;
   getLanguageStrings: Function;
 }
@@ -91,15 +92,22 @@ class Map extends React.Component<MapProps, MapState> {
   render(): JSX.Element {
     const strings = this.props.getLanguageStrings(mapStrings);
 
+    let lat = this.props.mappable.position.lat;
+    console.log("Map -> lat", lat);
+    let lng = this.props.mappable.position.lng;
+    console.log("Map -> lng", lng);
+    let zoomFactor = this.props.mappable.zoomFactor;
+    console.log("Map -> zoomFactor", zoomFactor);
+
     return (
       <MapCss>
         <strong>{strings.title}</strong>
         <MapsComponent
           id="maps"
-          zoomSettings={{ zoomFactor: this.state.zoomFactor }}
+          zoomSettings={{ zoomFactor: 4 }}
           centerPosition={{
-            latitude: this.state.center.position.lat,
-            longitude: this.state.center.lng,
+            latitude: -30,
+            longitude: 95,
           }}
         >
           <Inject services={[Marker, NavigationLine]} />
@@ -124,6 +132,16 @@ class Map extends React.Component<MapProps, MapState> {
                   ]}
                 ></MarkerDirective>
               </MarkersDirective>
+              <NavigationLinesDirective>
+                <NavigationLineDirective
+                  visible={true}
+                  latitude={[34.06062, 40.724546]}
+                  longitude={[-118.330491, -73.850344]}
+                  color="blue"
+                  angle={90}
+                  width={5}
+                />
+              </NavigationLinesDirective>
             </LayerDirective>
           </LayersDirective>
         </MapsComponent>
