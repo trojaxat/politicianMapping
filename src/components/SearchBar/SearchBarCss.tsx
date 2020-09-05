@@ -13,4 +13,6 @@ export const SearchCss = styled.div`
   border-radius: 3px;
   text-align: center;
   color: palevioletred;
+
+  background-color: white;
 `;

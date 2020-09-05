@@ -5,10 +5,9 @@ export const MapCss = styled.h1`
   width: 50%;
   height: 50%;
   font-size: 1.5em;
-  padding: 0.5rem 0px;
-  margin: 0.5rem 1rem;
   border: 2px solid black;
   border-radius: 3px;
   text-align: center;
   color: palevioletred;
+  background-color: white;
 `;

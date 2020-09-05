@@ -6,3 +6,4 @@
 node_modules
 .history
 /yarn-error.log
+/src/config.ts

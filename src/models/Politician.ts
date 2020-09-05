@@ -11,6 +11,7 @@ import { Collection } from "./Collection";
 import { Model } from "./Model";
 import { PoliticianImportModel } from "../scripts/PoliticianImport";
 import { UrlObject } from "../scripts/UrlParser";
+import { db } from "../config";
 
 export type PoliticianBase =
   | PoliticianModel
@@ -34,7 +35,7 @@ export interface PoliticianModel {
 }
 
 export class Politician extends Model<PoliticianModel> {
-  protected static rootUrl = "http://localhost:3000/politicians";
+  protected static rootUrl = db + "/addPolitician";
 
   static build(attrs: PoliticianBase) {
     return new Politician(
