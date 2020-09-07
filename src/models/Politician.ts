@@ -35,7 +35,8 @@ export interface PoliticianModel {
 }
 
 export class Politician extends Model<PoliticianModel> {
-  protected static rootUrl = db + "/addPolitician";
+  // protected static rootUrl = db + "addPolitician";
+  protected static rootUrl = db + "politicians";
 
   static build(attrs: PoliticianBase) {
     return new Politician(

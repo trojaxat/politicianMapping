@@ -51,6 +51,8 @@ class SignIn extends React.Component<SignInProps, SignInState> {
         if (user.email) {
           this.props.loadUser(user);
           this.props.onRouteChange("home");
+          let history = this.props.history;
+          history.push("/home");
         }
       });
   };

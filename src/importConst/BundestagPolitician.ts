@@ -6,16 +6,16 @@ import { WebsiteInfo } from "../scripts/Import";
  */
 export class BundestagPolitician {
   protected static baseUrl = "https://www.bundestag.de";
-  protected static listElement = ".bt-open-in-overlay";
   public static url =
     "https://www.bundestag.de/ajax/filterlist/de/abgeordnete/525246-525246/h_e3c112579919ef960d06dbb9d0d44b67";
+  protected static listElement = ".bt-open-in-overlay";
 
   protected static detailObject: { [key: string]: string } = {
-    contact: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
-    job:
-      " > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > div > p",
     name:
       " > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > h3",
+    job:
+      " > div > div.bt-profil.row > div.col-xs-8.col-md-9.bt-biografie-name > div > p",
+    contact: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
     link: "#bt-kontakt-collapse > div > div:nth-child(3) > ul > li > a",
     info: "#ptv1 > div > div:nth-child(1) > p",
   };

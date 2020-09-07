@@ -14,7 +14,7 @@ export class ScriptExecutor {
     this.websiteInfo = websiteInfo;
   }
 
-  scriptSelector = (): void => {
+  scriptSelector = () => {
     switch (this.selector) {
       case "Politician": {
         let politicianImporter = new PoliticianImport(this.websiteInfo);

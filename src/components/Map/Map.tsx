@@ -93,11 +93,8 @@ class Map extends React.Component<MapProps, MapState> {
     const strings = this.props.getLanguageStrings(mapStrings);
 
     let lat = this.props.mappable.position.lat;
-    console.log("Map -> lat", lat);
     let lng = this.props.mappable.position.lng;
-    console.log("Map -> lng", lng);
     let zoomFactor = this.props.mappable.zoomFactor;
-    console.log("Map -> zoomFactor", zoomFactor);
 
     return (
       <MapCss>

@@ -40,7 +40,7 @@ export class PoliticianImport extends Import<WebsiteInfo> {
       .then((infoObj) => {
         let foundInfo = this.cleanInfo(infoObj);
         let model = Politician.build(foundInfo);
-        // model.save();
+        model.save();
       })
       .catch((error) => {
         throw Error("Model Import" + error);
