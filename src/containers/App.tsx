@@ -23,6 +23,7 @@ import PoliticalInformationForm, {
   PoliticalInformationFormProps,
 } from "../components/PoliticalInformationForm/PoliticalInformationForm";
 import Register, { RegisterProps } from "../components/Register/Register";
+import SubFooter, { SubFooterProps } from "../components/SubFooter/SubFooter";
 import SignIn, { SignInProps } from "../components/SignIn/SignIn";
 import { TodosView, TodosProps } from "../components/Todos/TodosView";
 import SearchBar, { SearchBarProps } from "../components/SearchBar/SearchBar";
@@ -38,7 +39,7 @@ import { User, UserProps } from "../models/User";
  */
 import { Todo, fetchTodos, deleteTodo } from "../actions";
 import { StoreState } from "../reducers";
-import { MainCss } from "./AppCss";
+import { MainCss, NavigationCss, CenterCss, FooterCss } from "./AppCss";
 
 export interface InitialState {
   language: string;
@@ -167,100 +168,109 @@ class _App extends React.Component<AppProps, InitialState> {
     return (
       <Router>
         <MainCss>
-          <Route
-            path="/"
-            component={(props: LanguageSwitcherProps) => (
-              <LanguageSwitcher
-                {...props}
-                languagesAvailable={languagesAvailable}
-                language={this.state.language}
-                getLanguageStrings={this.getLanguageStrings}
-                changeUserLanguage={this.changeUserLanguage}
-                onRouteChange={this.onRouteChange}
-              />
-            )}
-          />
-          <Route
-            path="/"
-            component={(props: LoginBarProps) => (
-              <LoginBar
-                {...props}
-                login={this.state.login}
-                onRouteChange={this.onRouteChange}
-                getLanguageStrings={this.getLanguageStrings}
-              />
-            )}
-          />
-
-          <Switch>
+          <NavigationCss>
             <Route
-              exact
               path="/"
-              component={(props: SearchBarProps) => <SearchBar {...props} />}
-            />
-            <Route
-              path="/search"
-              component={(props: SearchBarProps) => <SearchBar {...props} />}
-            />
-          </Switch>
-
-          <Route
-            path="/search/politicians"
-            component={PoliticiansView}
-            {...politicians}
-          />
-
-          <Switch>
-            <Route
-              exact
-              path="/signIn"
-              component={(props: SignInProps) => (
-                <SignIn
+              component={(props: LanguageSwitcherProps) => (
+                <LanguageSwitcher
                   {...props}
-                  loadUser={this.loadUser}
+                  languagesAvailable={languagesAvailable}
+                  language={this.state.language}
+                  getLanguageStrings={this.getLanguageStrings}
+                  changeUserLanguage={this.changeUserLanguage}
                   onRouteChange={this.onRouteChange}
                 />
               )}
             />
             <Route
-              path="/register"
-              component={(props: RegisterProps) => (
-                <Register
+              path="/"
+              component={(props: LoginBarProps) => (
+                <LoginBar
                   {...props}
-                  loadUser={this.loadUser}
+                  login={this.state.login}
                   onRouteChange={this.onRouteChange}
+                  getLanguageStrings={this.getLanguageStrings}
                 />
               )}
             />
-          </Switch>
+          </NavigationCss>
 
-          <Route
-            path="/addPoliticalInfo"
-            component={(props: PoliticalInformationFormProps) => (
-              <PoliticalInformationForm
-                {...props}
-                modelOptions={modelOptions}
+          <CenterCss>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                component={(props: SearchBarProps) => <SearchBar {...props} />}
               />
-            )}
-          />
-
-          <Route
-            path="/"
-            component={(props: MapProps) => (
-              <Map
-                {...props}
-                mappable={mappable}
-                getLanguageStrings={this.getLanguageStrings}
+              <Route
+                path="/search"
+                component={(props: SearchBarProps) => <SearchBar {...props} />}
               />
-            )}
-          />
+            </Switch>
 
+            <Route
+              path="/search/politicians"
+              component={PoliticiansView}
+              {...politicians}
+            />
+
+            <Switch>
+              <Route
+                exact
+                path="/signIn"
+                component={(props: SignInProps) => (
+                  <SignIn
+                    {...props}
+                    loadUser={this.loadUser}
+                    onRouteChange={this.onRouteChange}
+                  />
+                )}
+              />
+              <Route
+                path="/register"
+                component={(props: RegisterProps) => (
+                  <Register
+                    {...props}
+                    loadUser={this.loadUser}
+                    onRouteChange={this.onRouteChange}
+                  />
+                )}
+              />
+            </Switch>
+
+            <Route
+              path="/addPoliticalInfo"
+              component={(props: PoliticalInformationFormProps) => (
+                <PoliticalInformationForm
+                  {...props}
+                  modelOptions={modelOptions}
+                />
+              )}
+            />
+
+            <Route
+              path="/"
+              component={(props: MapProps) => (
+                <Map
+                  {...props}
+                  mappable={mappable}
+                  getLanguageStrings={this.getLanguageStrings}
+                />
+              )}
+            />
+          </CenterCss>
           <Route path="/icons" component={Icon} {...icons} />
           <Route
             path="/todos"
             component={(props: TodosProps) => <TodosView {...props} />}
           />
         </MainCss>
+        <FooterCss>
+          <Route
+            path="/"
+            component={(props: SubFooterProps) => <SubFooter {...props} />}
+          />
+        </FooterCss>
       </Router>
     );
   }
