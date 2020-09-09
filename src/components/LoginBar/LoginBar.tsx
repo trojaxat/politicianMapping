@@ -60,7 +60,9 @@ class LoginBar extends React.Component<LoginBarProps, LoginBarState> {
     } else {
       return (
         <LoginBarCss>
-          <strong>{strings.title}</strong>
+          <div>
+            <strong>{strings.title}</strong>
+          </div>
           <button
             value="signIn"
             onClick={this.onRouteButtonClick}

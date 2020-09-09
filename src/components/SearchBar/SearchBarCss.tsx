@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const SearchBarCss = styled.div`
-  display: table-cell;
   vertical-align: middle;
 `;
 
@@ -13,6 +12,5 @@ export const SearchCss = styled.div`
   border-radius: 3px;
   text-align: center;
   color: palevioletred;
-
   background-color: white;
 `;

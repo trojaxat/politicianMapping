@@ -103,8 +103,8 @@ class Map extends React.Component<MapProps, MapState> {
           id="maps"
           zoomSettings={{ zoomFactor: 5 }}
           centerPosition={{
-            latitude: -20,
-            longitude: 35,
+            latitude: 50,
+            longitude: 1,
           }}
         >
           <Inject services={[Marker, NavigationLine]} />

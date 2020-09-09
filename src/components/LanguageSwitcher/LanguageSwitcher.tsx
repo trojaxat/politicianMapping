@@ -62,7 +62,9 @@ class LanguageSwitcher extends React.Component<
 
     return (
       <LanguageSwitcherCss>
-        <strong>{strings.languageHeader}</strong>
+        <div>
+          <strong>{strings.languageHeader}</strong>
+        </div>
         <select value={this.state.language} onChange={this.onLanguageChange}>
           <option defaultValue="" key={strings.language}>
             {strings.language}

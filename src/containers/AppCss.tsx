@@ -3,11 +3,16 @@ import styled from "styled-components";
 
 export const MainCss = styled.div`
   background-color: blue;
+  width: 100%;
+  margin: 0 auto;
 `;
 
 export const NavigationCss = styled.div`
   width: 100%;
   text-decoration: none;
+  margin: 0;
+  background-color: white;
+  padding: 0px 0px 70px 0px;
 `;
 
 export const CenterCss = styled.div`
